@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Git pre-commit hook to prevent common mistakes and check Python syntax.
+
+set -e
+
+# 1. Prevent unresolved merge conflict markers
+if git diff --cached --name-only | xargs grep -E '^(<<<<<<<|=======|>>>>>>>)' 2>/dev/null; then
+    echo "❌ Unresolved merge conflict markers detected in staged files."
+    exit 1
+fi
+
+# 2. Syntax check staged Python files
+python_bin=".venv-code-assets/bin/python"
+if [ ! -x "$python_bin" ]; then
+    python_bin="python3"
+fi
+
+staged_py_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$' || true)
+if [ -n "$staged_py_files" ]; then
+    for file in $staged_py_files; do
+        if [ -f "$file" ]; then
+            $python_bin -m py_compile "$file"
+        fi
+    done
+fi
+
+exit 0

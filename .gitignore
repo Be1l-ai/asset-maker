@@ -1,0 +1,26 @@
+# Environments
+.venv*/
+venv/
+env/
+ENV/
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Test & coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.hypothesis/
+.tox/
+.expansion-test-*/
+
+# OS & Editor temporary files
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
