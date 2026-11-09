@@ -1,0 +1,77 @@
+{
+  "id": "crystal-cluster",
+  "category": "3d",
+  "parameters": {
+    "seed": 7,
+    "crystals": 9,
+    "base": "three stepped hexagonal tiers",
+    "tallest_crystal_m": 2.65
+  },
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "recipe": "fx_pipeline/generate_gallery.py",
+  "source_snapshot": "generate_gallery.py",
+  "starter": null,
+  "reproduce": {
+    "requirements": "requirements-code-assets.txt",
+    "command": "python fx_pipeline/generate_gallery.py --out new-dir",
+    "note": "Run from extracted pack with pinned dependencies. Existing collections are never overwritten."
+  },
+  "review": "Structural checks only; listening, animation playback, and target-engine review remain pending.",
+  "mesh": {
+    "triangles": 402,
+    "vertices": 1206,
+    "welded_vertices": 225,
+    "watertight_after_weld": true,
+    "winding_consistent": true,
+    "volume_m3": 3.5611084492617255,
+    "bounds_z_up": [
+      [
+        -1.1604740619659424,
+        -1.340000033378601,
+        -3.73505204216887e-24
+      ],
+      [
+        1.1604740619659424,
+        1.340000033378601,
+        3.0399999618530273
+      ]
+    ],
+    "face_colors": 94
+  },
+  "axes": {
+    "source": "Z",
+    "glb_export": "Y",
+    "obj_export": "Z",
+    "mesh_json": "Z"
+  },
+  "format_notes": {
+    "glb": "Face colors as split vertex colors; flat normals, meters, no UVs or rig.",
+    "obj": "Z-up geometry only; no colors, textures or MTL.",
+    "mesh_json": "Reloaded GLB inverse-rotated to Z-up; RGBA bytes per face, unit normals.",
+    "preview": "512px transparent Pillow orthographic diffuse preview; no text, not PBR.",
+    "topology": "Separate closed components; watertightness measured after positional welding."
+  },
+  "source_dependencies_sha256": {
+    "fx_pipeline/generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "requirements-code-assets.txt": "fb5e78539a368d312bdc6f7f3e546c036b7014e4c7c8b2b76a68ac554d99d24c",
+    ".qoder/skills/create-3d-assets/scripts/build.py": "8bed416164a526f08b0e47532899c13fc6e029887e015fd59f3a96aff72eb91f",
+    ".qoder/skills/create-2d-assets/scripts/draw.py": "9bb05142e9982e5947ed001e092e63ab74593517beb87bc33e2e275caeab1d02",
+    ".qoder/skills/create-vfx/scripts/render.py": "23220e41c06f96dec2b3d97a81eba7004556b08b313cbe7fdae1057ddd97f110",
+    ".qoder/skills/create-sfx/scripts/synthesize.py": "415b77f830155bd3ed759eeecf0092981e474b10fcab6a3533ea1a2530068b1f"
+  },
+  "sha256": {
+    "generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "mesh.json": "dcd6995fffe18c4f24106690975fb604018172a0fa77c25ff9b321abace73dc5",
+    "model.glb": "e07d1b5e1c09c3cd7ab5b894c52af645ffdbdce4a884edeca10084173d61b281",
+    "model.obj": "f77dde15f6ec818d3b7e923906fc3ad681dd4a2a07c4928efbee37e220f0694d",
+    "preview.png": "8ac1d9faf2fa86f1d0dd829e555fe23faa0c14e8ec926bf280f17757e5312e0a"
+  }
+}

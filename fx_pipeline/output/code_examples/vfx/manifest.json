@@ -1,0 +1,37 @@
+{
+  "asset": "portal.png",
+  "format": "RGBA PNG",
+  "alpha": "straight",
+  "frame_size": [
+    128,
+    128
+  ],
+  "grid": [
+    4,
+    4
+  ],
+  "frame_count": 16,
+  "fps": 16,
+  "loop": true,
+  "duration_seconds": 1.0,
+  "order": "row-major, top-left",
+  "padding_pixels": 0,
+  "preview_note": "GIF timing is quantized; use manifest fps for the atlas.",
+  "parameters": {
+    "size": 128,
+    "frames": 16,
+    "columns": 4,
+    "fps": 16,
+    "seed": 7
+  },
+  "versions": {
+    "numpy": "2.5.1",
+    "Pillow": "12.3.0"
+  },
+  "sha256": {
+    "portal.png": "b6b39302c34e5454e16326c612dc62e47d83857fecdc13120316628763ee3e33",
+    "preview.png": "f6ed161704db006bcc466228ad29c55858626a3c4947e2b906a99be073e24a7b",
+    "preview.gif": "88a028f645305934cbbae0e483a1d7ba80e177a3c6c9e7c03e38686bfa268bc3",
+    "recipe.py": "23220e41c06f96dec2b3d97a81eba7004556b08b313cbe7fdae1057ddd97f110"
+  }
+}

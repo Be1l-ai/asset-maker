@@ -1,0 +1,82 @@
+{
+  "id": "ember-plume",
+  "category": "vfx",
+  "parameters": {
+    "seed": 7,
+    "frame_size": 128,
+    "frames": 16,
+    "columns": 4,
+    "fps": 16
+  },
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "recipe": "fx_pipeline/generate_gallery.py",
+  "source_snapshot": "generate_gallery.py",
+  "starter": null,
+  "reproduce": {
+    "requirements": "requirements-code-assets.txt",
+    "command": "python fx_pipeline/generate_gallery.py --out new-dir",
+    "note": "Run from extracted pack with pinned dependencies. Existing collections are never overwritten."
+  },
+  "review": "Structural checks only; listening, animation playback, and target-engine review remain pending.",
+  "frame_size": [
+    128,
+    128
+  ],
+  "frame_count": 16,
+  "grid": [
+    4,
+    4
+  ],
+  "fps": 16,
+  "duration_seconds": 1.0,
+  "loop": true,
+  "order": "row-major, top-left",
+  "padding_pixels": 0,
+  "alpha": "straight",
+  "blend": "alpha; additive optional in engine",
+  "sample_phases": [
+    0.0,
+    0.0625,
+    0.125,
+    0.1875,
+    0.25,
+    0.3125,
+    0.375,
+    0.4375,
+    0.5,
+    0.5625,
+    0.625,
+    0.6875,
+    0.75,
+    0.8125,
+    0.875,
+    0.9375
+  ],
+  "peak_frame": 10,
+  "peak_measure": "maximum integrated alpha",
+  "deterministic_rerender": true,
+  "periodic_endpoint_checked": true,
+  "mean_adjacent_rgba_delta": 4.947021484375,
+  "wrap_rgba_delta": 4.788543701171875,
+  "source_dependencies_sha256": {
+    "fx_pipeline/generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "requirements-code-assets.txt": "fb5e78539a368d312bdc6f7f3e546c036b7014e4c7c8b2b76a68ac554d99d24c",
+    ".qoder/skills/create-3d-assets/scripts/build.py": "8bed416164a526f08b0e47532899c13fc6e029887e015fd59f3a96aff72eb91f",
+    ".qoder/skills/create-2d-assets/scripts/draw.py": "9bb05142e9982e5947ed001e092e63ab74593517beb87bc33e2e275caeab1d02",
+    ".qoder/skills/create-vfx/scripts/render.py": "23220e41c06f96dec2b3d97a81eba7004556b08b313cbe7fdae1057ddd97f110",
+    ".qoder/skills/create-sfx/scripts/synthesize.py": "415b77f830155bd3ed759eeecf0092981e474b10fcab6a3533ea1a2530068b1f"
+  },
+  "sha256": {
+    "atlas.png": "c338181a7ea47a2fa2bfcd83d868ff24ea426ed2db0a4ce26e6834eb1b47cfca",
+    "generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "preview.png": "e66ee960c7aae4536e6c36cde9660cd0f7c9fbc2cabbdf7ab11e7b05df1ba10f"
+  }
+}

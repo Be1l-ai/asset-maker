@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173c32">
+  <meta name="description" content="A local collection of game assets generated entirely with code. Explore models, sprites, visual effects, and sound.">
+  <title>FORM / Procedural asset lab</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d4438'/%3E%3Cpath d='M9 8h16v5H14v4h9v5h-9v7H9z' fill='%23c9ed94'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="gallery/style.css">
+  <script src="gallery/app.js" defer></script>
+</head>
+<body>
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z M3 7l9 5 9-5 M12 12v10 M7.5 4.5l9 5"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 16 5-5 5 5 3-3 5 5"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.8 7.2L22 12l-7.2 2.8L12 22l-2.8-7.2L2 12l7.2-2.8L12 2Z"/></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 10v4 M7.5 5v14 M12 2v20 M16.5 6v12 M21 10v4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 19 19 5 M5 5h14v14"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12 m-5-5 5 5 5-5 M4 16v5h16v-5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m7 7-5 5 5 5 m10-10 5 5-5 5 M14 3l-4 18"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5C9 2 4 3 2 4v15c4-2 7-1 10 1 3-2 6-3 10-1V4c-2-1-7-2-10 1Zm0 0v15"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 12 8-12 8V4Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 4v16 M16 4v16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12 M18 6 6 18"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5 M20 12a8 8 0 1 0-2 5"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M3 6h7m4 0h7M3 18h13m4 0h1 M10 3v6 M16 15v6"/></symbol>
+  </svg>
+  <a class="skip-link" href="#collection">Skip to collection</a>
+  <aside class="sidebar">
+    <a class="brand" href="#top" aria-label="FORM home"><span class="brand-mark"><svg class="icon"><use href="#i-cube"/></svg></span><span>FORM<span class="brand-dot">.</span></span></a>
+    <span class="brand-caption">THE PROCEDURAL ASSET LAB</span>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="side-nav" aria-label="Asset categories">
+      <button class="nav-item active" data-category="all" aria-pressed="true"><svg class="icon"><use href="#i-grid"/></svg>All assets<span class="nav-count" data-count="all">—</span></button>
+      <button class="nav-item" data-category="3d" aria-pressed="false"><svg class="icon"><use href="#i-cube"/></svg>3D models<span class="nav-count" data-count="3d">—</span></button>
+      <button class="nav-item" data-category="2d" aria-pressed="false"><svg class="icon"><use href="#i-image"/></svg>2D graphics<span class="nav-count" data-count="2d">—</span></button>
+      <button class="nav-item" data-category="vfx" aria-pressed="false"><svg class="icon"><use href="#i-spark"/></svg>Visual effects<span class="nav-count" data-count="vfx">—</span></button>
+      <button class="nav-item" data-category="sfx" aria-pressed="false"><svg class="icon"><use href="#i-wave"/></svg>Sound effects<span class="nav-count" data-count="sfx">—</span></button>
+    </nav>
+    <div class="nav-label resources-label">RESOURCES</div>
+    <nav class="side-nav" aria-label="Resources">
+      <a class="nav-item" href="#capabilities"><svg class="icon"><use href="#i-sliders"/></svg>What we can make<svg class="icon nav-end"><use href="#i-arrow"/></svg></a>
+      <a class="nav-item" href="#quality-review"><svg class="icon"><use href="#i-search"/></svg>Quality review<svg class="icon nav-end"><use href="#i-arrow"/></svg></a>
+      <a class="nav-item" href="skills/create-game-assets/references/libraries.md" target="_blank" rel="noopener"><svg class="icon"><use href="#i-book"/></svg>Library research<svg class="icon nav-end"><use href="#i-arrow"/></svg></a>
+      <a class="nav-item" href="skills/create-game-assets/SKILL.md" target="_blank" rel="noopener"><svg class="icon"><use href="#i-code"/></svg>Agent skills<svg class="icon nav-end"><use href="#i-arrow"/></svg></a>
+    </nav>
+    <div class="sidebar-note"><span class="tiny-code">&lt;/&gt;</span><h3>No editor required.</h3><p>Just a recipe, a seed, and a little imagination.</p><a href="#capabilities">Meet the toolkit <span>↗</span></a></div>
+    <div class="sidebar-footer"><span class="status-dot"></span> Local-first. Code-made.<span class="version">v0.1</span></div>
+  </aside>
+  <div class="workspace" id="top">
+    <header class="topbar"><div class="breadcrumb"><span class="mobile-brand">FORM.</span><span class="desktop-crumb">Workspace <span class="slash">/</span></span>Asset explorer</div><div class="topbar-right"><span class="local-indicator"><span class="status-dot"></span> Local collection</span><a href="#capabilities" class="text-link">Capabilities <svg class="icon"><use href="#i-arrow"/></svg></a></div></header>
+    <main>
+      <section class="page-heading"><div><div class="eyebrow">FROM FUNCTIONS TO FANTASY</div><h1>The asset playground<span>.</span></h1><p>Sound, motion, form, and texture. All made with code.</p></div><a class="button primary download-pack" href="gallery/expansion/asset-collection.zip" download aria-label="Download 8 new examples"><svg class="icon"><use href="#i-down"/></svg>Download new examples</a></section>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy"><div class="hero-label"><span></span> PROCEDURAL BY NATURE</div><h2 id="hero-title">A little code.<br>A whole new <em>world.</em></h2><p>No stock assets. No external editors.<br>Just code turning an idea into something real.</p><a href="#collection" class="button hero-button">Explore the collection <span>↘</span></a><div class="hero-footnote"><svg class="icon"><use href="#i-code"/></svg>Designed by an agent. Generated locally.</div></div>
+        <div class="hero-art"><div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><span class="seed-label">SEED <b>007</b></span><canvas id="hero-model" tabindex="0" aria-label="Interactive crystal cluster. Drag or use arrow keys to rotate."></canvas><span class="hero-art-label">01 / A STUDY IN CRYSTAL</span><span class="drag-label">↔ drag to explore</span></div>
+      </section>
+      <div class="collection-stats"><div><strong id="total-stat">20</strong><span>original examples</span></div><div><strong>04</strong><span>asset disciplines</span></div><div><strong>100<span>%</span></strong><span>generated with code</span></div><div class="format-stats"><span class="file-tag">GLB</span><span class="file-tag">PNG</span><span class="file-tag">WAV</span><span class="format-caption">Real files. Ready to explore.</span></div></div>
+      <section id="collection" aria-labelledby="collection-title">
+        <div class="section-top"><div><h2 id="collection-title">The collection</h2><p>Pick something. Play with it. Peek at the recipe.</p></div><label class="search"><svg class="icon"><use href="#i-search"/></svg><input id="search" type="search" placeholder="Find your next asset…" aria-label="Search assets"><kbd>/</kbd></label></div>
+        <div class="collection-tools"><label for="collection-select">Study set <select id="collection-select"><option value="all">All studies · 20</option><option value="expansion">New gameplay studies · 8</option><option value="original">Original collection · 12</option></select></label><a href="gallery/asset-collection.zip" download>Download original 12 ↗</a><a href="#quality-review">Read the quality review ↓</a></div>
+        <div class="filter-row"><div class="filters" role="group" aria-label="Filter assets"><button class="filter active" data-category="all" aria-pressed="true">All assets <span data-count="all">20</span></button><button class="filter" data-category="3d" aria-pressed="false">3D models</button><button class="filter" data-category="2d" aria-pressed="false">2D graphics</button><button class="filter" data-category="vfx" aria-pressed="false">VFX</button><button class="filter" data-category="sfx" aria-pressed="false">SFX</button></div><button class="motion-toggle" id="motion-toggle" aria-pressed="false"><svg class="icon"><use href="#i-pause"/></svg><span>Pause motion</span></button></div>
+        <div class="result-line"><span id="result-count" role="status" aria-live="polite">Loading the collection…</span><span>CREATED WITH CODE / NOT GENERATED IMAGES</span></div>
+        <div class="asset-grid" id="asset-grid" aria-label="Generated assets"></div>
+        <div class="empty-state" id="empty-state" hidden><svg class="icon"><use href="#i-search"/></svg><h3>No assets found</h3><p>Try another search or explore a different category.</p><button class="button outline" id="clear-filters">Clear filters</button></div>
+        <div class="load-error" id="load-error" role="alert" hidden><h3>The collection couldn’t load.</h3><p>Serve this project over HTTP and make sure the gallery assets have been generated.</p><button class="button outline" id="retry-load">Try again</button></div>
+      </section>
+      <section class="capabilities" id="capabilities" aria-labelledby="capability-title"><div class="section-top"><div><div class="eyebrow">THE POSSIBILITIES</div><h2 id="capability-title">What can we make?</h2><p>Four disciplines. A toolkit of possibilities.</p></div><span class="capability-tag"><span class="status-dot"></span> Code-only workflow</span></div>
+        <div class="capability-grid">
+          <article><span class="cap-icon cat-3d"><svg class="icon"><use href="#i-cube"/></svg></span><h3>3D models</h3><p>Low-poly props, crystal formations, modular structures, hollow solids, terrain meshes, and revolved objects.</p><div class="cap-formats">GLB · OBJ · PLY · STL</div><div class="cap-library">Trimesh + Manifold</div></article>
+          <article><span class="cap-icon cat-2d"><svg class="icon"><use href="#i-image"/></svg></span><h3>2D graphics</h3><p>Sprites, item icons, UI elements, decals, seamless tiles, procedural textures, masks, and sprite sheets.</p><div class="cap-formats">RGBA PNG · ATLASES</div><div class="cap-library">Pillow + aggdraw + NumPy</div></article>
+          <article><span class="cap-icon cat-vfx"><svg class="icon"><use href="#i-spark"/></svg></span><h3>Visual effects</h3><p>Magic portals, shockwaves, fire, smoke, lightning, dust, particle textures, and animated flipbooks.</p><div class="cap-formats">PNG ATLAS · GIF PREVIEW</div><div class="cap-library">NumPy + Pillow</div></article>
+          <article><span class="cap-icon cat-sfx"><svg class="icon"><use href="#i-wave"/></svg></span><h3>Sound effects</h3><p>Material impacts, chimes, UI cues, footsteps, weapon sounds, layered explosions, and ambience.</p><div class="cap-formats">PCM16 WAV · MONO / STEREO</div><div class="cap-library">NumPy + SciPy · legacy pyo</div></article>
+        </div>
+        <div class="scope-note"><svg class="icon"><use href="#i-code"/></svg><p><strong>A starting point, not a preset ceiling.</strong> These categories are supported through custom Python recipes; the <span id="demonstrated-count">20</span> gallery items are the demonstrated examples. UV unwrapping, rigging, automatic LODs, engine integration, and photorealistic results are not included.</p></div>
+      </section>
+      <section class="quality-review" id="quality-review" aria-labelledby="review-title">
+        <div class="section-top"><div><div class="eyebrow">MORE EXAMPLES, BETTER QUESTIONS</div><h2 id="review-title">What should we improve next?</h2><p>Concrete review targets, not a claim of production readiness.</p></div></div>
+        <div class="review-grid">
+          <article><span class="review-priority">01 / GEOMETRY → GAMEPLAY</span><h3>Make the props usable, not just viewable.</h3><p><strong>Observed:</strong> the pine is readable but origami-like; the chest has clear plankwork but plain endcaps and no wood grain. The 868 / 2,856-triangle models remain static, overlapping solid assemblies with vertex colors, not game-ready interactive props.</p><p><strong>Next experiment:</strong> separate the lid with a hinge pivot, add a simple collision proxy, and test both in one target engine. Evaluate materials there rather than trusting the software preview.</p><button class="button outline" data-review-asset="treasure-chest">Inspect the chest ↗</button></article>
+          <article><span class="review-priority">02 / ART → ACTUAL DISPLAY SIZE</span><h3>Judge artwork where players see it.</h3><p><strong>Observed:</strong> the shield silhouette and bright emblem survive at 32 / 64 px, but the rivets and central jewel lose definition. The panel’s separate 768 × 256 nine-slice preview preserves its corner proportions.</p><p><strong>Next experiment:</strong> compare the shield at 32 / 48 / 64 px on light and dark UI. Simplify secondary details that merge together; give item families a shared outline weight and palette.</p><button class="button outline" data-review-asset="shield-icon">Inspect the shield ↗</button></article>
+          <article><span class="review-priority">03 / EFFECTS → TIMING</span><h3>Give each effect its own rhythm.</h3><p><strong>Observed:</strong> the dust billows read as rounded lumps more than turbulent air, and lightning’s late tail is nearly invisible on a light background. Both still share a 16-frame, one-second delivery format despite needing different timing.</p><p><strong>Next experiment:</strong> break up the dust silhouette with coherent turbulence, then compare faster lightning and slower dust decay. Choose frame count and playback rate per effect; check opacity on light and dark backgrounds.</p><button class="button outline" data-review-asset="forked-lightning">Inspect the lightning ↗</button></article>
+          <article><span class="review-priority">04 / SOUND → REPETITION</span><h3>Evaluate a sequence, not one sound.</h3><p><strong>Observed:</strong> the pack adds a noisy footstep and a charge/release shape beyond the original tonal examples. They are still isolated mono cues; waveform, headroom, and playback tests cannot establish convincing timbre.</p><p><strong>Next experiment:</strong> render several footstep seeds, listen at matched levels, and test a walk/run sequence. Adjust heel-to-grit balance and variation before adding reverb. Human listening is still pending.</p><button class="button outline" data-review-asset="gravel-step">Inspect the footstep ↗</button></article>
+        </div>
+        <p class="review-verdict"><strong>Recommendation:</strong> build one small, coherent interaction next—a chest opening with an item icon, dust, and sound—and review it in the target engine. The current libraries already cover the fundamentals; coordinated art direction, timing, and engine checks are more valuable now than another library or dozens of unrelated presets. Original exports remain unchanged.</p>
+      </section>
+      <section class="workflow-strip"><div class="workflow-label">FROM IDEA TO ASSET</div><div><span>01</span> Study the library</div><i>→</i><div><span>02</span> Write the recipe</div><i>→</i><div><span>03</span> Generate & inspect</div><svg class="icon"><use href="#i-spark"/></svg></section>
+      <footer class="footer"><span><b>FORM.</b> A small lab for big worlds.</span><span>Seeded recipes. Open libraries. No external editors.</span></footer>
+    </main>
+  </div>
+  <dialog id="asset-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span id="dialog-category" class="eyebrow"></span><button class="icon-button" id="close-dialog" aria-label="Close asset inspector"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="inspector"><div class="inspector-view"><div id="inspector-stage"></div><div class="preview-controls" id="preview-controls"></div></div><div class="inspector-info"><h2 id="dialog-title"></h2><p id="dialog-description"></p><div id="dialog-tags" class="dialog-tags"></div><dl id="dialog-stats"></dl><p class="inspector-note" id="inspector-note"></p><p class="asset-review" id="asset-review" hidden></p><a id="asset-download" class="button primary" download><svg class="icon"><use href="#i-down"/></svg>Download asset</a><div class="source-links"><a id="recipe-link" target="_blank" rel="noopener">View Python recipe ↗</a><a id="manifest-link" target="_blank" rel="noopener">Inspect manifest ↗</a></div><button class="copy-command" id="copy-command"><svg class="icon"><use href="#i-copy"/></svg>Copy generation command</button></div></div></dialog>
+  <audio id="audio-player" preload="none"></audio>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">Enable JavaScript for interactive previews. Download the <a href="gallery/asset-collection.zip">original 12 examples</a> or the <a href="gallery/expansion/asset-collection.zip">8 new gameplay studies</a>.</div></noscript>
+</body>
+</html>

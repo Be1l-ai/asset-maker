@@ -1,0 +1,67 @@
+{
+  "parameters": {
+    "seed": 7
+  },
+  "units": "m",
+  "up_axis": "Z",
+  "axes": {
+    "source": "Z",
+    "glb_export": "Y",
+    "obj_export": "Z",
+    "preview": "Z"
+  },
+  "format_notes": {
+    "glb": "Y-up, meters, face colors exported as vertex colors; no UVs or rigging.",
+    "obj": "Z-up geometry only: vertex colors omitted for portable OBJ; no MTL.",
+    "preview": "Reloaded GLB returned to Z-up; Pillow orthographic painter sorting, diffuse shading.",
+    "topology": "Hollow boolean-cut frame and separate closed crystal; no emissive material."
+  },
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.5.1",
+    "Pillow": "12.3.0",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "mesh": {
+    "vertices": 134,
+    "triangles": 272,
+    "bounds": [
+      [
+        -0.763675332069397,
+        -0.763675332069397,
+        0.0
+      ],
+      [
+        0.763675332069397,
+        0.763675332069397,
+        2.380000114440918
+      ]
+    ],
+    "watertight": true
+  },
+  "glb_reloaded_z_up": {
+    "vertices": 816,
+    "welded_vertices": 134,
+    "triangles": 272,
+    "bounds": [
+      [
+        -0.763675332069397,
+        -0.7636753320693969,
+        -4.360410080633096e-27
+      ],
+      [
+        0.763675332069397,
+        0.7636753320693971,
+        2.380000114440918
+      ]
+    ],
+    "watertight_after_weld": true
+  },
+  "sha256": {
+    "prop.glb": "0e0dd47b2d1b7318e61d99969bc60e2f280f249fd333ff276f1cbd2e3fd631f8",
+    "prop.obj": "acf0205cc6cf75f6572429025a24c4a8b20c1b480ba6e1092df82fb112a4d17e",
+    "preview.png": "36ff082f3b56b58a4000bf09b77098121458737e0eae6c047632b182cdf26d53",
+    "recipe.py": "8bed416164a526f08b0e47532899c13fc6e029887e015fd59f3a96aff72eb91f"
+  }
+}

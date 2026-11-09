@@ -1,0 +1,23 @@
+{
+  "asset": "impact.wav",
+  "format": "PCM16 WAV",
+  "channels": 1,
+  "sample_rate": 48000,
+  "loop": false,
+  "parameters": {
+    "seed": 7,
+    "duration": 1.2,
+    "rate": 48000,
+    "frequency": 420.0,
+    "material": "metal",
+    "gain": 0.5
+  },
+  "versions": {
+    "numpy": "2.5.1",
+    "scipy": "1.18.0"
+  },
+  "sha256": {
+    "impact.wav": "4dfd730c624fe889f8e574a179d18fad08ae8e09ea34e63b7e5a59fd50a7d6e8",
+    "recipe.py": "415b77f830155bd3ed759eeecf0092981e474b10fcab6a3533ea1a2530068b1f"
+  }
+}

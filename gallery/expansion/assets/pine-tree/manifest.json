@@ -1,0 +1,77 @@
+{
+  "id": "pine-tree",
+  "category": "3d",
+  "parameters": {
+    "seed": 19
+  },
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "recipe": "fx_pipeline/generate_gallery_expansion.py",
+  "source_snapshot": "generate_gallery_expansion.py",
+  "source_dependencies_sha256": {
+    "fx_pipeline/generate_gallery_expansion.py": "3581f77dfe89ca75f0bea46696f23d657d6c2dfc39704e58c568f288c420d42f",
+    "fx_pipeline/gallery_expansion_visuals.py": "5742e8d8ed57dbeb964b266b62b9edbe3b30d796ce755d4ac6f30642accccd3b",
+    "fx_pipeline/gallery_expansion_effects.py": "a86e6a936bc0a3e6d63f130cc63501d6fdd3abb5204a1664d4b9d20ffaf557ba",
+    "fx_pipeline/generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "fx_pipeline/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "requirements-code-assets.txt": "fb5e78539a368d312bdc6f7f3e546c036b7014e4c7c8b2b76a68ac554d99d24c",
+    ".qoder/skills/create-3d-assets/scripts/build.py": "8bed416164a526f08b0e47532899c13fc6e029887e015fd59f3a96aff72eb91f",
+    ".qoder/skills/create-2d-assets/scripts/draw.py": "9bb05142e9982e5947ed001e092e63ab74593517beb87bc33e2e275caeab1d02",
+    ".qoder/skills/create-vfx/scripts/render.py": "23220e41c06f96dec2b3d97a81eba7004556b08b313cbe7fdae1057ddd97f110",
+    ".qoder/skills/create-sfx/scripts/synthesize.py": "415b77f830155bd3ed759eeecf0092981e474b10fcab6a3533ea1a2530068b1f"
+  },
+  "reproduce": {
+    "command": "python fx_pipeline/generate_gallery_expansion.py --out new-studies --seed 19",
+    "requirements": "requirements-code-assets.txt",
+    "note": "Run from repository or extracted ZIP; use a new output directory."
+  },
+  "review": "Front, side and depth-buffered obliques show pointed, folded boughs and a readable trunk; foliage looks origami-like. Faceted solid foliage reads as stylized clumps, not botanical needles.",
+  "engine_import_tested": false,
+  "human_listening_tested": false,
+  "deterministic_rerender": true,
+  "mesh": {
+    "triangles": 868,
+    "vertices": 2604,
+    "welded_vertices": 466,
+    "watertight_after_weld": true,
+    "winding_consistent": true,
+    "volume_m3": 2.0834494787699183,
+    "bounds_z_up": [
+      [
+        -1.0475705862045288,
+        -1.1244577169418335,
+        -1.2994355748238826e-24
+      ],
+      [
+        1.0170129537582397,
+        1.0783313512802124,
+        3.514946222305298
+      ]
+    ],
+    "face_colors": 91
+  },
+  "axes": {
+    "source": "Z",
+    "glb_export": "Y",
+    "obj_export": "Z",
+    "mesh_json": "Z"
+  },
+  "pivot": "ground level",
+  "preview_method": "NumPy depth buffer from reloaded GLB, flat diffuse shading; not PBR",
+  "format_notes": "GLB flat vertex colors; OBJ geometry only. Separate closed components may overlap; not collision proxies.",
+  "sha256": {
+    "gallery_expansion_visuals.py": "5742e8d8ed57dbeb964b266b62b9edbe3b30d796ce755d4ac6f30642accccd3b",
+    "generate_gallery_expansion.py": "3581f77dfe89ca75f0bea46696f23d657d6c2dfc39704e58c568f288c420d42f",
+    "mesh.json": "95c37961d2eb6f00bb6c130e2838812711893d60eea61ffbc4f0deb2325ea46b",
+    "model.glb": "cc316f923591d8fc331a4b9f7921d2726fba65c16e5863cbc5a34fc8ad2d292c",
+    "model.obj": "dd0d02124797cb48928ae13b986c00eb4d22a2bdad2e435f5c8e67f381b4f0de",
+    "preview.png": "a22c54f14263585b272069055e12b7f7aa3cd7736d631e72511fb0606415d2f7"
+  }
+}

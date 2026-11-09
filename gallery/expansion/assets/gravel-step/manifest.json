@@ -1,0 +1,64 @@
+{
+  "id": "gravel-step",
+  "category": "sfx",
+  "parameters": {
+    "seed": 19,
+    "rate": 48000,
+    "duration_seconds": 0.55,
+    "channels": 1,
+    "encoding": "PCM16",
+    "grains": 30,
+    "peak_ceiling_dbfs": -3,
+    "gain_policy": "attenuate only",
+    "fade_in_seconds": 0.004,
+    "fade_out_seconds": 0.075,
+    "sample_rate": 48000
+  },
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "recipe": "fx_pipeline/generate_gallery_expansion.py",
+  "source_snapshot": "generate_gallery_expansion.py",
+  "source_dependencies_sha256": {
+    "fx_pipeline/generate_gallery_expansion.py": "3581f77dfe89ca75f0bea46696f23d657d6c2dfc39704e58c568f288c420d42f",
+    "fx_pipeline/gallery_expansion_visuals.py": "5742e8d8ed57dbeb964b266b62b9edbe3b30d796ce755d4ac6f30642accccd3b",
+    "fx_pipeline/gallery_expansion_effects.py": "a86e6a936bc0a3e6d63f130cc63501d6fdd3abb5204a1664d4b9d20ffaf557ba",
+    "fx_pipeline/generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "fx_pipeline/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "requirements-code-assets.txt": "fb5e78539a368d312bdc6f7f3e546c036b7014e4c7c8b2b76a68ac554d99d24c",
+    ".qoder/skills/create-3d-assets/scripts/build.py": "8bed416164a526f08b0e47532899c13fc6e029887e015fd59f3a96aff72eb91f",
+    ".qoder/skills/create-2d-assets/scripts/draw.py": "9bb05142e9982e5947ed001e092e63ab74593517beb87bc33e2e275caeab1d02",
+    ".qoder/skills/create-vfx/scripts/render.py": "23220e41c06f96dec2b3d97a81eba7004556b08b313cbe7fdae1057ddd97f110",
+    ".qoder/skills/create-sfx/scripts/synthesize.py": "415b77f830155bd3ed759eeecf0092981e474b10fcab6a3533ea1a2530068b1f"
+  },
+  "reproduce": {
+    "command": "python fx_pipeline/generate_gallery_expansion.py --out new-studies --seed 19",
+    "requirements": "requirements-code-assets.txt",
+    "note": "Run from repository or extracted ZIP; use a new output directory."
+  },
+  "review": "Mathematical synthesis with no recorded surfaces or resonant stone model. Filtered grains may read as generic crunch or static; footwear, weight and gravel scale need listening review. Mono, no spatial acoustics. No listening or target-engine review performed.",
+  "engine_import_tested": false,
+  "human_listening_tested": false,
+  "deterministic_rerender": true,
+  "format": "PCM16 WAV",
+  "sample_rate": 48000,
+  "channels": 1,
+  "frames": 26400,
+  "duration_seconds": 0.55,
+  "peak_dbfs": -3.0003622493859567,
+  "rms_dbfs": -23.786119196022653,
+  "dc": 1.5952370383522727e-07,
+  "loop": false,
+  "waveform": "96 RMS bins, normalized by maximum bin RMS",
+  "sha256": {
+    "gallery_expansion_effects.py": "a86e6a936bc0a3e6d63f130cc63501d6fdd3abb5204a1664d4b9d20ffaf557ba",
+    "generate_gallery_expansion.py": "3581f77dfe89ca75f0bea46696f23d657d6c2dfc39704e58c568f288c420d42f",
+    "sound.wav": "91b6b2afb29dead378236b4420aac751743e1688458c617b29eff0575fe8e53f"
+  }
+}

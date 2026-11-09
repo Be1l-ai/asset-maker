@@ -1,0 +1,93 @@
+{
+  "id": "dust-puff",
+  "category": "vfx",
+  "parameters": {
+    "seed": 19,
+    "frame_size": 128,
+    "frames": 16,
+    "columns": 4,
+    "fps": 16,
+    "loop": false,
+    "billows": 7,
+    "blend": "alpha",
+    "phase_sampling": "i/15; transparent endpoints",
+    "duration_seconds": 1.0
+  },
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "recipe": "fx_pipeline/generate_gallery_expansion.py",
+  "source_snapshot": "generate_gallery_expansion.py",
+  "source_dependencies_sha256": {
+    "fx_pipeline/generate_gallery_expansion.py": "3581f77dfe89ca75f0bea46696f23d657d6c2dfc39704e58c568f288c420d42f",
+    "fx_pipeline/gallery_expansion_visuals.py": "5742e8d8ed57dbeb964b266b62b9edbe3b30d796ce755d4ac6f30642accccd3b",
+    "fx_pipeline/gallery_expansion_effects.py": "a86e6a936bc0a3e6d63f130cc63501d6fdd3abb5204a1664d4b9d20ffaf557ba",
+    "fx_pipeline/generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "fx_pipeline/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "requirements-code-assets.txt": "fb5e78539a368d312bdc6f7f3e546c036b7014e4c7c8b2b76a68ac554d99d24c",
+    ".qoder/skills/create-3d-assets/scripts/build.py": "8bed416164a526f08b0e47532899c13fc6e029887e015fd59f3a96aff72eb91f",
+    ".qoder/skills/create-2d-assets/scripts/draw.py": "9bb05142e9982e5947ed001e092e63ab74593517beb87bc33e2e275caeab1d02",
+    ".qoder/skills/create-vfx/scripts/render.py": "23220e41c06f96dec2b3d97a81eba7004556b08b313cbe7fdae1057ddd97f110",
+    ".qoder/skills/create-sfx/scripts/synthesize.py": "415b77f830155bd3ed759eeecf0092981e474b10fcab6a3533ea1a2530068b1f"
+  },
+  "reproduce": {
+    "command": "python fx_pipeline/generate_gallery_expansion.py --out new-studies --seed 19",
+    "requirements": "requirements-code-assets.txt",
+    "note": "Run from repository or extracted ZIP; use a new output directory."
+  },
+  "review": "Stylized 2D pigment fields, not fluid dynamics. Overlapping lobes can look soft or sculpted rather than turbulent. No ground collision or depth sorting against a scene; light backgrounds reduce tail contrast. Scene compositing and target-engine review remain pending.",
+  "engine_import_tested": false,
+  "human_listening_tested": false,
+  "deterministic_rerender": true,
+  "frame_size": [
+    128,
+    128
+  ],
+  "frame_count": 16,
+  "grid": [
+    4,
+    4
+  ],
+  "fps": 16,
+  "duration_seconds": 1.0,
+  "loop": false,
+  "order": "row-major, top-left",
+  "padding_pixels": 0,
+  "alpha": "straight",
+  "blend": "straight alpha; additive blending is unsuitable for opaque dust",
+  "sample_phases": [
+    0.0,
+    0.06666666666666667,
+    0.13333333333333333,
+    0.2,
+    0.26666666666666666,
+    0.3333333333333333,
+    0.4,
+    0.4666666666666667,
+    0.5333333333333333,
+    0.6,
+    0.6666666666666666,
+    0.7333333333333333,
+    0.8,
+    0.8666666666666667,
+    0.9333333333333333,
+    1.0
+  ],
+  "peak_frame": 4,
+  "peak_measure": "maximum integrated alpha",
+  "periodic_endpoint_checked": false,
+  "mean_adjacent_rgba_delta": 5.81524658203125,
+  "wrap_rgba_delta": 0.0,
+  "sha256": {
+    "atlas.png": "e4c7968947061ac71552be915d9def1dca8bfb0ab904d20fe27f66e67933e27a",
+    "gallery_expansion_effects.py": "a86e6a936bc0a3e6d63f130cc63501d6fdd3abb5204a1664d4b9d20ffaf557ba",
+    "generate_gallery_expansion.py": "3581f77dfe89ca75f0bea46696f23d657d6c2dfc39704e58c568f288c420d42f",
+    "preview.png": "0a6af4ee9b5ca6239c2736a9f0c2d71a279c90147029569e2fd655a504a6eeab"
+  }
+}
