@@ -6,27 +6,21 @@ Instructions and guidelines for AI agents and harnesses working in this reposito
 
 This repository develops procedural, deterministic, and code-only game assets across four core categories:
 - **SFX**: Modal and additive audio synthesis exported as measured WAV files (`numpy`, `scipy`).
-- **VFX**: Looping and one-shot sprite flipbook atlases with transparency (`Pillow`).
+- **VFX**: Looping and one-shot sprite flipbook atlases with transparency (`Pillow`, `numpy`).
 - **3D**: Watertight, low-poly solid geometry exported to GLB and OBJ (`trimesh`, `manifold3d`).
-- **2D**: Vector-like raster icons, pixel art, and seamless tiles (`Pillow`, `aggdraw`).
+- **2D**: Vector-like raster icons, UI panels, and seamless tiles (`Pillow`, `aggdraw`, `numpy`).
 
 ## Agent Skills Architecture
 
-Skills are maintained canonically in `skills/` and exposed to all standard agent harnesses:
-- **`skills/`**: Canonical directory (Open Agent Skills specification)
-- **`.agents/skills/`** and **`.agent/skills/`**: Antigravity, Gemini CLI, and Google Agent workflows
-- **`.claude/skills/`**: Anthropic Claude Code
-- **`.cursor/skills/`**: Cursor AI
-- **`.qoder/skills/`**: Qoder harness
+Skills are maintained canonically in `skills/` and exposed via symlinks to all supported agent harnesses (`.agent/skills/`, `.agents/skills/`, `.claude/skills/`, `.cursor/skills/`, `.qoder/skills/`):
 
-### Available Skills
-- [`create-game-assets`](skills/create-game-assets/SKILL.md): Core workflow, API study, manifest provenance, and asset validation.
-- [`create-sfx`](skills/create-sfx/SKILL.md): Sound design synthesis, audio metrics, and headroom guidelines.
-- [`create-vfx`](skills/create-vfx/SKILL.md): Periodic animations, color ramps, alpha channels, and sprite sheets.
-- [`create-3d-assets`](skills/create-3d-assets/SKILL.md): Watertight mesh CSG, coordinate transforms (Y-up vs Z-up), and triangle budgets.
-- [`create-2d-assets`](skills/create-2d-assets/SKILL.md): Multi-layer 2D rendering, premultiplied alpha downsampling, and seamless tiling.
+- [`create-game-assets`](skills/create-game-assets/SKILL.md): Master workflow, verification loop, manifest provenance, and Knowledge Vault index.
+- [`create-sfx`](skills/create-sfx/SKILL.md): Physical modal synthesis, strike transients, Haas stereo panning, and `-3 dBFS` headroom.
+- [`create-vfx`](skills/create-vfx/SKILL.md): Pre-rolled emitter stacks, buoyant plumes, cellular alpha erosion, and atlas packing.
+- [`create-3d-assets`](skills/create-3d-assets/SKILL.md): Watertight Manifold CSG, subdivided lathe profiles, multiplicative ground AO, and Y-up export.
+- [`create-2d-assets`](skills/create-2d-assets/SKILL.md): Mask-first SDF compositing, premultiplied alpha downsampling, and toroidal seamless tiling.
 
-Consult [`skills/create-game-assets/references/libraries.md`](skills/create-game-assets/references/libraries.md) for approved upstreams and capabilities.
+Consult [`skills/create-game-assets/references/libraries.md`](skills/create-game-assets/references/libraries.md) for pinned dependency versions and upstream API notes.
 
 ## Environment & Tooling
 
@@ -36,20 +30,29 @@ The project uses Python 3.12+ managed in `.venv-code-assets`:
 # Setup virtual environment
 python3 -m venv .venv-code-assets
 .venv-code-assets/bin/python -m pip install -r requirements-code-assets.txt
-```
 
-### Running Tests
-Execute the full test suite before committing changes:
-
-```sh
+# Run full test suite
 .venv-code-assets/bin/python -m unittest discover -s tests -v
+
+# Rebuild index.html after editing src/styles.css, src/body.html, or src/app.js
+.venv-code-assets/bin/python build_html.py
 ```
 
-### Validating Assets
-Validate exported assets against format, alpha, manifoldness, and triangle-count rules:
+## Creating & Auditing Assets
 
 ```sh
-.venv-code-assets/bin/python skills/create-game-assets/scripts/validate_asset.py <asset-path>
+# 1. Scaffold from template (2d_icon, 2d_tile, 3d_prop, vfx_flipbook, sfx_sound)
+.venv-code-assets/bin/python -m asset_pipeline new <template> <target_dir>
+
+# 2. Customize generate.py using asset_pipeline and vault/, then run:
+.venv-code-assets/bin/python <target_dir>/generate.py
+
+# 3. Validate exported files and audit recipe/vault provenance:
+.venv-code-assets/bin/python -m asset_pipeline validate <asset-file>
+.venv-code-assets/bin/python -m asset_pipeline audit <target_dir>
+
+# 4. Compare V1 and V2 asset folders when upgrading an existing asset:
+.venv-code-assets/bin/python -m asset_pipeline compare <old_dir> <new_dir>
 ```
 
 ## Commit Convention & Git Hooks
@@ -57,35 +60,17 @@ Validate exported assets against format, alpha, manifoldness, and triangle-count
 All commits must follow the **Conventional Commits** standard (enforced via `.githooks/commit-msg`):
 - Format: `<type>(<optional scope>): <description>`
 - Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
-- Example: `feat(pipeline): add MeshBuilder class for solid CSG booleans`
 - Pre-commit hook (`.githooks/pre-commit`) verifies Python syntax across staged files.
 - See [`CONTRIBUTING.md`](CONTRIBUTING.md) for complete guidelines.
 
-## Creating New Assets
-
-When tasked with generating a new game asset:
-1. **Scaffold from Template**:
-   Run the scaffolding CLI:
-   ```sh
-   .venv-code-assets/bin/python -m asset_pipeline new <template> assets/<asset_name>
-   ```
-   Available templates: `2d_icon`, `2d_tile`, `3d_prop`, `vfx_flipbook`, `sfx_sound`.
-   *(Or manually copy a folder from `templates/` into `assets/<asset_name>/`)*.
-2. **Customize `generate.py`**:
-   Import from `asset_pipeline` (`sfx`, `vfx`, `mesh3d`, `sprite2d`, `validator`, `manifest`) and implement the design.
-3. **Execute & Validate**:
-   ```sh
-   cd assets/<asset_name> && python generate.py
-   ```
-   This automatically produces the asset file, preview, manifest, and runs validation.
-
 ## Repository Structure
 
-- `asset_pipeline/`: Clean, modular Python library for procedural 2D, 3D, VFX, SFX, and gallery creation.
-- `vault/`: Curated Knowledge Vault of mathematical formulas, acoustic modal ratios, and industry techniques.
-- `templates/`: Boilerplate starter folders for 2D icons, seamless tiles, 3D props, VFX flipbooks, and SFX.
+- `asset_pipeline/`: Modular Python SDK, validators, recipe auditor, CLI, and gallery generators.
+- `vault/`: Curated Knowledge Vault of mathematical formulas, acoustic modal ratios, and material/VFX techniques.
+- `templates/`: Starter templates for 2D icons, seamless tiles, 3D props, VFX flipbooks, and SFX.
 - `skills/`: Project-local agent skills and starter scripts.
-- `gallery/`: Interactive web catalog, pre-rendered assets, and export archives.
-- `index.html`: Responsive gallery browser frontend.
-- `tests/`: Unit tests verifying skill structure, recipes, and gallery functionality.
-- `NOTES.md`: Historical generation log, recipes, and known-good fingerprints.
+- `gallery/`: Interactive web catalog (`catalog.json`, `expansion/catalog.json`), pre-rendered assets, and reproducible ZIP archives.
+- `src/` & `build_html.py`: Modular frontend source files (`styles.css`, `body.html`, `app.js`) and bundler for `index.html`.
+- `index.html`: Self-contained responsive gallery browser frontend.
+- `tests/`: Unit, verification layer, vault integrity, and Playwright browser tests.
+- `NOTES.md`: Measured V1 vs. V2 asset comparisons and engineering log.

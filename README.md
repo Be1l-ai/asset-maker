@@ -1,110 +1,117 @@
 # AssetMaking
 
-A procedural, code-first game asset generation pipeline and interactive gallery. Generate deterministic 2D icons, 3D meshes, particle flipbooks (VFX), and synthesized audio (SFX) using pure Python without external DCC tools.
+Procedural game asset generation in pure Python (`numpy`, `scipy`, `Pillow`, `aggdraw`, `trimesh`, `manifold3d`). Every 2D sprite, seamless tile, watertight 3D mesh, VFX flipbook, and SFX audio file in this repository is built from a deterministic, seeded Python script—no Blender, DAW, external renderer, or hosted API.
 
-## Features
+## Setup
 
-- **2D Asset Generation**: Antialiased icons, badges, UI elements, and tileable textures with Pillow and aggdraw.
-- **3D Asset Generation**: Watertight, low-poly solid geometry with Trimesh and Manifold3D, exported as GLB (colored) and OBJ.
-- **VFX Generation**: Periodic particle fields, looping energy bursts, and multi-frame transparent flipbook atlases.
-- **SFX Generation**: Procedural modal, additive, and noise synthesis using NumPy and SciPy with standard headroom controls.
-- **Interactive Gallery**: Browser-based catalog (`index.html`) with interactive 3D WebGL inspection, audio playback, flipbook scrubbers, and zip exports.
-- **Multi-Harness Agent Skills**: Pre-configured skills compatible with Antigravity, Gemini CLI, Claude Code, Cursor, and Qoder.
-
-## Quick Start
-
-### 1. Environment Setup
-
-Python 3.12+ is required. Set up the dedicated virtual environment:
+Requires Python 3.12+.
 
 ```sh
 python3 -m venv .venv-code-assets
 .venv-code-assets/bin/python -m pip install -r requirements-code-assets.txt
 ```
 
-### 2. View the Gallery
-
-Open `index.html` in your browser or run a lightweight local HTTP server:
-
-```sh
-python3 -m http.server 8000
-```
-
-Then visit `http://localhost:8000/` to inspect assets, preview animations, and download asset collections.
-
-### 3. Run Tests
-
-Verify skill compliance, generator recipes, and gallery functionality:
+Run the test suite:
 
 ```sh
 .venv-code-assets/bin/python -m unittest discover -s tests -v
 ```
 
-## Creating New Assets
+## Web Gallery
 
-Creating a new procedural asset takes only 3 steps:
-
-### 1. Scaffold from a Template
-Use the scaffolding CLI or copy from [`templates/`](templates/):
+The browser catalog in `index.html` loads [`gallery/catalog.json`](gallery/catalog.json) (12 seed-7 baseline assets) and [`gallery/expansion/catalog.json`](gallery/expansion/catalog.json) (18 expansion studies, including side-by-side V1 vs. V2 Knowledge Vault comparisons).
 
 ```sh
-# Options: 2d_icon, 2d_tile, 3d_prop, vfx_flipbook, sfx_sound
-.venv-code-assets/bin/python -m asset_pipeline new 3d_prop assets/my_pillar
+python3 -m http.server 8000
+# open http://localhost:8000
 ```
 
-### 2. Customize `generate.py`
-Open `assets/my_pillar/generate.py`. Import clean primitives and operations from `asset_pipeline`:
+`index.html` is compiled from [`src/styles.css`](src/styles.css), [`src/body.html`](src/body.html), and [`src/app.js`](src/app.js). After editing files in `src/`, rebuild `index.html`:
+
+```sh
+.venv-code-assets/bin/python build_html.py
+```
+
+## CLI (`asset_pipeline`)
+
+All asset scaffolding, structural/perceptual validation, recipe auditing, and V1-vs-V2 metric comparisons run through `asset_pipeline`:
+
+```sh
+# 1. Scaffold a new asset from templates/ (2d_icon, 2d_tile, 3d_prop, vfx_flipbook, sfx_sound)
+.venv-code-assets/bin/python -m asset_pipeline new 3d_prop path/to/my_prop
+
+# 2. Run the generator script to export the asset, preview, and manifest.json
+.venv-code-assets/bin/python path/to/my_prop/generate.py --seed 7
+
+# 3. Validate a specific output file (PNG, GLB, OBJ, WAV)
+.venv-code-assets/bin/python -m asset_pipeline validate path/to/my_prop/model.glb
+
+# 4. Audit a recipe for unused pipeline imports, missing vault refs, or stale hashes
+.venv-code-assets/bin/python -m asset_pipeline audit path/to/my_prop
+
+# 5. Compare two asset versions with measured geometry/image/audio metrics
+.venv-code-assets/bin/python -m asset_pipeline compare gallery/expansion/assets/mana-obelisk gallery/expansion/assets/mana-obelisk-v2
+```
+
+### Example Recipe
 
 ```python
-from asset_pipeline import mesh3d, validator, manifest
+from pathlib import Path
+from asset_pipeline import AssetValidator, Manifest, MeshBuilder, SolidMesh, bake_ground_ao
 
-def build(seed: int = 7):
-    # Construct watertight solids, apply colors, booleans...
-    base = mesh3d.create_cylinder(radius=0.4, height=0.2, color=[80, 80, 90, 255])
-    return base
+ASSET_NAME = "pillar"
+
+def build(seed: int = 7) -> SolidMesh:
+    builder = MeshBuilder(seed=seed)
+    builder.lathe(
+        [[0.0, 0.0], [0.45, 0.0], [0.40, 0.25], [0.0, 0.25]],
+        sections=8,
+        color=[65, 70, 80, 255],
+        subdivide=3,
+    )
+    builder.pyramid(base_radius=0.30, height=1.10, sections=6, offset=[0, 0, 0.25], color=[100, 200, 255, 255])
+    mesh = builder.build()
+    bake_ground_ao(mesh, height=0.45, strength=0.45)
+    mesh.ensure_watertight()
+    return mesh
+
+def main(out: Path = Path(".")):
+    mesh = build(seed=7)
+    glb = out / f"{ASSET_NAME}.glb"
+    mesh.export_glb(glb, apply_y_up=True)
+    mesh.export_obj(out / f"{ASSET_NAME}.obj")
+    mesh.render_preview(out / "preview.png")
+
+    AssetValidator.validate_mesh(glb, max_triangles=3000, watertight=True)
+    AssetValidator.validate_mesh_shading(mesh, max_ground_ratio=0.85)
+
+    manifest = Manifest(asset=glb.name, parameters={"seed": 7}, recipe="generate.py")
+    manifest.declare_vault("techniques/art_styles/bevels_and_edge_weight.md", "lathe")
+    manifest.declare_vault("techniques/art_styles/vertex_color_gradient_baking.md", "bake_ground_ao")
+    manifest.scan_directory(out, only=[ASSET_NAME]).save(out)
 ```
 
-### 3. Generate & Validate
-Run `python generate.py`:
+## Knowledge Vault & Agent Skills
 
-```sh
-cd assets/my_pillar && python generate.py
-```
+- **[`vault/`](vault/README.md)**: Atomic reference notes covering acoustic modal ratios, Haas stereo panning, SDF bevels, Schlick Fresnel glass rims, running-bond stone masonry, buoyant smoke plumes, spherical foliage normals, and known procedural failure modes.
+- **[`skills/`](skills/)**: Agent skill definitions (`create-game-assets`, `create-2d-assets`, `create-3d-assets`, `create-vfx`, `create-sfx`), symlinked across `.agent/`, `.agents/`, `.claude/`, `.cursor/`, and `.qoder/`.
+- **[`skills/create-game-assets/references/libraries.md`](skills/create-game-assets/references/libraries.md)**: Pinned dependency versions, licenses, and upstream source map.
 
-This renders the export artifact (GLB/OBJ/PNG/WAV), generates a visual preview (`preview.png`/`preview.gif`), validates structure, and writes `manifest.json`.
-
----
-
-## Agent Skills
-
-Specialized agent workflows are located in [`skills/`](skills/) and mapped via symlinks for all major harnesses (`.agents`, `.claude`, `.cursor`, `.qoder`):
-
-- **[`create-game-assets`](skills/create-game-assets/SKILL.md)**: API research, manifest provenance, and asset validation.
-- **[`create-2d-assets`](skills/create-2d-assets/SKILL.md)**: Pillow / aggdraw vector-style rendering and seamless tiling.
-- **[`create-3d-assets`](skills/create-3d-assets/SKILL.md)**: Trimesh / Manifold solid CSG, watertightness, and axis alignment.
-- **[`create-vfx`](skills/create-vfx/SKILL.md)**: Periodic animated flipbooks, easing, and RGBA atlas packing.
-- **[`create-sfx`](skills/create-sfx/SKILL.md)**: NumPy / SciPy modal synthesis, envelope shaping, and WAV metrics.
-
-Validate any generated asset file with:
-
-```sh
-.venv-code-assets/bin/python skills/create-game-assets/scripts/validate_asset.py <path/to/asset>
-```
-
-For library information and guidelines, see [`skills/create-game-assets/references/libraries.md`](skills/create-game-assets/references/libraries.md).
-
-## Project Structure
+## Repository Layout
 
 ```
-├── skills/                     # Canonical Agent Skills
-├── vault/                      # Procedural Game Asset Knowledge Vault
-├── asset_pipeline/             # Modular Python SDK, validators, and gallery generators
-│   ├── generate_gallery.py     # Base gallery generator
-│   └── generate_gallery_expansion.py
-├── gallery/                    # Gallery data, assets, and collection ZIPs
-├── tests/                      # Comprehensive test suite
-├── index.html                  # Responsive gallery frontend
-├── AGENTS.md                   # Instructions for AI harnesses
-├── NOTES.md                    # Project history, generation logs, and fingerprints
-└── requirements-code-assets.txt
+├── asset_pipeline/             # Core Python SDK, CLI, validators, recipe auditor, and gallery builders
+├── vault/                      # Math formulations, acoustic ratios, material recipes, and failure modes
+├── skills/                     # Canonical agent skills (symlinked to .agent, .agents, .claude, .cursor, .qoder)
+├── templates/                  # Starter templates used by `python -m asset_pipeline new`
+├── gallery/                    # Pre-rendered catalogs, asset folders, manifests, and reproducible ZIPs
+│   ├── assets/                 # Original 12 seed-7 baseline assets (and symlink to expansion/)
+│   └── expansion/              # 8 seed-19 studies + 10 V1 vs. V2 Knowledge Vault comparison assets
+├── src/                        # Modular frontend sources (styles.css, body.html, app.js)
+├── build_html.py               # Compiles src/* into index.html
+├── index.html                  # Self-contained gallery browser
+├── tests/                      # Unit, recipe audit, vault integrity, and Playwright browser tests
+├── AGENTS.md                   # Harness instructions and commit conventions
+├── CONTRIBUTING.md             # Conventional Commits specification and git hook setup
+└── NOTES.md                    # Measured V1 vs. V2 comparisons and engineering notes
 ```

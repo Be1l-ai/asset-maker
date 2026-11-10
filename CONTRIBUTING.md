@@ -21,6 +21,7 @@ This repository follows the [Conventional Commits](https://www.conventionalcommi
 
 ### Common Scopes
 - `(pipeline)`: `asset_pipeline` library and CLI
+- `(vault)`: Knowledge Vault documents in `vault/`
 - `(3d)`: 3D mesh solids, CSG booleans, glTF/OBJ export
 - `(2d)`: 2D vector/raster icons, seamless tiles, downsampling
 - `(vfx)`: Sprite sheet atlases, particle emitters, GIF playback
