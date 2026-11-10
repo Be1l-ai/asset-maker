@@ -209,3 +209,130 @@ def create_radial_burst(
 ) -> Image.Image:
     emitter = ParticleEmitter(seed=seed)
     return emitter.radial_burst(size=size, phase=phase, color_rgb=color_rgb)
+
+
+def dissolve_alpha_mask(
+    image: Image.Image,
+    threshold: float,
+    noise_map: Optional[np.ndarray] = None,
+    edge_width: float = 0.05,
+    edge_color: Tuple[int, int, int] = (255, 180, 50),
+) -> Image.Image:
+    """Apply stylized alpha erosion / dissolve cutoff using a noise threshold.
+
+    Parameters:
+        image: Source RGBA image.
+        threshold: Dissolve progress 0.0 (fully visible) to 1.0 (fully dissolved).
+        noise_map: 2D array of values in [0, 1]. If None, generates a pseudo-cellular gradient.
+        edge_width: Width of the glowing burning edge around the dissolve boundary.
+        edge_color: RGB tint of the glowing erosion border.
+
+    Returns:
+        New RGBA image with dissolved alpha and glowing border edges.
+    """
+    img_arr = np.array(image.convert("RGBA"), dtype=np.uint8)
+    h, w = img_arr.shape[:2]
+
+    if noise_map is None:
+        y, x = np.mgrid[0:h, 0:w]
+        noise_map = (np.sin(x * 0.08) * np.cos(y * 0.08) * 0.5 + 0.5).astype(np.float32)
+    else:
+        noise_map = np.asarray(noise_map, dtype=np.float32)
+        if noise_map.shape != (h, w):
+            noise_img = Image.fromarray((noise_map * 255).astype(np.uint8)).resize((w, h))
+            noise_map = np.array(noise_img, dtype=np.float32) / 255.0
+
+    # Cutoff mask: pixels where noise < threshold are eroded (alpha=0)
+    alpha = img_arr[:, :, 3].astype(np.float32) / 255.0
+    eroded = noise_map < threshold
+
+    # Glowing edge band: pixels just above threshold
+    is_edge = (noise_map >= threshold) & (noise_map < threshold + edge_width) & (~eroded)
+
+    out = img_arr.copy()
+    out[:, :, 3] = np.where(eroded, 0, img_arr[:, :, 3])
+
+    # Tint burning edge
+    out[is_edge, 0] = edge_color[0]
+    out[is_edge, 1] = edge_color[1]
+    out[is_edge, 2] = edge_color[2]
+    return Image.fromarray(out, mode="RGBA")
+
+
+def create_expanding_mesh_explosion(
+    phase: float,
+    num_spheres: int = 8,
+    base_radius: float = 0.4,
+    seed: int = 7,
+):
+    """Generate an anime-style 3D cluster of overlapping spheres expanding and eroding with phase.
+
+    Returns a trimesh.Trimesh object representing the solid explosion volume.
+    """
+    import trimesh
+
+    rng = np.random.default_rng(seed)
+    t = float(np.clip(phase, 0.0, 1.0))
+
+    # Rapid expansion, then deceleration
+    scale = Easing.ease_out(t) * 2.0
+    spheres = []
+
+    # Central main core
+    r_center = max(0.01, base_radius * (1.0 + scale * 0.6) * (1.0 - t * 0.8))
+    core = trimesh.creation.icosphere(subdivisions=2, radius=r_center)
+    spheres.append(core)
+
+    # Surrounding cluster lobes
+    for i in range(num_spheres):
+        angle = (2.0 * np.pi / num_spheres) * i + rng.uniform(-0.2, 0.2)
+        elevation = rng.uniform(-0.5, 0.5)
+        dist = scale * base_radius * rng.uniform(0.7, 1.3)
+        sx = dist * np.cos(angle)
+        sy = dist * np.sin(angle)
+        sz = dist * elevation
+
+        # Spheres shrink as they travel outward
+        sub_r = max(0.01, base_radius * 0.6 * (1.0 - t * 0.85) * rng.uniform(0.7, 1.2))
+        lobe = trimesh.creation.icosphere(subdivisions=1, radius=sub_r)
+        lobe.apply_translation([sx, sy, sz])
+        spheres.append(lobe)
+
+    combined = trimesh.util.concatenate(spheres)
+    # Cel-shaded vertex color: bright white-hot center early, orange-red late
+    heat = max(0.0, 1.0 - t)
+    r = int(255)
+    g = int(np.clip(100 + heat * 155, 0, 255))
+    b = int(np.clip(heat * 200, 0, 255))
+    color = np.array([r, g, b, 255], dtype=np.uint8)
+    combined.visual = trimesh.visual.ColorVisuals(
+        mesh=combined,
+        face_colors=np.tile(color, (len(combined.faces), 1)),
+    )
+    return combined
+
+
+class EmitterStack:
+    """Multi-layer VFX frame compositor for orchestrating stylized multi-stage effects."""
+
+    def __init__(self, size: int = 128):
+        self.size = size
+        self.layers: List[Callable[[float, int], Optional[Image.Image]]] = []
+
+    def add_layer(self, generator_fn: Callable[[float, int], Optional[Image.Image]]) -> "EmitterStack":
+        """Add a layer callable (phase: float, size: int) -> Optional[Image.Image]."""
+        self.layers.append(generator_fn)
+        return self
+
+    def composite_frame(self, phase: float) -> Image.Image:
+        """Composite all layers for a given phase in order."""
+        base = Image.new("RGBA", (self.size, self.size), (0, 0, 0, 0))
+        for fn in self.layers:
+            layer_img = fn(phase, self.size)
+            if layer_img is not None:
+                base = Image.alpha_composite(base, layer_img.convert("RGBA"))
+        # Clean border gutter
+        draw = ImageDraw.Draw(base)
+        draw.rectangle([0, 0, self.size - 1, self.size - 1], outline=(0, 0, 0, 0))
+        return base
+

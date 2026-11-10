@@ -5,7 +5,7 @@ import hashlib
 import json
 from importlib.metadata import version
 from pathlib import Path
-from typing import Any, Dict, Optional, Sequence
+from typing import Any, Dict, Iterable, List, Optional, Sequence
 
 
 def sha256(path_or_bytes: Path | bytes | str) -> str:
@@ -37,6 +37,7 @@ class Manifest:
     sha256: Dict[str, str] = field(default_factory=dict)
     recipe: Optional[str] = None
     extra: Dict[str, Any] = field(default_factory=dict)
+    vault_refs: Dict[str, List[str]] = field(default_factory=dict)
 
     def record_artifact(self, file_path: Path | str) -> "Manifest":
         """Record checksum of an output artifact file."""
@@ -45,12 +46,37 @@ class Manifest:
             self.sha256[p.name] = sha256(p)
         return self
 
-    def scan_directory(self, directory: Path | str, exclude_name: str = "manifest.json") -> "Manifest":
-        """Scan directory and record checksums of all non-manifest files."""
+    def scan_directory(
+        self,
+        directory: Path | str,
+        exclude_name: str = "manifest.json",
+        only: Optional[Iterable[str]] = None,
+    ) -> "Manifest":
+        """Record checksums of non-manifest files in ``directory``.
+
+        ``only`` restricts hashing to files whose names start with one of the given
+        prefixes (e.g. the asset name), so stale files from other versions are ignored.
+        """
         dir_path = Path(directory)
+        prefixes = tuple(only) if only is not None else None
         for p in sorted(dir_path.iterdir()):
-            if p.is_file() and p.name != exclude_name:
-                self.sha256[p.name] = sha256(p)
+            if not p.is_file() or p.name == exclude_name:
+                continue
+            if prefixes is not None and not (p.name.startswith(prefixes) or p.name in ("generate.py", "preview.png", "preview.gif")):
+                continue
+            self.sha256[p.name] = sha256(p)
+        return self
+
+    def declare_vault(self, doc: str, *symbols: str) -> "Manifest":
+        """Declare that this recipe applies a vault document, via the named pipeline symbols.
+
+        ``doc`` is relative to ``vault/`` (e.g. ``"mathematics/noise_and_fields/worley_cellular_noise.md"``).
+        ``python -m asset_pipeline audit`` verifies each symbol is really called in the recipe.
+        """
+        self.vault_refs.setdefault(doc, [])
+        for sym in symbols:
+            if sym not in self.vault_refs[doc]:
+                self.vault_refs[doc].append(sym)
         return self
 
     def to_dict(self) -> Dict[str, Any]:
@@ -63,6 +89,8 @@ class Manifest:
         }
         if self.recipe:
             data["recipe"] = self.recipe
+        if self.vault_refs:
+            data["vault_refs"] = self.vault_refs
         if self.extra:
             data.update(self.extra)
         return data

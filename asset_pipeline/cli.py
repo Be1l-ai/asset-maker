@@ -58,6 +58,13 @@ def main():
     new_parser.add_argument("destination", type=Path, help="Target folder (e.g. assets/sword)")
     new_parser.add_argument("--name", type=str, default=None, help="Asset identifier name")
 
+    audit_parser = subparsers.add_parser("audit", help="Audit asset recipe(s): unused imports, vault_refs, stale hashes")
+    audit_parser.add_argument("assets", type=Path, nargs="+", help="Asset folder(s)")
+
+    cmp_parser = subparsers.add_parser("compare", help="Print metrics for two asset files side by side")
+    cmp_parser.add_argument("a", type=Path)
+    cmp_parser.add_argument("b", type=Path)
+
     args = parser.parse_args()
 
     if args.command == "list":
@@ -67,6 +74,17 @@ def main():
         target = init_asset(args.template, args.destination, args.name)
         print(f"✓ Created new asset in {target}")
         print(f"  Next step: cd {target} && python generate.py")
+    elif args.command == "audit":
+        from .audit import audit_recipe
+        failed = False
+        for folder in args.assets:
+            report = audit_recipe(folder)
+            print(report.format())
+            failed |= not report.ok
+        sys.exit(1 if failed else 0)
+    elif args.command == "compare":
+        from .audit import compare_assets
+        print(compare_assets(args.a, args.b))
     else:
         parser.print_help()
 

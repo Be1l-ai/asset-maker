@@ -161,6 +161,72 @@ class AssetValidator:
         return report
 
 
+    @classmethod
+    def validate_silhouette(
+        cls,
+        path: Path | str,
+        max_components: int = 1,
+        min_fill: float = 0.03,
+        max_fill: float = 0.90,
+    ) -> ValidationReport:
+        """Reject sprites whose opaque region is fragmented or empty/overfull (e.g. broken masks)."""
+        from .audit import silhouette_report
+
+        p = Path(path)
+        errors: List[str] = []
+        metrics: Dict[str, Any] = {}
+        try:
+            metrics = silhouette_report(p)
+            if metrics["components"] > max_components:
+                errors.append(f"Silhouette has {metrics['components']} disconnected parts; expected <= {max_components}")
+            if not (min_fill <= metrics["fill_ratio"] <= max_fill):
+                errors.append(f"Silhouette fill {metrics['fill_ratio']:.3f} outside [{min_fill}, {max_fill}]")
+        except Exception as exc:
+            errors.append(str(exc))
+        report = ValidationReport(passed=not errors, path=p, metrics=metrics, errors=errors)
+        report.raise_for_status()
+        return report
+
+    @classmethod
+    def validate_mesh_shading(cls, mesh: Any, max_ground_ratio: float = 0.85) -> ValidationReport:
+        """Require baked ground-contact darkening (flat-shaded props fail)."""
+        from .audit import mesh_ground_darkening
+
+        ratio = mesh_ground_darkening(mesh)
+        errors = [] if ratio <= max_ground_ratio else [
+            f"Ground darkening ratio {ratio:.2f} > {max_ground_ratio}; ground AO is missing or too weak"
+        ]
+        report = ValidationReport(passed=not errors, path=Path("<mesh>"), metrics={"ground_darkening": ratio}, errors=errors)
+        report.raise_for_status()
+        return report
+
+    @classmethod
+    def validate_seamless(cls, path: Path | str, max_ratio: float = 2.0) -> ValidationReport:
+        """Check a tile's wrapped-edge discontinuity is comparable to ordinary pixel-to-pixel change."""
+        from .audit import seam_error
+
+        ratio = seam_error(path)
+        errors = [] if ratio <= max_ratio else [f"Seam error ratio {ratio:.2f} > {max_ratio}; tile is not seamless"]
+        report = ValidationReport(passed=not errors, path=Path(path), metrics={"seam_ratio": ratio}, errors=errors)
+        report.raise_for_status()
+        return report
+
+    @classmethod
+    def validate_animation(cls, path: Path | str, columns: int, rows: int, min_motion: float = 0.2, max_motion_ratio: float = 12.0) -> ValidationReport:
+        """Check flipbook frames change over time and no single frame jumps wildly (jitter / dead anim)."""
+        from .audit import frame_motion_profile
+
+        profile = frame_motion_profile(path, columns, rows)[1:]
+        errors: List[str] = []
+        if not profile or float(np.mean(profile)) < min_motion:
+            errors.append("Flipbook frames barely change; animation is static")
+        elif max(profile) > max_motion_ratio * (float(np.median(profile)) + 1e-6):
+            errors.append("Flipbook has an abrupt frame-to-frame jump (possible re-randomized emitters)")
+        report = ValidationReport(passed=not errors, path=Path(path), metrics={"motion": profile}, errors=errors)
+        report.raise_for_status()
+        return report
+
+
 # Functional aliases for backwards-compatibility
 def inspect_wav(path: Path | str) -> Dict[str, Any]:
     return AssetValidator.validate_wav(path).metrics

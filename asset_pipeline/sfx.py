@@ -97,6 +97,34 @@ class SoundSynthesizer:
         n_samples = int(self.rate * duration)
         return envelope_adsr(n_samples, self.rate, attack, decay, sustain, release)
 
+    def bell_resonator(self, f0: float = 440.0, duration: float = 2.0) -> Sound:
+        """Synthesize a bronze bell using acoustic ratios (Hum 0.5, Prime 1.0, Tierce 1.2, Quint 1.5, Nominal 2.0)."""
+        freqs = [f0 * 0.5, f0 * 1.0, f0 * 1.2, f0 * 1.5, f0 * 2.0]
+        decays = [2.5, 4.0, 5.5, 7.0, 9.0]
+        amps = [0.85, 1.0, 0.6, 0.45, 0.35]
+        return self.modal_resonator(duration, freqs, decays, amps)
+
+    def wood_resonator(self, f0: float = 520.0, duration: float = 0.4) -> Sound:
+        """Synthesize an undercut wooden bar/marimba using tuned octave ratios (1.0, 4.0, 10.0)."""
+        freqs = [f0 * 1.0, f0 * 4.0, f0 * 10.0]
+        decays = [28.0, 45.0, 65.0]
+        amps = [1.0, 0.4, 0.15]
+        return self.modal_resonator(duration, freqs, decays, amps)
+
+    def glass_resonator(self, f0: float = 880.0, duration: float = 1.5) -> Sound:
+        """Synthesize a glass bowl/chime using circumferential flexural ratios (1.0, 2.32, 4.15, 6.70)."""
+        freqs = [f0 * 1.0, f0 * 2.32, f0 * 4.15, f0 * 6.70]
+        decays = [3.5, 6.0, 9.5, 14.0]
+        amps = [1.0, 0.5, 0.25, 0.12]
+        return self.modal_resonator(duration, freqs, decays, amps)
+
+    def tubular_chime_resonator(self, f0: float = 600.0, duration: float = 1.8) -> Sound:
+        """Synthesize a hollow metal tubular bell chime using ratios (1.0, 4.2, 9.7)."""
+        freqs = [f0 * 1.0, f0 * 4.2, f0 * 9.7]
+        decays = [4.0, 7.5, 12.0]
+        amps = [1.0, 0.55, 0.25]
+        return self.modal_resonator(duration, freqs, decays, amps)
+
 
 # Functional helpers for backwards-compatibility
 def to_pcm16(signal: np.ndarray, headroom_db: float = -3.0) -> np.ndarray:
@@ -170,3 +198,47 @@ def resonator(
     for f, d, a in zip(frequencies, decays, amplitudes):
         out += a * np.sin(2 * np.pi * f * t) * np.exp(-d * t)
     return out
+
+
+def spatial_stereo_pan(
+    sound: Sound,
+    pan: float = 0.0,
+    haas_delay_ms: float = 0.0,
+) -> np.ndarray:
+    """Apply constant-power panning and optional Haas psychoacoustic delay to a mono Sound.
+
+    Parameters:
+        sound: Mono Sound object.
+        pan: Panning position from -1.0 (hard left) to +1.0 (hard right). 0.0 is center.
+        haas_delay_ms: Inter-aural time difference delay in milliseconds (typically 1.0 to 15.0 ms).
+
+    Returns:
+        2D float64 array of shape (N, 2) where column 0 is Left and column 1 is Right.
+    """
+    pan_clamped = float(np.clip(pan, -1.0, 1.0))
+    # Constant power panning angles (0 to pi/2)
+    theta = (pan_clamped + 1.0) * (np.pi / 4.0)
+    left_gain = np.cos(theta)
+    right_gain = np.sin(theta)
+
+    mono = sound.samples
+    left_chan = mono * left_gain
+    right_chan = mono * right_gain
+
+    # Apply Haas delay if requested
+    if haas_delay_ms > 0:
+        delay_samples = int(round((haas_delay_ms / 1000.0) * sound.rate))
+        if delay_samples > 0:
+            if pan_clamped >= 0:
+                # Sound pans right -> left ear receives delayed signal
+                delayed = np.zeros_like(left_chan)
+                delayed[delay_samples:] = left_chan[:-delay_samples]
+                left_chan = delayed
+            else:
+                # Sound pans left -> right ear receives delayed signal
+                delayed = np.zeros_like(right_chan)
+                delayed[delay_samples:] = right_chan[:-delay_samples]
+                right_chan = delayed
+
+    return np.column_stack([left_chan, right_chan])
+
