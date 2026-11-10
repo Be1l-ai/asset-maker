@@ -56,6 +56,7 @@ def main():
     sprite2d.create_tiled_preview(image, grid=(3, 3)).save(preview_file)
 
     AssetValidator.validate_png(asset_file, require_alpha=False)
+    AssetValidator.validate_seamless(asset_file)
 
     manifest = Manifest(
         asset=asset_file.name,

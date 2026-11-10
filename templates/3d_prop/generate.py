@@ -11,19 +11,22 @@ ROOT = next((p for p in Path(__file__).resolve().parents if (p / "asset_pipeline
 if ROOT and str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from asset_pipeline import AssetValidator, Manifest, MeshBuilder, SolidMesh
+from asset_pipeline import AssetValidator, Manifest, MeshBuilder, SolidMesh, bake_ground_ao
 
 ASSET_NAME = "model"
 
 
 def build(seed: int = 7) -> SolidMesh:
     """Agent edits this function to construct watertight 3D solid geometry."""
-    return (
+    mesh = (
         MeshBuilder(seed=seed)
         .cylinder(radius=0.35, height=0.25, sections=8, color=[70, 75, 85, 255])
         .pyramid(base_radius=0.28, height=0.90, sections=6, offset=[0, 0, 0.25], color=[110, 195, 245, 255])
         .build()
     )
+    bake_ground_ao(mesh, height=0.35, strength=0.45)
+    mesh.ensure_watertight()
+    return mesh
 
 
 def main():
@@ -46,6 +49,7 @@ def main():
     mesh.render_preview(preview_file)
 
     AssetValidator.validate_mesh(glb_file, max_triangles=3000, watertight=True)
+    AssetValidator.validate_mesh_shading(mesh)
 
     manifest = Manifest(
         asset=glb_file.name,

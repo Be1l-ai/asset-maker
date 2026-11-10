@@ -59,6 +59,7 @@ def main():
     flipbook.export_preview(preview_png)
 
     AssetValidator.validate_png(atlas_file, require_alpha=True, columns=args.columns, rows=rows)
+    AssetValidator.validate_animation(atlas_file, columns=args.columns, rows=rows)
 
     manifest = Manifest(
         asset=atlas_file.name,

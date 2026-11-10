@@ -65,6 +65,7 @@ def main():
     canvas.export_dual_preview(preview_file)
 
     AssetValidator.validate_png(asset_file, require_alpha=True)
+    AssetValidator.validate_silhouette(asset_file, max_components=1)
 
     manifest = Manifest(
         asset=asset_file.name,
