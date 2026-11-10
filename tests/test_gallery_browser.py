@@ -169,7 +169,7 @@ class GalleryBrowserTests(unittest.TestCase):
             self.assertTrue(any(name.endswith("model.glb") for name in archive.namelist()))
             self.assertTrue(any(name.endswith("sound.wav") for name in archive.namelist()))
             self.assertTrue(any(name.endswith("pine-tree/model.glb") for name in archive.namelist()))
-            self.assertIn("fx_pipeline/generate_gallery_expansion.py", archive.namelist())
+            self.assertIn("asset_pipeline/generate_gallery_expansion.py", archive.namelist())
 
     def test_original_collection_still_downloads(self):
         with self.page.expect_download() as download:

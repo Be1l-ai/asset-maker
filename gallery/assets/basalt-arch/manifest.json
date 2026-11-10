@@ -17,12 +17,12 @@
     "trimesh": "5.2.0",
     "manifold3d": "3.5.4"
   },
-  "recipe": "fx_pipeline/generate_gallery.py",
+  "recipe": "asset_pipeline/generate_gallery.py",
   "source_snapshot": "generate_gallery.py",
   "starter": null,
   "reproduce": {
     "requirements": "requirements-code-assets.txt",
-    "command": "python fx_pipeline/generate_gallery.py --out new-dir",
+    "command": "python asset_pipeline/generate_gallery.py --out new-dir",
     "note": "Run from extracted pack with pinned dependencies. Existing collections are never overwritten."
   },
   "review": "Structural checks only; listening, animation playback, and target-engine review remain pending.",
@@ -62,7 +62,7 @@
     "topology": "Separate closed components; watertightness measured after positional welding."
   },
   "source_dependencies_sha256": {
-    "fx_pipeline/generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "asset_pipeline/generate_gallery.py": "78b34868cc2ab0cc2650b4e961bd4bbd3d65e59fdf5b6513a76415ff6fbebd83",
     "requirements-code-assets.txt": "fb5e78539a368d312bdc6f7f3e546c036b7014e4c7c8b2b76a68ac554d99d24c",
     ".qoder/skills/create-3d-assets/scripts/build.py": "8bed416164a526f08b0e47532899c13fc6e029887e015fd59f3a96aff72eb91f",
     ".qoder/skills/create-2d-assets/scripts/draw.py": "9bb05142e9982e5947ed001e092e63ab74593517beb87bc33e2e275caeab1d02",
@@ -70,7 +70,7 @@
     ".qoder/skills/create-sfx/scripts/synthesize.py": "415b77f830155bd3ed759eeecf0092981e474b10fcab6a3533ea1a2530068b1f"
   },
   "sha256": {
-    "generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "generate_gallery.py": "78b34868cc2ab0cc2650b4e961bd4bbd3d65e59fdf5b6513a76415ff6fbebd83",
     "mesh.json": "6c46dc2340e58c8cd7e525d7f324d5487e41ecb29f9088314af063c94cf292b6",
     "model.glb": "7ae13f0d8487839a189c66c19a8ea246d765da84c83f0baf38e3eff79655c01a",
     "model.obj": "596daee124c75e4019f044e6196b1c65324b02938a93c01d9e3e952b97086188",

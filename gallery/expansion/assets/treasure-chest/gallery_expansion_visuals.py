@@ -6,7 +6,7 @@ import numpy as np
 import trimesh
 from PIL import Image, ImageDraw
 
-from fx_pipeline.generate_gallery import paint, ring_solid, beveled_hexahedron
+from asset_pipeline.generate_gallery import paint, ring_solid, beveled_hexahedron
 
 __all__ = ["pine_tree", "treasure_chest", "shield_icon", "dialog_panel", "RECIPES"]
 

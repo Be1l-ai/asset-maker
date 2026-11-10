@@ -12,7 +12,7 @@
         "mint"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/crystal-cluster/manifest.json",
       "file": "gallery/assets/crystal-cluster/model.glb",
       "preview": "gallery/assets/crystal-cluster/preview.png",
@@ -38,7 +38,7 @@
         "prop"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/lantern/manifest.json",
       "file": "gallery/assets/lantern/model.glb",
       "preview": "gallery/assets/lantern/preview.png",
@@ -64,7 +64,7 @@
         "moss"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/basalt-arch/manifest.json",
       "file": "gallery/assets/basalt-arch/model.glb",
       "preview": "gallery/assets/basalt-arch/preview.png",
@@ -90,7 +90,7 @@
         "cyan"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/potion/manifest.json",
       "file": "gallery/assets/potion/image.png",
       "preview": "gallery/assets/potion/image.png",
@@ -113,7 +113,7 @@
         "token"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/rune-token/manifest.json",
       "file": "gallery/assets/rune-token/image.png",
       "preview": "gallery/assets/rune-token/image.png",
@@ -136,7 +136,7 @@
         "stone"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/moss-tile/manifest.json",
       "file": "gallery/assets/moss-tile/image.png",
       "preview": "gallery/assets/moss-tile/image.png",
@@ -159,7 +159,7 @@
         "blue"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/arcane-portal/manifest.json",
       "file": "gallery/assets/arcane-portal/atlas.png",
       "preview": "gallery/assets/arcane-portal/preview.png",
@@ -190,7 +190,7 @@
         "warm"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/ember-plume/manifest.json",
       "file": "gallery/assets/ember-plume/atlas.png",
       "preview": "gallery/assets/ember-plume/preview.png",
@@ -221,7 +221,7 @@
         "amber"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/shockwave/manifest.json",
       "file": "gallery/assets/shockwave/atlas.png",
       "preview": "gallery/assets/shockwave/preview.png",
@@ -252,7 +252,7 @@
         "modal"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/metal-impact/manifest.json",
       "file": "gallery/assets/metal-impact/sound.wav",
       "waveform": [
@@ -375,7 +375,7 @@
         "bright"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/glass-chime/manifest.json",
       "file": "gallery/assets/glass-chime/sound.wav",
       "waveform": [
@@ -498,7 +498,7 @@
         "three-tone"
       ],
       "seed": 7,
-      "recipe": "fx_pipeline/generate_gallery.py",
+      "recipe": "asset_pipeline/generate_gallery.py",
       "manifest": "gallery/assets/ui-confirm/manifest.json",
       "file": "gallery/assets/ui-confirm/sound.wav",
       "waveform": [

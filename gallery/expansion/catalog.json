@@ -16,14 +16,14 @@
         "meters"
       ],
       "seed": 19,
-      "recipe": "fx_pipeline/generate_gallery_expansion.py",
+      "recipe": "asset_pipeline/generate_gallery_expansion.py",
       "manifest": "gallery/expansion/assets/pine-tree/manifest.json",
       "review": "Front, side and depth-buffered obliques show pointed, folded boughs and a readable trunk; foliage looks origami-like. Faceted solid foliage reads as stylized clumps, not botanical needles.",
       "yaw": 0.65,
       "file": "gallery/expansion/assets/pine-tree/model.glb",
       "preview": "gallery/expansion/assets/pine-tree/preview.png",
       "model": "gallery/expansion/assets/pine-tree/mesh.json",
-      "meta": "868 tris \u00b7 GLB / OBJ",
+      "meta": "868 tris · GLB / OBJ",
       "stats": {
         "Triangles": "868",
         "Vertices": "466",
@@ -46,14 +46,14 @@
         "meters"
       ],
       "seed": 19,
-      "recipe": "fx_pipeline/generate_gallery_expansion.py",
+      "recipe": "asset_pipeline/generate_gallery_expansion.py",
       "manifest": "gallery/expansion/assets/treasure-chest/manifest.json",
       "review": "Depth-buffered front/back obliques clearly show both straps, planks, feet and latch; side lid caps look plain. Closed static assembly: solid backing, no usable interior, separate lid rig or working hinges.",
       "yaw": 2.491592653589793,
       "file": "gallery/expansion/assets/treasure-chest/model.glb",
       "preview": "gallery/expansion/assets/treasure-chest/preview.png",
       "model": "gallery/expansion/assets/treasure-chest/mesh.json",
-      "meta": "2856 tris \u00b7 GLB / OBJ",
+      "meta": "2856 tris · GLB / OBJ",
       "stats": {
         "Triangles": "2856",
         "Vertices": "1570",
@@ -76,14 +76,14 @@
         "RGBA"
       ],
       "seed": 19,
-      "recipe": "fx_pipeline/generate_gallery_expansion.py",
+      "recipe": "asset_pipeline/generate_gallery_expansion.py",
       "manifest": "gallery/expansion/assets/shield-icon/manifest.json",
       "review": "Light/dark 32px and 64px reviews retain the crowned shield and bright spear; tiny fasteners lose definition. At 32px the jewel and rivets merge into accents; the winged spear is deliberately simplified.",
       "file": "gallery/expansion/assets/shield-icon/image.png",
       "preview": "gallery/expansion/assets/shield-icon/image.png",
-      "meta": "384 \u00d7 384 \u00b7 RGBA",
+      "meta": "384 × 384 · RGBA",
       "stats": {
-        "Resolution": "384 \u00d7 384",
+        "Resolution": "384 × 384",
         "Format": "RGBA PNG",
         "Tiling": "None"
       }
@@ -103,14 +103,14 @@
         "RGBA"
       ],
       "seed": 19,
-      "recipe": "fx_pipeline/generate_gallery_expansion.py",
+      "recipe": "asset_pipeline/generate_gallery_expansion.py",
       "manifest": "gallery/expansion/assets/dialog-panel/manifest.json",
       "review": "384px light/dark and wide/tall sliced previews preserve straight rails and corner proportions. Must use the declared slices; uniform whole-image resizing also scales the border.",
       "file": "gallery/expansion/assets/dialog-panel/image.png",
       "preview": "gallery/expansion/assets/dialog-panel/image.png",
-      "meta": "384 \u00d7 384 \u00b7 RGBA",
+      "meta": "384 × 384 · RGBA",
       "stats": {
-        "Resolution": "384 \u00d7 384",
+        "Resolution": "384 × 384",
         "Format": "RGBA PNG",
         "Tiling": "None",
         "9-slice insets": "64 px each side"
@@ -136,7 +136,7 @@
         "alpha"
       ],
       "seed": 19,
-      "recipe": "fx_pipeline/generate_gallery_expansion.py",
+      "recipe": "asset_pipeline/generate_gallery_expansion.py",
       "manifest": "gallery/expansion/assets/dust-puff/manifest.json",
       "review": "Stylized 2D pigment fields, not fluid dynamics. Overlapping lobes can look soft or sculpted rather than turbulent. No ground collision or depth sorting against a scene; light backgrounds reduce tail contrast. Scene compositing and target-engine review remain pending.",
       "file": "gallery/expansion/assets/dust-puff/atlas.png",
@@ -148,11 +148,11 @@
       "fps": 16,
       "loop": false,
       "posterFrame": 4,
-      "meta": "16 frames \u00b7 128 \u00d7 128",
+      "meta": "16 frames · 128 × 128",
       "stats": {
         "Frames": "16",
-        "Frame size": "128 \u00d7 128",
-        "Atlas": "512 \u00d7 512",
+        "Frame size": "128 × 128",
+        "Atlas": "512 × 512",
         "FPS": "16",
         "Playback": "One-shot"
       }
@@ -169,7 +169,7 @@
         "one-shot"
       ],
       "seed": 19,
-      "recipe": "fx_pipeline/generate_gallery_expansion.py",
+      "recipe": "asset_pipeline/generate_gallery_expansion.py",
       "manifest": "gallery/expansion/assets/forked-lightning/manifest.json",
       "review": "Stylized fixed polyline topology, not dielectric breakdown. Faint residual channels intentionally keep interior frames nonempty; late frames may be nearly invisible on light backgrounds. 16 FPS undersamples fast flashes; additive blend and engine timing need review.",
       "file": "gallery/expansion/assets/forked-lightning/atlas.png",
@@ -181,11 +181,11 @@
       "fps": 16,
       "loop": false,
       "posterFrame": 5,
-      "meta": "16 frames \u00b7 128 \u00d7 128",
+      "meta": "16 frames · 128 × 128",
       "stats": {
         "Frames": "16",
-        "Frame size": "128 \u00d7 128",
-        "Atlas": "512 \u00d7 512",
+        "Frame size": "128 × 128",
+        "Atlas": "512 × 512",
         "FPS": "16",
         "Playback": "One-shot"
       }
@@ -203,7 +203,7 @@
         "one-shot"
       ],
       "seed": 19,
-      "recipe": "fx_pipeline/generate_gallery_expansion.py",
+      "recipe": "asset_pipeline/generate_gallery_expansion.py",
       "manifest": "gallery/expansion/assets/gravel-step/manifest.json",
       "review": "Mathematical synthesis with no recorded surfaces or resonant stone model. Filtered grains may read as generic crunch or static; footwear, weight and gravel scale need listening review. Mono, no spatial acoustics. No listening or target-engine review performed.",
       "file": "gallery/expansion/assets/gravel-step/sound.wav",
@@ -306,7 +306,7 @@
         1.9e-05
       ],
       "duration": 0.55,
-      "meta": "0.55 s \u00b7 48 kHz / 16-bit",
+      "meta": "0.55 s · 48 kHz / 16-bit",
       "stats": {
         "Duration": "0.55 s",
         "Sample rate": "48 kHz",
@@ -328,7 +328,7 @@
         "mono"
       ],
       "seed": 19,
-      "recipe": "fx_pipeline/generate_gallery_expansion.py",
+      "recipe": "asset_pipeline/generate_gallery_expansion.py",
       "manifest": "gallery/expansion/assets/charge-release/manifest.json",
       "review": "Designed sci-fi signal, not realistic electricity. Anticipation is intentionally tonal; the release can sound like filtered noise rather than a physical blast. Sparse delayed copies are not a room simulation. No listening or target-engine review performed.",
       "file": "gallery/expansion/assets/charge-release/sound.wav",
@@ -431,7 +431,7 @@
         0.000451
       ],
       "duration": 1.4,
-      "meta": "1.40 s \u00b7 48 kHz / 16-bit",
+      "meta": "1.40 s · 48 kHz / 16-bit",
       "stats": {
         "Duration": "1.40 s",
         "Sample rate": "48 kHz",
@@ -461,7 +461,7 @@
       "file": "gallery/expansion/assets/mana-obelisk/model.glb",
       "preview": "gallery/expansion/assets/mana-obelisk/preview.png",
       "model": "gallery/expansion/assets/mana-obelisk/mesh.json",
-      "meta": "200 tris \u00b7 GLB / OBJ",
+      "meta": "200 tris · GLB / OBJ",
       "stats": {
         "Triangles": "200",
         "Vertices": "102",
@@ -493,7 +493,7 @@
       "file": "gallery/expansion/assets/mana-obelisk-v2/model.glb",
       "preview": "gallery/expansion/assets/mana-obelisk-v2/preview.png",
       "model": "gallery/expansion/assets/mana-obelisk-v2/mesh.json",
-      "meta": "1144 tris \u00b7 GLB / OBJ",
+      "meta": "1144 tris · GLB / OBJ",
       "stats": {
         "Triangles": "1144",
         "Vertices": "574",
@@ -522,9 +522,9 @@
       "review": "V1 baseline 2D raster icon created with uniform stroke outlines without Knowledge Vault art style rules.",
       "file": "gallery/expansion/assets/health-potion/image.png",
       "preview": "gallery/expansion/assets/health-potion/image.png",
-      "meta": "256 \u00d7 256 \u00b7 RGBA",
+      "meta": "256 × 256 · RGBA",
       "stats": {
-        "Resolution": "256 \u00d7 256",
+        "Resolution": "256 × 256",
         "Format": "RGBA PNG",
         "Tiling": "None"
       }
@@ -550,9 +550,9 @@
       "review": "V2 enhanced 2D icon adhering to 70/30 proportion hierarchy, temperature color shifts, and normal map generation.",
       "file": "gallery/expansion/assets/health-potion-v2/image.png",
       "preview": "gallery/expansion/assets/health-potion-v2/image.png",
-      "meta": "256 \u00d7 256 \u00b7 RGBA",
+      "meta": "256 × 256 · RGBA",
       "stats": {
-        "Resolution": "256 \u00d7 256",
+        "Resolution": "256 × 256",
         "Format": "RGBA PNG",
         "Tiling": "None"
       }
@@ -578,9 +578,9 @@
       "review": "V1 baseline seamless tile using periodic sine wave mortar channels.",
       "file": "gallery/expansion/assets/dungeon-bricks/image.png",
       "preview": "gallery/expansion/assets/dungeon-bricks/image.png",
-      "meta": "256 \u00d7 256 \u00b7 RGBA",
+      "meta": "256 × 256 · RGBA",
       "stats": {
-        "Resolution": "256 \u00d7 256",
+        "Resolution": "256 × 256",
         "Format": "RGBA PNG",
         "Tiling": "XY periodic"
       }
@@ -607,9 +607,9 @@
       "review": "V2 enhanced tile with continuous distance field beveling, Worley chipping, and tangent space normal map.",
       "file": "gallery/expansion/assets/dungeon-bricks-v2/image.png",
       "preview": "gallery/expansion/assets/dungeon-bricks-v2/image.png",
-      "meta": "256 \u00d7 256 \u00b7 RGBA",
+      "meta": "256 × 256 · RGBA",
       "stats": {
-        "Resolution": "256 \u00d7 256",
+        "Resolution": "256 × 256",
         "Format": "RGBA PNG",
         "Tiling": "XY periodic"
       }
@@ -641,11 +641,11 @@
       "fps": 16,
       "loop": false,
       "posterFrame": 4,
-      "meta": "16 frames \u00b7 128 \u00d7 128",
+      "meta": "16 frames · 128 × 128",
       "stats": {
         "Frames": "16",
-        "Frame size": "128 \u00d7 128",
-        "Atlas": "512 \u00d7 512",
+        "Frame size": "128 × 128",
+        "Atlas": "512 × 512",
         "FPS": "16",
         "Playback": "One-shot"
       }
@@ -679,11 +679,11 @@
       "fps": 16,
       "loop": false,
       "posterFrame": 5,
-      "meta": "16 frames \u00b7 128 \u00d7 128",
+      "meta": "16 frames · 128 × 128",
       "stats": {
         "Frames": "16",
-        "Frame size": "128 \u00d7 128",
-        "Atlas": "512 \u00d7 512",
+        "Frame size": "128 × 128",
+        "Atlas": "512 × 512",
         "FPS": "16",
         "Playback": "One-shot"
       }
@@ -806,7 +806,7 @@
         0.000668
       ],
       "duration": 1.25,
-      "meta": "1.25 s \u00b7 48 kHz",
+      "meta": "1.25 s · 48 kHz",
       "stats": {
         "Duration": "1.25 s",
         "Sample rate": "48 kHz",
@@ -934,7 +934,7 @@
         0.001792
       ],
       "duration": 1.5,
-      "meta": "1.50 s \u00b7 48 kHz",
+      "meta": "1.50 s · 48 kHz",
       "stats": {
         "Duration": "1.50 s",
         "Sample rate": "48 kHz",

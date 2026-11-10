@@ -17,12 +17,12 @@
     "trimesh": "5.2.0",
     "manifold3d": "3.5.4"
   },
-  "recipe": "fx_pipeline/generate_gallery.py",
+  "recipe": "asset_pipeline/generate_gallery.py",
   "source_snapshot": "generate_gallery.py",
   "starter": ".qoder/skills/create-vfx/scripts/render.py",
   "reproduce": {
     "requirements": "requirements-code-assets.txt",
-    "command": "python fx_pipeline/generate_gallery.py --out new-dir",
+    "command": "python asset_pipeline/generate_gallery.py --out new-dir",
     "note": "Run from extracted pack with pinned dependencies. Existing collections are never overwritten."
   },
   "review": "Structural checks only; listening, animation playback, and target-engine review remain pending.",
@@ -67,7 +67,7 @@
   "mean_adjacent_rgba_delta": 6.2734375,
   "wrap_rgba_delta": 6.03564453125,
   "source_dependencies_sha256": {
-    "fx_pipeline/generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "asset_pipeline/generate_gallery.py": "78b34868cc2ab0cc2650b4e961bd4bbd3d65e59fdf5b6513a76415ff6fbebd83",
     "requirements-code-assets.txt": "fb5e78539a368d312bdc6f7f3e546c036b7014e4c7c8b2b76a68ac554d99d24c",
     ".qoder/skills/create-3d-assets/scripts/build.py": "8bed416164a526f08b0e47532899c13fc6e029887e015fd59f3a96aff72eb91f",
     ".qoder/skills/create-2d-assets/scripts/draw.py": "9bb05142e9982e5947ed001e092e63ab74593517beb87bc33e2e275caeab1d02",
@@ -76,7 +76,7 @@
   },
   "sha256": {
     "atlas.png": "b6b39302c34e5454e16326c612dc62e47d83857fecdc13120316628763ee3e33",
-    "generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
+    "generate_gallery.py": "78b34868cc2ab0cc2650b4e961bd4bbd3d65e59fdf5b6513a76415ff6fbebd83",
     "preview.png": "55f01c2cedca489868cb5173a6a346a20c327c2581d34e0c9d39b7a58d64099a",
     "starter.py": "23220e41c06f96dec2b3d97a81eba7004556b08b313cbe7fdae1057ddd97f110"
   }

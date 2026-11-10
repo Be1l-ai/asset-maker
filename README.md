@@ -97,12 +97,10 @@ For library information and guidelines, see [`skills/create-game-assets/referenc
 
 ```
 ├── skills/                     # Canonical Agent Skills
-├── fx_pipeline/                # Generation scripts and procedural helpers
+├── vault/                      # Procedural Game Asset Knowledge Vault
+├── asset_pipeline/             # Modular Python SDK, validators, and gallery generators
 │   ├── generate_gallery.py     # Base gallery generator
-│   ├── generate_gallery_expansion.py
-│   ├── generate_flipbooks.py   # Flipbook VFX pipeline
-│   ├── generate_sfx.py         # Procedural SFX generator
-│   └── helpers/                # Procedural audio and VFX algorithms
+│   └── generate_gallery_expansion.py
 ├── gallery/                    # Gallery data, assets, and collection ZIPs
 ├── tests/                      # Comprehensive test suite
 ├── index.html                  # Responsive gallery frontend

@@ -81,11 +81,10 @@ When tasked with generating a new game asset:
 
 ## Repository Structure
 
-- `asset_pipeline/`: Clean, modular Python library for procedural 2D, 3D, VFX, and SFX creation.
+- `asset_pipeline/`: Clean, modular Python library for procedural 2D, 3D, VFX, SFX, and gallery creation.
+- `vault/`: Curated Knowledge Vault of mathematical formulas, acoustic modal ratios, and industry techniques.
 - `templates/`: Boilerplate starter folders for 2D icons, seamless tiles, 3D props, VFX flipbooks, and SFX.
-- `assets/`: Destination directory for user and agent authored game assets.
 - `skills/`: Project-local agent skills and starter scripts.
-- `fx_pipeline/`: Core procedural generation scripts, helpers, and baseline flipbooks/SFX.
 - `gallery/`: Interactive web catalog, pre-rendered assets, and export archives.
 - `index.html`: Responsive gallery browser frontend.
 - `tests/`: Unit tests verifying skill structure, recipes, and gallery functionality.

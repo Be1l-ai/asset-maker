@@ -12,9 +12,9 @@ from PIL import Image
 from scipy.io import wavfile
 import trimesh
 
-from fx_pipeline import generate_gallery_expansion as expansion
-from fx_pipeline import gallery_expansion_effects as effects
-from fx_pipeline import gallery_expansion_visuals as visuals
+from asset_pipeline import generate_gallery_expansion as expansion
+from asset_pipeline import gallery_expansion_effects as effects
+from asset_pipeline import gallery_expansion_visuals as visuals
 
 ROOT = Path(__file__).resolve().parents[1]
 

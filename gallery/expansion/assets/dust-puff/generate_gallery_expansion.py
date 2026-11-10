@@ -18,13 +18,13 @@ ROOT = next(p for p in SOURCE.parents if (p / "requirements-code-assets.txt").is
 sys.path.insert(0, str(ROOT))
 sys.dont_write_bytecode = True
 
-from fx_pipeline import generate_gallery as base
-from fx_pipeline import gallery_expansion_effects as effects
-from fx_pipeline import gallery_expansion_visuals as visuals
+from asset_pipeline import generate_gallery as base
+from asset_pipeline import gallery_expansion_effects as effects
+from asset_pipeline import gallery_expansion_visuals as visuals
 
-RECIPE = "fx_pipeline/generate_gallery_expansion.py"
-SOURCES = [RECIPE, "fx_pipeline/gallery_expansion_visuals.py", "fx_pipeline/gallery_expansion_effects.py",
-           base.RECIPE, "fx_pipeline/__init__.py", "requirements-code-assets.txt", *base.STARTERS.values()]
+RECIPE = "asset_pipeline/generate_gallery_expansion.py"
+SOURCES = [RECIPE, "asset_pipeline/gallery_expansion_visuals.py", "asset_pipeline/gallery_expansion_effects.py",
+           base.RECIPE, "asset_pipeline/__init__.py", "requirements-code-assets.txt", *base.STARTERS.values()]
 DEFINITIONS = [
     ("pine-tree", "3d", visuals.pine_tree),
     ("treasure-chest", "3d", visuals.treasure_chest),
@@ -184,7 +184,7 @@ def generate(out, seed=19):
             parameters["sample_rate"] = 48000
         base.copy_new(SOURCE, directory / "generate_gallery_expansion.py")
         module_name = "gallery_expansion_visuals.py" if category in ("3d", "2d") else "gallery_expansion_effects.py"
-        base.copy_new(ROOT / "fx_pipeline" / module_name, directory / module_name)
+        base.copy_new(ROOT / "asset_pipeline" / module_name, directory / module_name)
         manifest = {"id": identifier, "category": category, "parameters": parameters, "versions": versions,
                     "recipe": RECIPE, "source_snapshot": "generate_gallery_expansion.py",
                     "source_dependencies_sha256": source_hashes,

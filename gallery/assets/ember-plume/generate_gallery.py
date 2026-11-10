@@ -28,7 +28,7 @@ STARTERS = {
     "vfx": ".qoder/skills/create-vfx/scripts/render.py",
     "sfx": ".qoder/skills/create-sfx/scripts/synthesize.py",
 }
-RECIPE = "fx_pipeline/generate_gallery.py"
+RECIPE = "asset_pipeline/generate_gallery.py"
 SOURCE = Path(__file__).resolve()
 # Also let the per-asset source snapshots run inside the extracted collection.
 ROOT = next((p for p in SOURCE.parents
@@ -674,7 +674,7 @@ def generate(out):
                     "recipe": RECIPE, "source_snapshot": "generate_gallery.py",
                     "starter": STARTERS[starter] if starter else None,
                     "reproduce": {"requirements": "requirements-code-assets.txt",
-                                  "command": "python fx_pipeline/generate_gallery.py --out new-dir",
+                                  "command": "python asset_pipeline/generate_gallery.py --out new-dir",
                                   "note": "Run from extracted pack with pinned dependencies. Existing collections are never overwritten."},
                     "review": "Structural checks only; listening, animation playback, and target-engine review remain pending.",
                     **details,

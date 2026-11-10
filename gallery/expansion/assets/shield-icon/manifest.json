@@ -14,14 +14,14 @@
     "trimesh": "5.2.0",
     "manifold3d": "3.5.4"
   },
-  "recipe": "fx_pipeline/generate_gallery_expansion.py",
+  "recipe": "asset_pipeline/generate_gallery_expansion.py",
   "source_snapshot": "generate_gallery_expansion.py",
   "source_dependencies_sha256": {
-    "fx_pipeline/generate_gallery_expansion.py": "3581f77dfe89ca75f0bea46696f23d657d6c2dfc39704e58c568f288c420d42f",
-    "fx_pipeline/gallery_expansion_visuals.py": "5742e8d8ed57dbeb964b266b62b9edbe3b30d796ce755d4ac6f30642accccd3b",
-    "fx_pipeline/gallery_expansion_effects.py": "a86e6a936bc0a3e6d63f130cc63501d6fdd3abb5204a1664d4b9d20ffaf557ba",
-    "fx_pipeline/generate_gallery.py": "c0462734bf50dd7713ca6e3f5c0f7601c496c54b2952f1fddd492b53d07876f4",
-    "fx_pipeline/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "asset_pipeline/generate_gallery_expansion.py": "bc23f6da6861bdf7162010c97c107c79c573221a93563ccedf6a6fe6a5d749de",
+    "asset_pipeline/gallery_expansion_visuals.py": "aaceae13aa4f10a5064751314adf3e65fcb3fa992b18528169f2c5e3385422f3",
+    "asset_pipeline/gallery_expansion_effects.py": "a86e6a936bc0a3e6d63f130cc63501d6fdd3abb5204a1664d4b9d20ffaf557ba",
+    "asset_pipeline/generate_gallery.py": "78b34868cc2ab0cc2650b4e961bd4bbd3d65e59fdf5b6513a76415ff6fbebd83",
+    "asset_pipeline/__init__.py": "247e8e750c06a09642d37bb108b3543f7cf0f66be7b411ff8958bb5e209e5cd2",
     "requirements-code-assets.txt": "fb5e78539a368d312bdc6f7f3e546c036b7014e4c7c8b2b76a68ac554d99d24c",
     ".qoder/skills/create-3d-assets/scripts/build.py": "8bed416164a526f08b0e47532899c13fc6e029887e015fd59f3a96aff72eb91f",
     ".qoder/skills/create-2d-assets/scripts/draw.py": "9bb05142e9982e5947ed001e092e63ab74593517beb87bc33e2e275caeab1d02",
@@ -29,7 +29,7 @@
     ".qoder/skills/create-sfx/scripts/synthesize.py": "415b77f830155bd3ed759eeecf0092981e474b10fcab6a3533ea1a2530068b1f"
   },
   "reproduce": {
-    "command": "python fx_pipeline/generate_gallery_expansion.py --out new-studies --seed 19",
+    "command": "python asset_pipeline/generate_gallery_expansion.py --out new-studies --seed 19",
     "requirements": "requirements-code-assets.txt",
     "note": "Run from repository or extracted ZIP; use a new output directory."
   },
@@ -44,8 +44,8 @@
   ],
   "alpha": "straight",
   "sha256": {
-    "gallery_expansion_visuals.py": "5742e8d8ed57dbeb964b266b62b9edbe3b30d796ce755d4ac6f30642accccd3b",
-    "generate_gallery_expansion.py": "3581f77dfe89ca75f0bea46696f23d657d6c2dfc39704e58c568f288c420d42f",
+    "gallery_expansion_visuals.py": "aaceae13aa4f10a5064751314adf3e65fcb3fa992b18528169f2c5e3385422f3",
+    "generate_gallery_expansion.py": "bc23f6da6861bdf7162010c97c107c79c573221a93563ccedf6a6fe6a5d749de",
     "image.png": "76cbe450df457f537de199c5b05493b125042f182e80af25cecd7607e3e0486f"
   }
 }
