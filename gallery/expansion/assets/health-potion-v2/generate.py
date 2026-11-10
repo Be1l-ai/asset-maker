@@ -186,6 +186,7 @@ def main():
     )
     manifest.declare_vault("techniques/art_styles/silhouette_and_proportions.md", "polygon_mask", "ellipse_mask")
     manifest.declare_vault("techniques/art_styles/color_ramps_and_cel_steps.md", "lerp_color")
+    manifest.declare_vault("techniques/materials/glass_and_liquid_vessels.md", "inside_depth", "fillet_mask", "over")
     manifest.declare_vault("techniques/materials/fabric_and_weave_patterns.md", "procedural_fabric_weave")
     manifest.declare_vault("mathematics/materials/height_to_normal_sobel.md", "heightmap_to_normal_map")
     manifest.scan_directory(args.out, only=[ASSET_NAME]).save(args.out)

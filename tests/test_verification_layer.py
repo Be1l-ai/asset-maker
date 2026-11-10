@@ -24,7 +24,8 @@ from asset_pipeline import (
 from asset_pipeline.audit import frame_motion_profile, mesh_ground_darkening, silhouette_report
 
 ROOT = Path(__file__).resolve().parents[1]
-V2_ASSETS = sorted((ROOT / "assets").glob("*_v2"))
+EXPANSION_ASSETS_DIR = ROOT / "gallery" / "expansion" / "assets"
+V2_ASSETS = sorted(EXPANSION_ASSETS_DIR.glob("*-v2"))
 
 
 def _asset(tmp: Path, recipe: str, manifest: dict) -> Path:
@@ -120,8 +121,8 @@ class SilhouetteAndLayerTests(unittest.TestCase):
 
     def test_v2_potion_is_one_piece(self):
         for adir in V2_ASSETS:
-            if adir.name == "health_potion_v2":
-                self.assertEqual(silhouette_report(adir / "health_potion_v2.png")["components"], 1)
+            if adir.name == "health-potion-v2":
+                self.assertEqual(silhouette_report(adir / "image.png")["components"], 1)
 
 
 class TileTests(unittest.TestCase):
@@ -148,8 +149,8 @@ class TileTests(unittest.TestCase):
                 AssetValidator.validate_seamless(p, max_ratio=0.5)
 
     def test_v2_bricks_seamless(self):
-        for name in ("dungeon_bricks_v2.png", "dungeon_bricks_v2_normal.png"):
-            AssetValidator.validate_seamless(ROOT / "assets" / "dungeon_bricks_v2" / name, max_ratio=2.0)
+        for name in ("image.png", "normal.png"):
+            AssetValidator.validate_seamless(EXPANSION_ASSETS_DIR / "dungeon-bricks-v2" / name, max_ratio=2.0)
 
 
 class MeshTests(unittest.TestCase):
@@ -187,7 +188,7 @@ class MeshTests(unittest.TestCase):
         self.assertGreater(ys.max() - ys.min(), 2.5 * (xs.max() - xs.min()), "tall prop must look tall, not on its side")
 
     def test_v2_obelisk_watertight_with_ao(self):
-        glb = ROOT / "assets" / "mana_obelisk_v2" / "mana_obelisk_v2.glb"
+        glb = EXPANSION_ASSETS_DIR / "mana-obelisk-v2" / "model.glb"
         report = AssetValidator.validate_mesh(glb, max_triangles=3000, watertight=True)
         self.assertTrue(report.metrics["watertight"])
 
@@ -226,13 +227,13 @@ class AnimationTests(unittest.TestCase):
                 AssetValidator.validate_animation(p, 4, 2, max_motion_ratio=4.0)
 
     def test_v2_burst_animates_smoothly(self):
-        atlas = ROOT / "assets" / "arcane_burst_v2" / "arcane_burst_v2.png"
+        atlas = EXPANSION_ASSETS_DIR / "arcane-burst-v2" / "atlas.png"
         AssetValidator.validate_animation(atlas, 4, 4)
         self.assertEqual(len(frame_motion_profile(atlas, 4, 4)), 16)
 
     def test_v2_burst_is_deterministic_across_runs(self):
         import importlib.util
-        spec = importlib.util.spec_from_file_location("burst_v2", ROOT / "assets" / "arcane_burst_v2" / "generate.py")
+        spec = importlib.util.spec_from_file_location("burst_v2", EXPANSION_ASSETS_DIR / "arcane-burst-v2" / "generate.py")
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         a = mod.generate_flipbook(frames=16, size=128, seed=7).pack_atlas(4)
@@ -246,7 +247,7 @@ class AnimationTests(unittest.TestCase):
 
 class SfxManifestTests(unittest.TestCase):
     def test_bell_manifest_records_measured_constants(self):
-        data = json.loads((ROOT / "assets" / "crystal_bell_chime_v2" / "manifest.json").read_text())
+        data = json.loads((EXPANSION_ASSETS_DIR / "crystal-bell-chime-v2" / "manifest.json").read_text())
         for key in ("haas_ms", "click_hz", "f0_hz", "pan"):
             self.assertIn(key, data["parameters"])
 

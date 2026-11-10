@@ -65,6 +65,20 @@ class VaultIntegrityTests(unittest.TestCase):
 
         self.assertGreater(valid_blocks, 10, "Expected at least 10 valid Python snippets in the vault")
 
+    def test_every_vault_document_is_indexed_in_readme(self):
+        readme = (VAULT_DIR / "README.md").read_text(encoding="utf-8")
+        for md_file in VAULT_DIR.rglob("*.md"):
+            if md_file.name == "README.md":
+                continue
+            rel = md_file.relative_to(VAULT_DIR).as_posix()
+            self.assertIn(rel, readme, f"Vault document '{rel}' must be indexed in vault/README.md")
+
+    def test_specialist_skills_do_not_repeat_master_boilerplate(self):
+        for name in ("create-2d-assets", "create-3d-assets", "create-vfx", "create-sfx"):
+            text = (SKILLS_DIR / name / "SKILL.md").read_text(encoding="utf-8")
+            self.assertNotIn("## Scaffolding & Generation", text, f"{name} repeats scaffolding boilerplate from AGENTS.md")
+            self.assertNotIn("## Verification Loop (Required)", text, f"{name} repeats verification boilerplate from create-game-assets")
+
 
 if __name__ == "__main__":
     unittest.main()

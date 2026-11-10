@@ -114,10 +114,14 @@ def audit_recipe(asset_dir: Path | str, vault_dir: Path | str = VAULT_DIR) -> Au
             if sym not in used:
                 report.errors.append(f"vault doc '{doc}' claims '{sym}' but generate.py never uses it")
 
+    prefix_underscore = adir.name.replace("-", "_")
     stale = [
         name for name in manifest.get("sha256", {})
-        if name not in ("generate.py", "README.md", "preview.png", "preview.gif")
+        if name not in ("generate.py", "README.md", "preview.png", "preview.gif",
+                        "image.png", "normal.png", "atlas.png", "model.glb", "model.obj", "mesh.json",
+                        "sound.wav", "sound_stereo.wav")
         and not name.startswith(adir.name)
+        and not name.startswith(prefix_underscore)
     ]
     if stale:
         report.errors.append(f"manifest hashes files from another asset/version: {', '.join(stale)}")

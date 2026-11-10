@@ -23,7 +23,7 @@
   "sha256": {
     "crystal_bell_chime_v2.wav": "0f31e11de9bcebdbc1cb44d306ac35ff284db069d5be593475e95cdb28dd84a0",
     "crystal_bell_chime_v2_stereo.wav": "b3709f228b4e6860ae07a17f27887b14a2a712d2943e051c8a8f53df67a57e94",
-    "generate.py": "a6e3e79374b4458b8de3062ceeb829cf59dc3770dc77c1a29aba47d80d2c0fd4"
+    "generate.py": "b04da7a562462ab06b1947ea7796c542e5ed72dacb0a7f5afe4472bf5afe8086"
   },
   "recipe": "generate.py",
   "vault_refs": {
@@ -32,6 +32,9 @@
     ],
     "mathematics/acoustics/church_bells_bronze.md": [
       "bell_resonator"
+    ],
+    "mathematics/acoustics/spatial_haas_and_transients.md": [
+      "spatial_stereo_pan"
     ]
   }
 }

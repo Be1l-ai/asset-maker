@@ -118,6 +118,7 @@ def main():
     )
     manifest.declare_vault("mathematics/acoustics/glass_shells.md", "glass_resonator")
     manifest.declare_vault("mathematics/acoustics/church_bells_bronze.md", "bell_resonator")
+    manifest.declare_vault("mathematics/acoustics/spatial_haas_and_transients.md", "spatial_stereo_pan")
     manifest.scan_directory(args.out, only=[ASSET_NAME]).save(args.out)
     print(f"✓ Generated {wav_file} and {stereo_file} (passed validation)")
 

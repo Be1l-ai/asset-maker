@@ -204,6 +204,7 @@ def main():
         recipe=Path(__file__).name,
     )
     manifest.declare_vault("techniques/hybrid_vfx/four_stage_emitter_architecture.md", "EmitterStack", "add_layer")
+    manifest.declare_vault("techniques/hybrid_vfx/smoke_and_pyroclastic_plumes.md", "Easing", "ease_out", "dissolve_alpha_mask")
     manifest.declare_vault("techniques/hybrid_vfx/dissolve_and_alpha_erosion.md", "dissolve_alpha_mask")
     manifest.declare_vault("mathematics/noise_and_fields/worley_cellular_noise.md", "worley_noise")
     manifest.scan_directory(args.out, only=[ASSET_NAME]).save(args.out)

@@ -19,7 +19,7 @@
   },
   "sha256": {
     "arcane_burst_v2.png": "39ad4066fbf6e6621acd4ac432d0d8c4c6b59cb9dd97756aad2462f652d8deb3",
-    "generate.py": "837b6c35b733662bd23c9d01217cd2b9b1f22d8a9c2530b14c390bffaaadb427",
+    "generate.py": "c2dcd4f09f0c3ae33a0d7d2a04e6a36ff0075535d26852e7840745c2770d7bd0",
     "preview.gif": "39966c5f3fa41d818be72a5b0393ad796f949167531b6e3918e67deffa204e5c",
     "preview.png": "2e765d1157df169707ee0403a9ec2af1a0c8d9f9f2b5b00031698171e070c892"
   },
@@ -28,6 +28,11 @@
     "techniques/hybrid_vfx/four_stage_emitter_architecture.md": [
       "EmitterStack",
       "add_layer"
+    ],
+    "techniques/hybrid_vfx/smoke_and_pyroclastic_plumes.md": [
+      "Easing",
+      "ease_out",
+      "dissolve_alpha_mask"
     ],
     "techniques/hybrid_vfx/dissolve_and_alpha_erosion.md": [
       "dissolve_alpha_mask"

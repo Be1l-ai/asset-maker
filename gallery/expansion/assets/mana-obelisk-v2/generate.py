@@ -118,6 +118,7 @@ def main():
     manifest.declare_vault("techniques/art_styles/vertex_color_gradient_baking.md", "bake_ground_ao")
     manifest.declare_vault("mathematics/geometry/spirals_and_golden_ratio.md", "pyramid")
     manifest.declare_vault("techniques/art_styles/bevels_and_edge_weight.md", "lathe")
+    manifest.declare_vault("techniques/materials/chiseled_stone_and_masonry.md", "lathe", "bake_ground_ao")
     manifest.scan_directory(args.out, only=[ASSET_NAME]).save(args.out)
     print(f"✓ Generated {glb_file}, {obj_file}, and preview.png (passed validation)")
 

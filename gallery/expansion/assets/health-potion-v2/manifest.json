@@ -14,7 +14,7 @@
     "manifold3d": "3.5.4"
   },
   "sha256": {
-    "generate.py": "61c66427d39a20aea533a8c6acf50214b9975f89551e12646588d0425cec7ac0",
+    "generate.py": "94a8c72c98fcf609e1c929ae97dc96259799e8848b2ef872eb6eb5bb011f8941",
     "health_potion_v2.png": "fc119afb1d257463967a04a6c7b2cd765c0ee30cfb671dc491809d3979af62e9",
     "health_potion_v2_normal.png": "8f9e6633b1eb48c6c66884ac2bd2ab19ad526bbabe2984739a59604c06950ad6",
     "preview.png": "8503c5c0cc488cff3d3dde0502f85491178d57ed4c1480a47570601c1aa71da0"
@@ -27,6 +27,11 @@
     ],
     "techniques/art_styles/color_ramps_and_cel_steps.md": [
       "lerp_color"
+    ],
+    "techniques/materials/glass_and_liquid_vessels.md": [
+      "inside_depth",
+      "fillet_mask",
+      "over"
     ],
     "techniques/materials/fabric_and_weave_patterns.md": [
       "procedural_fabric_weave"

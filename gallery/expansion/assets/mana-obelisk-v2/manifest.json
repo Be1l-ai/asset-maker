@@ -13,7 +13,7 @@
     "manifold3d": "3.5.4"
   },
   "sha256": {
-    "generate.py": "1cb101a003c1e8e27f8742dd66b4ff1ce5ba87d746eece0012e31284c7026a08",
+    "generate.py": "89e89b41f04b4ee32cef2c4ce706ed3d8ee5335c04f5c8f1eb1f1f9b5b08acf9",
     "mana_obelisk_v2.glb": "5cb0a4a260e97a8fc5e8e27d3d882c3e8400e20bc47d8c72121417bc324080d6",
     "mana_obelisk_v2.obj": "403b274befa1285d47ce00dddcb9060e3861256dab2cfc3f65dd6b430a4ec308",
     "preview.png": "863ef42c5025b483969caa88d975d0499056ae465d914d74cc8fa4f53aaf678b"
@@ -28,6 +28,10 @@
     ],
     "techniques/art_styles/bevels_and_edge_weight.md": [
       "lathe"
+    ],
+    "techniques/materials/chiseled_stone_and_masonry.md": [
+      "lathe",
+      "bake_ground_ao"
     ]
   }
 }

@@ -454,7 +454,7 @@
         "baseline"
       ],
       "seed": 7,
-      "recipe": "assets/mana_obelisk/generate.py",
+      "recipe": "gallery/expansion/assets/mana-obelisk/generate.py",
       "manifest": "gallery/expansion/assets/mana-obelisk/manifest.json",
       "review": "V1 baseline 3D prop generated with primitive CSG booleans without Knowledge Vault guidance.",
       "yaw": 0.65,
@@ -486,7 +486,7 @@
         "ao-baked"
       ],
       "seed": 7,
-      "recipe": "assets/mana_obelisk_v2/generate.py",
+      "recipe": "gallery/expansion/assets/mana-obelisk-v2/generate.py",
       "manifest": "gallery/expansion/assets/mana-obelisk-v2/manifest.json",
       "review": "V2 enhanced 3D prop using profile lathing, contact ambient occlusion gradient baking, and golden ratio phyllotaxis.",
       "yaw": 0.65,
@@ -517,7 +517,7 @@
         "RGBA"
       ],
       "seed": 42,
-      "recipe": "assets/health_potion/generate.py",
+      "recipe": "gallery/expansion/assets/health-potion/generate.py",
       "manifest": "gallery/expansion/assets/health-potion/manifest.json",
       "review": "V1 baseline 2D raster icon created with uniform stroke outlines without Knowledge Vault art style rules.",
       "file": "gallery/expansion/assets/health-potion/image.png",
@@ -545,7 +545,7 @@
         "RGBA"
       ],
       "seed": 42,
-      "recipe": "assets/health_potion_v2/generate.py",
+      "recipe": "gallery/expansion/assets/health-potion-v2/generate.py",
       "manifest": "gallery/expansion/assets/health-potion-v2/manifest.json",
       "review": "V2 enhanced 2D icon adhering to 70/30 proportion hierarchy, temperature color shifts, and normal map generation.",
       "file": "gallery/expansion/assets/health-potion-v2/image.png",
@@ -573,7 +573,7 @@
         "RGBA"
       ],
       "seed": 42,
-      "recipe": "assets/dungeon_bricks/generate.py",
+      "recipe": "gallery/expansion/assets/dungeon-bricks/generate.py",
       "manifest": "gallery/expansion/assets/dungeon-bricks/manifest.json",
       "review": "V1 baseline seamless tile using periodic sine wave mortar channels.",
       "file": "gallery/expansion/assets/dungeon-bricks/image.png",
@@ -602,7 +602,7 @@
         "RGBA"
       ],
       "seed": 42,
-      "recipe": "assets/dungeon_bricks_v2/generate.py",
+      "recipe": "gallery/expansion/assets/dungeon-bricks-v2/generate.py",
       "manifest": "gallery/expansion/assets/dungeon-bricks-v2/manifest.json",
       "review": "V2 enhanced tile with continuous distance field beveling, Worley chipping, and tangent space normal map.",
       "file": "gallery/expansion/assets/dungeon-bricks-v2/image.png",
@@ -629,7 +629,7 @@
         "16-frames"
       ],
       "seed": 42,
-      "recipe": "assets/arcane_burst/generate.py",
+      "recipe": "gallery/expansion/assets/arcane-burst/generate.py",
       "manifest": "gallery/expansion/assets/arcane-burst/manifest.json",
       "review": "V1 baseline VFX flipbook using single emitter with linear fade.",
       "file": "gallery/expansion/assets/arcane-burst/atlas.png",
@@ -667,7 +667,7 @@
         "16-frames"
       ],
       "seed": 42,
-      "recipe": "assets/arcane_burst_v2/generate.py",
+      "recipe": "gallery/expansion/assets/arcane-burst-v2/generate.py",
       "manifest": "gallery/expansion/assets/arcane-burst-v2/manifest.json",
       "review": "V2 enhanced VFX using 4-stage EmitterStack architecture and cellular alpha erosion dissolve.",
       "file": "gallery/expansion/assets/arcane-burst-v2/atlas.png",
@@ -703,7 +703,7 @@
         "PCM16"
       ],
       "seed": 42,
-      "recipe": "assets/crystal_bell_chime/generate.py",
+      "recipe": "gallery/expansion/assets/crystal-bell-chime/generate.py",
       "manifest": "gallery/expansion/assets/crystal-bell-chime/manifest.json",
       "review": "V1 baseline SFX synthesized with a single modal resonator.",
       "file": "gallery/expansion/assets/crystal-bell-chime/sound.wav",
@@ -831,7 +831,7 @@
         "PCM16"
       ],
       "seed": 42,
-      "recipe": "assets/crystal_bell_chime_v2/generate.py",
+      "recipe": "gallery/expansion/assets/crystal-bell-chime-v2/generate.py",
       "manifest": "gallery/expansion/assets/crystal-bell-chime-v2/manifest.json",
       "review": "V2 enhanced audio with dual coupled resonators (bronze bell + glass bowl) and Haas stereo pan.",
       "file": "gallery/expansion/assets/crystal-bell-chime-v2/sound.wav",
