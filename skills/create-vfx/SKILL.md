@@ -5,74 +5,40 @@ description: Deep procedural VFX skill. Generate animated particle fields, energ
 
 # Procedural VFX Flipbook Generation
 
-Generate animated visual effects and sprite sheet atlases entirely in code using `Pillow` and `numpy`.
+Generate animated visual effects and sprite sheet atlases in code using `Pillow` and `numpy`. Follow [`create-game-assets`](../create-game-assets/SKILL.md) for the master verification loop.
 
 ## Architectural Guidelines
 
-### 1. Loop Parameterization & Phase Math
-- **The $N$-Frame Rule**: For an $N$-frame loop, evaluate normalized phase $t_i = \frac{i}{N}$ for $i = 0, 1, \dots, N-1$. NEVER evaluate $t_i = \frac{i}{N-1}$, which repeats the start frame at the end and causes a visual stutter.
-- **Continuous Periodic Fields**: For infinite loops, sample 4D noise or construct periodic basis functions: $\theta(t) = 2\pi t$ with $\cos(\theta)$ and $\sin(\theta)$ harmonics.
-- **One-Shot Bursts**: For non-looping one-shot effects (explosions, impacts), map $t \in [0, 1]$ such that the effect is completely extinguished (alpha = 0) at $t = 1.0$.
+### 1. Phase Math & Pre-Rolled Determinism
+- **The $N$-Frame Rule**: Evaluate normalized phase $t_i = \frac{i}{N}$ for $i = 0, \dots, N-1$ (never $\frac{i}{N-1}$ on loops). For one-shot explosions, ensure alpha extinguishes cleanly by the final frame.
+- **No Per-Frame RNG**: Pre-roll all random particle angles, speeds, radii, and noise maps **outside** the frame callback so trajectories move smoothly instead of teleporting each frame.
 
-### 2. Motion Easing & Particle Dynamics
-- **Hermite Smoothstep**: Use $S(t) = 3t^2 - 2t^3$ (`Easing.ease_in_out`) for balanced organic expansion and contraction.
-- **Explosive Deceleration**: Use $D(t) = 1 - (1 - t)^2$ (`Easing.ease_out`) for fast initial shockwave propagation followed by lingering dissipation.
-- **Particle Decay**: Modulate particle opacity by $\alpha(t) = (1 - t)$ and shrink radius $r(t) = r_0 (1 - t)$ as particles travel outward from the emission center.
+### 2. Multi-Layer Emitter Stack & Atlas Packing
+- Compose distinct temporal stages (`Flash` $\to$ `Shockwave Core` $\to$ `Buoyant Smoke Plume` $\to$ `Ember Sparks`) with `EmitterStack` using `"add"` for incandescent energy and `"alpha"` for dark occluding smoke.
+- Pack frames in row-major order ($C \times R$) with a 1-pixel transparent gutter around every cell to prevent bilinear texture bleed.
 
-### 3. Atlas Layout & Packing
-- Pack frames in row-major order into a rectangular grid ($C$ columns by $R = \lceil N / C \rceil$ rows), typically $4 \times 4$ for 16 frames.
-- Ensure total atlas dimensions are powers of two or divisible by cell dimensions (e.g. 16 frames of $128 \times 128 \to 512 \times 512$ atlas).
-- Keep a 1-pixel transparent gutter around cell boundaries to prevent bilinear texture bleed across atlas frames in game engines.
+### 3. Knowledge Vault References
+- **Four-Stage Emitter Stack**: [`vault/techniques/hybrid_vfx/four_stage_emitter_architecture.md`](../../vault/techniques/hybrid_vfx/four_stage_emitter_architecture.md) (`EmitterStack`).
+- **Buoyant Smoke & Pyroclastic Plumes**: [`vault/techniques/hybrid_vfx/smoke_and_pyroclastic_plumes.md`](../../vault/techniques/hybrid_vfx/smoke_and_pyroclastic_plumes.md) (`Easing.ease_out`, pre-rolled puff tables, temperature cooling).
+- **Cellular Alpha Erosion & Dissolve**: [`vault/techniques/hybrid_vfx/dissolve_and_alpha_erosion.md`](../../vault/techniques/hybrid_vfx/dissolve_and_alpha_erosion.md) (`dissolve_alpha_mask`, `worley_noise`).
+- **3D Expanding Mesh Explosions & Ribbons**: [`vault/techniques/hybrid_vfx/mesh_particle_explosions.md`](../../vault/techniques/hybrid_vfx/mesh_particle_explosions.md) (`create_expanding_mesh_explosion`) & [`vault/techniques/hybrid_vfx/ribbon_trails_and_vortex_cones.md`](../../vault/techniques/hybrid_vfx/ribbon_trails_and_vortex_cones.md).
 
-### 4. Knowledge Vault References
-- **Hybrid 3D Mesh + Flipbook Explosions**: See [`vault/techniques/hybrid_vfx/mesh_particle_explosions.md`](../../vault/techniques/hybrid_vfx/mesh_particle_explosions.md) (use `create_expanding_mesh_explosion()`).
-- **Four-Stage Emitter Stack**: See [`vault/techniques/hybrid_vfx/four_stage_emitter_architecture.md`](../../vault/techniques/hybrid_vfx/four_stage_emitter_architecture.md) (use `EmitterStack`).
-- **Alpha Erosion & Dissolve**: See [`vault/techniques/hybrid_vfx/dissolve_and_alpha_erosion.md`](../../vault/techniques/hybrid_vfx/dissolve_and_alpha_erosion.md) (use `dissolve_alpha_mask()`).
-
-
-## Code Example: `Flipbook` & `ParticleEmitter`
+## Code Example: `Flipbook` & `EmitterStack`
 
 ```python
-from asset_pipeline import Easing, Flipbook, ParticleEmitter
+from asset_pipeline import EmitterStack, Flipbook, ParticleEmitter
 
 def make_burst_flipbook(frames: int = 16, size: int = 128, fps: int = 16, seed: int = 7) -> Flipbook:
     emitter = ParticleEmitter(seed=seed)
+    stack = EmitterStack(size=size)
+    stack.add_layer("core", lambda p: emitter.radial_burst(size=size, phase=p, color_rgb=(100, 200, 255)), blend="add")
+
     flipbook = Flipbook(fps=fps)
-    
-    flipbook.generate_frames(
-        count=frames,
-        frame_generator=lambda phase: emitter.radial_burst(
-            size=size,
-            phase=phase,
-            color_rgb=(100, 200, 255),
-        ),
-    )
+    flipbook.generate_frames(count=frames, frame_generator=stack.composite_frame)
     return flipbook
 ```
 
-## Scaffolding & Generation
+## Domain Acceptance Checks
 
-```sh
-# Scaffold a new VFX flipbook:
-.venv-code-assets/bin/python -m asset_pipeline new vfx_flipbook assets/<asset_name>
-
-# Execute generator and produce atlas PNG, looping preview.gif, and contact preview.png:
-cd assets/<asset_name> && python generate.py
-```
-
-## Validation & Quality Checklist
-
-1. **Atlas Grid Divisibility**: Confirm atlas width and height divide evenly by columns and rows with `AssetValidator.validate_png(path, require_alpha=True, columns=C, rows=R)`.
-2. **Timing & Playback**: Review `preview.gif` at target FPS to verify smooth motion pacing and zero duplicate boundary frames.
-3. **Alpha Consistency**: Verify frame boundaries have transparent gutters to avoid cross-frame bleeding.
-
-## Verification Loop (Required)
-
-Structural validation proves a file is well-formed, not that it is good. Before declaring any asset done:
-
-1. **Look.** Open `preview.png` (3D: three views; tile: albedo + normal-lit; VFX: contact sheet). Name one concrete defect, fix it, re-render. Read [`vault/pitfalls/procedural_failure_modes.md`](../../vault/pitfalls/procedural_failure_modes.md).
-2. **Declare the vault.** For every vault doc you applied, call `manifest.declare_vault("<path under vault/>", "<pipeline symbol you call>")`. Never import a technique you do not call.
-3. **Audit.** `.venv-code-assets/bin/python -m asset_pipeline audit assets/<name>` must pass (no unused pipeline imports, real vault docs, symbols actually used, no stale hashes).
-4. **Domain acceptance:** `validate_animation(atlas, columns, rows)`. Pre-roll all randomness outside layer callbacks; every stage you claim must be visible in the contact sheet.
-5. **Hash only your files:** `manifest.scan_directory(out, only=[ASSET_NAME])`.
-6. **Compare to the baseline with numbers** if this replaces an earlier version: `python -m asset_pipeline compare <old> <new>`. Do not state numbers in a README that are not in the manifest.
+1. **Atlas Grid & Alpha**: `AssetValidator.validate_png(atlas_path, require_alpha=True, columns=C, rows=R)`.
+2. **Temporal Coherence**: `AssetValidator.validate_animation(atlas_path, columns=C, rows=R)` (no static frames, no single-frame RNG pop spikes) and inspect `preview.png` contact sheet to confirm every emitter stage is visible.
