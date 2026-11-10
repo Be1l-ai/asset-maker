@@ -379,3 +379,24 @@ def lerp_color(c0: Sequence[float], c1: Sequence[float], t: np.ndarray) -> np.nd
     c1a = np.asarray(c1, dtype=np.float32)
     tt = np.clip(t, 0.0, 1.0)[..., None]
     return c0a * (1.0 - tt) + c1a * tt
+
+
+def nine_slice(image: Image.Image, width: int, height: int, inset: int = 64) -> Image.Image:
+    """Scale an RGBA UI panel to ``(width, height)`` while preserving fixed corner insets."""
+    if min(width, height) < 2 * inset:
+        raise ValueError("Target is smaller than fixed corners")
+    source_x = [0, inset, image.width - inset, image.width]
+    source_y = [0, inset, image.height - inset, image.height]
+    target_x = [0, inset, width - inset, width]
+    target_y = [0, inset, height - inset, height]
+    result = Image.new("RGBA", (width, height))
+    for row in range(3):
+        for col in range(3):
+            size = (target_x[col + 1] - target_x[col], target_y[row + 1] - target_y[row])
+            if min(size) == 0:
+                continue
+            patch = image.crop((source_x[col], source_y[row], source_x[col + 1], source_y[row + 1]))
+            if patch.size != size:
+                patch = patch.convert("RGBa").resize(size, Image.Resampling.LANCZOS).convert("RGBA")
+            result.paste(patch, (target_x[col], target_y[row]))
+    return result
