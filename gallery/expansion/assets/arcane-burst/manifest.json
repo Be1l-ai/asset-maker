@@ -1,0 +1,27 @@
+{
+  "asset": "arcane_burst.png",
+  "parameters": {
+    "frames": 16,
+    "size": 128,
+    "columns": 4,
+    "rows": 4,
+    "fps": 16,
+    "seed": 7
+  },
+  "versions": {
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "sha256": {
+    "README.md": "acc857e731dd679d6ae7f30fe0729137f49a275b77d8544d247e182c271d259d",
+    "arcane_burst.png": "efbd74242ed8cc6ef5c4837afbb7c3bd77c9de09ef8ace07c947d896a5ea2635",
+    "generate.py": "76234ab978df4f392788bf8de369a7198dc107782ae3e3f47628920971387e86",
+    "preview.gif": "d017e0543426462ab74736f275b453e88351cd2b5cbd49366916f1bdf1bde70d",
+    "preview.png": "1af18ac4bb2b0feda5652c186cc5099704cf06abe26de77fb7db3d0d7075005b"
+  },
+  "recipe": "generate.py"
+}

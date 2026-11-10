@@ -203,11 +203,11 @@ class GalleryBrowserTests(unittest.TestCase):
 
     def test_study_sets_and_combined_filters(self):
         self.page.locator("#collection-select").select_option("expansion")
-        self.expect(self.page.locator(".asset-card")).to_have_count(8)
+        self.expect(self.page.locator(".asset-card")).to_have_count(len(self.expansion))
         self.page.locator('.filters [data-category="3d"]').click()
-        self.expect(self.page.locator(".asset-card")).to_have_count(2)
+        self.expect(self.page.locator(".asset-card")).to_have_count(len([a for a in self.expansion if a["category"] == "3d"]))
         self.page.locator("#collection-select").select_option("original")
-        self.expect(self.page.locator(".asset-card")).to_have_count(3)
+        self.expect(self.page.locator(".asset-card")).to_have_count(len([a for a in self.original if a["category"] == "3d"]))
         self.page.locator("#search").fill("no matching study")
         self.page.get_by_role("button", name="Clear filters").click()
         self.expect(self.page.locator("#collection-select")).to_have_value("all")
@@ -295,12 +295,12 @@ class GalleryBrowserTests(unittest.TestCase):
         self.expect(self.page.locator(".asset-card")).to_have_count(self.asset_count)
         self.assertTrue(self.page.evaluate("modelRenderer === null"))
         self.page.locator('.filters [data-category="2d"]').click()
-        self.expect(self.page.locator(".asset-card")).to_have_count(5)
+        self.expect(self.page.locator(".asset-card")).to_have_count(len([a for a in self.catalog["assets"] if a["category"] == "2d"]))
 
     def test_mobile_studies_and_review(self):
         self.page.set_viewport_size({"width": 390, "height": 844})
         self.page.locator("#collection-select").select_option("expansion")
-        self.expect(self.page.locator(".asset-card")).to_have_count(8)
+        self.expect(self.page.locator(".asset-card")).to_have_count(len(self.expansion))
         self.assertLessEqual(self.page.evaluate("document.documentElement.scrollWidth"), 390)
         self.page.locator('[data-asset="dialog-panel"] .asset-visual').click()
         self.page.get_by_role("button", name="Test wide 9-slice").click()
