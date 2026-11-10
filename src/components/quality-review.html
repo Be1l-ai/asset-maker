@@ -1,0 +1,45 @@
+<section class="quality-review" id="quality-review" aria-labelledby="review-title">
+  <div class="section-top">
+    <div>
+      <div class="eyebrow">MORE EXAMPLES, BETTER QUESTIONS</div>
+      <h2 id="review-title">What should we improve next?</h2>
+      <p>Concrete review targets, not a claim of production readiness.</p>
+    </div>
+  </div>
+
+  <div class="review-grid">
+    <article>
+      <span class="review-priority">01 / GEOMETRY → GAMEPLAY</span>
+      <h3>Make the props usable, not just viewable.</h3>
+      <p><strong>Observed:</strong> the pine is readable but origami-like; the chest has clear plankwork but plain endcaps and no wood grain. The 868 / 2,856-triangle models remain static, overlapping solid assemblies with vertex colors, not game-ready interactive props.</p>
+      <p><strong>Next experiment:</strong> separate the lid with a hinge pivot, add a simple collision proxy, and test both in one target engine. Evaluate materials there rather than trusting the software preview.</p>
+      <button class="button outline" data-review-asset="treasure-chest">Inspect the chest ↗</button>
+    </article>
+
+    <article>
+      <span class="review-priority">02 / ART → ACTUAL DISPLAY SIZE</span>
+      <h3>Judge artwork where players see it.</h3>
+      <p><strong>Observed:</strong> the shield silhouette and bright emblem survive at 32 / 64 px, but the rivets and central jewel lose definition. The panel’s separate 768 × 256 nine-slice preview preserves its corner proportions.</p>
+      <p><strong>Next experiment:</strong> compare the shield at 32 / 48 / 64 px on light and dark UI. Simplify secondary details that merge together; give item families a shared outline weight and palette.</p>
+      <button class="button outline" data-review-asset="shield-icon">Inspect the shield ↗</button>
+    </article>
+
+    <article>
+      <span class="review-priority">03 / EFFECTS → TIMING</span>
+      <h3>Give each effect its own rhythm.</h3>
+      <p><strong>Observed:</strong> the dust billows read as rounded lumps more than turbulent air, and lightning’s late tail is nearly invisible on a light background. Both still share a 16-frame, one-second delivery format despite needing different timing.</p>
+      <p><strong>Next experiment:</strong> break up the dust silhouette with coherent turbulence, then compare faster lightning and slower dust decay. Choose frame count and playback rate per effect; check opacity on light and dark backgrounds.</p>
+      <button class="button outline" data-review-asset="forked-lightning">Inspect the lightning ↗</button>
+    </article>
+
+    <article>
+      <span class="review-priority">04 / SOUND → REPETITION</span>
+      <h3>Evaluate a sequence, not one sound.</h3>
+      <p><strong>Observed:</strong> the pack adds a noisy footstep and a charge/release shape beyond the original tonal examples. They are still isolated mono cues; waveform, headroom, and playback tests cannot establish convincing timbre.</p>
+      <p><strong>Next experiment:</strong> render several footstep seeds, listen at matched levels, and test a walk/run sequence. Adjust heel-to-grit balance and variation before adding reverb. Human listening is still pending.</p>
+      <button class="button outline" data-review-asset="gravel-step">Inspect the footstep ↗</button>
+    </article>
+  </div>
+
+  <p class="review-verdict"><strong>Recommendation:</strong> build one small, coherent interaction next—a chest opening with an item icon, dust, and sound—and review it in the target engine. The current libraries already cover the fundamentals; coordinated art direction, timing, and engine checks are more valuable now than another library or dozens of unrelated presets. Original exports remain unchanged.</p>
+</section>

@@ -1,0 +1,60 @@
+<section id="collection" aria-labelledby="collection-title">
+  <div class="section-top">
+    <div>
+      <h2 id="collection-title">The collection</h2>
+      <p>Pick something. Play with it. Peek at the recipe.</p>
+    </div>
+    <label class="search">
+      <svg class="icon"><use href="#i-search"/></svg>
+      <input id="search" type="search" placeholder="Find your next asset…" aria-label="Search assets">
+      <kbd>/</kbd>
+    </label>
+  </div>
+
+  <div class="collection-tools">
+    <label for="collection-select">
+      Study set
+      <select id="collection-select">
+        <option value="all">All studies · 20</option>
+        <option value="expansion">New gameplay studies · 8</option>
+        <option value="original">Original collection · 12</option>
+      </select>
+    </label>
+    <a href="gallery/asset-collection.zip" download>Download original 12 ↗</a>
+    <a href="#quality-review">Read the quality review ↓</a>
+  </div>
+
+  <div class="filter-row">
+    <div class="filters" role="group" aria-label="Filter assets">
+      <button class="filter active" data-category="all" aria-pressed="true">All assets <span data-count="all">20</span></button>
+      <button class="filter" data-category="3d" aria-pressed="false">3D models</button>
+      <button class="filter" data-category="2d" aria-pressed="false">2D graphics</button>
+      <button class="filter" data-category="vfx" aria-pressed="false">VFX</button>
+      <button class="filter" data-category="sfx" aria-pressed="false">SFX</button>
+    </div>
+    <button class="motion-toggle" id="motion-toggle" aria-pressed="false">
+      <svg class="icon"><use href="#i-pause"/></svg>
+      <span>Pause motion</span>
+    </button>
+  </div>
+
+  <div class="result-line">
+    <span id="result-count" role="status" aria-live="polite">Loading the collection…</span>
+    <span>CREATED WITH CODE / NOT GENERATED IMAGES</span>
+  </div>
+
+  <div class="asset-grid" id="asset-grid" aria-label="Generated assets"></div>
+
+  <div class="empty-state" id="empty-state" hidden>
+    <svg class="icon"><use href="#i-search"/></svg>
+    <h3>No assets found</h3>
+    <p>Try another search or explore a different category.</p>
+    <button class="button outline" id="clear-filters">Clear filters</button>
+  </div>
+
+  <div class="load-error" id="load-error" role="alert" hidden>
+    <h3>The collection couldn’t load.</h3>
+    <p>Serve this project over HTTP and make sure the gallery assets have been generated.</p>
+    <button class="button outline" id="retry-load">Try again</button>
+  </div>
+</section>

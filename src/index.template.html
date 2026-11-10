@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173c32">
+  <meta name="description" content="A local collection of game assets generated entirely with code. Explore models, sprites, visual effects, and sound.">
+  <title>FORM / Procedural asset lab</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d4438'/%3E%3Cpath d='M9 8h16v5H14v4h9v5h-9v7H9z' fill='%23c9ed94'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="gallery/style.css">
+  <script src="gallery/app.js" defer></script>
+</head>
+<body>
+  <!-- SVG Symbol Library -->
+  {{svg-library}}
+
+  <a class="skip-link" href="#collection">Skip to collection</a>
+
+  <!-- Sidebar Navigation -->
+  {{sidebar}}
+
+  <div class="workspace" id="top">
+    <!-- Topbar Header -->
+    {{topbar}}
+
+    <main>
+      <!-- Page Heading -->
+      {{heading}}
+
+      <!-- Hero Section -->
+      {{hero}}
+
+      <!-- Stats Strip -->
+      {{stats}}
+
+      <!-- Main Collection Browser -->
+      {{collection}}
+
+      <!-- Capabilities Overview -->
+      {{capabilities}}
+
+      <!-- Quality Review Targets -->
+      {{quality-review}}
+
+      <!-- Workflow Strip & Footer -->
+      {{footer}}
+    </main>
+  </div>
+
+  <!-- Asset Inspector Modal Dialog -->
+  {{dialog}}
+
+  <!-- Global Audio Player & Toast Notification -->
+  <audio id="audio-player" preload="none"></audio>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div class="noscript">
+      Enable JavaScript for interactive previews. Download the <a href="gallery/asset-collection.zip">original 12 examples</a> or the <a href="gallery/expansion/asset-collection.zip">8 new gameplay studies</a>.
+    </div>
+  </noscript>
+</body>
+</html>

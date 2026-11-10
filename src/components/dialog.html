@@ -1,0 +1,32 @@
+<dialog id="asset-dialog" aria-labelledby="dialog-title">
+  <div class="dialog-top">
+    <span id="dialog-category" class="eyebrow"></span>
+    <button class="icon-button" id="close-dialog" aria-label="Close asset inspector">
+      <svg class="icon"><use href="#i-close"/></svg>
+    </button>
+  </div>
+  <div class="inspector">
+    <div class="inspector-view">
+      <div id="inspector-stage"></div>
+      <div class="preview-controls" id="preview-controls"></div>
+    </div>
+    <div class="inspector-info">
+      <h2 id="dialog-title"></h2>
+      <p id="dialog-description"></p>
+      <div id="dialog-tags" class="dialog-tags"></div>
+      <dl id="dialog-stats"></dl>
+      <p class="inspector-note" id="inspector-note"></p>
+      <p class="asset-review" id="asset-review" hidden></p>
+      <a id="asset-download" class="button primary" download>
+        <svg class="icon"><use href="#i-down"/></svg>Download asset
+      </a>
+      <div class="source-links">
+        <a id="recipe-link" target="_blank" rel="noopener">View Python recipe ↗</a>
+        <a id="manifest-link" target="_blank" rel="noopener">Inspect manifest ↗</a>
+      </div>
+      <button class="copy-command" id="copy-command">
+        <svg class="icon"><use href="#i-copy"/></svg>Copy generation command
+      </button>
+    </div>
+  </div>
+</dialog>

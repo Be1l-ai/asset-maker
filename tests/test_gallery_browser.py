@@ -311,5 +311,13 @@ class GalleryBrowserTests(unittest.TestCase):
         self.assertLessEqual(self.page.evaluate("document.documentElement.scrollWidth"), 390)
 
 
+class HtmlBuildTests(unittest.TestCase):
+    def test_build_html_matches_index_html(self):
+        from src.build_html import build_html
+        expected = (ROOT / "index.html").read_text(encoding="utf-8")
+        actual = build_html() + "\n"
+        self.assertEqual(actual, expected)
+
+
 if __name__ == "__main__":
     unittest.main()
