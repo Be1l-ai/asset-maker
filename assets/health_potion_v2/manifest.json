@@ -1,0 +1,38 @@
+{
+  "asset": "health_potion_v2.png",
+  "parameters": {
+    "size": 256,
+    "seed": 7,
+    "version": "v2_vault"
+  },
+  "versions": {
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "sha256": {
+    "generate.py": "61c66427d39a20aea533a8c6acf50214b9975f89551e12646588d0425cec7ac0",
+    "health_potion_v2.png": "fc119afb1d257463967a04a6c7b2cd765c0ee30cfb671dc491809d3979af62e9",
+    "health_potion_v2_normal.png": "8f9e6633b1eb48c6c66884ac2bd2ab19ad526bbabe2984739a59604c06950ad6",
+    "preview.png": "8503c5c0cc488cff3d3dde0502f85491178d57ed4c1480a47570601c1aa71da0"
+  },
+  "recipe": "generate.py",
+  "vault_refs": {
+    "techniques/art_styles/silhouette_and_proportions.md": [
+      "polygon_mask",
+      "ellipse_mask"
+    ],
+    "techniques/art_styles/color_ramps_and_cel_steps.md": [
+      "lerp_color"
+    ],
+    "techniques/materials/fabric_and_weave_patterns.md": [
+      "procedural_fabric_weave"
+    ],
+    "mathematics/materials/height_to_normal_sobel.md": [
+      "heightmap_to_normal_map"
+    ]
+  }
+}
