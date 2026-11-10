@@ -1,0 +1,22 @@
+{
+  "asset": "crystal_bell_chime.wav",
+  "parameters": {
+    "duration": 1.25,
+    "rate": 48000,
+    "seed": 7
+  },
+  "versions": {
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "sha256": {
+    "README.md": "225198c85dd732324cbe96a821f7d7656da85a6fdacd3d3bd1501791c6fb109a",
+    "crystal_bell_chime.wav": "39bf7bb4d9233ac49e5a46108f859d4b25cebef01c4638a02a3de5d225f98488",
+    "generate.py": "db9daaacc0ebbb44e2675e65d9ff0cea1a2d5783acb9f349f00bfd27172b2610"
+  },
+  "recipe": "generate.py"
+}

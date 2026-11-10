@@ -1,0 +1,22 @@
+{
+  "asset": "mana_obelisk.glb",
+  "parameters": {
+    "seed": 7
+  },
+  "versions": {
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "sha256": {
+    "README.md": "a4881d7eb4ba47d0333a2b38c15c810d8b7ad9dba642eb597c3ddd2fba0da5eb",
+    "generate.py": "44b698f6395c0caa39689ed2c098c86911a9d3a7880af6cfcded28a2c471a035",
+    "mana_obelisk.glb": "9612ae7a020fe2292312fadeeee023e3b81d3c008c47002422a7e9f94b0f1577",
+    "mana_obelisk.obj": "131acc94c48d200678960e1def15eb73cb9c0040191d413520b777413492e504",
+    "preview.png": "86df9e465e9bfaf5737b592c1a685f4148424465dd1195e6ec079ef35b3d208e"
+  },
+  "recipe": "generate.py"
+}
