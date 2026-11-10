@@ -62,7 +62,7 @@ def main():
         parameters={"size": args.size, "seed": args.seed, "seamless": True},
         recipe=Path(__file__).name,
     )
-    manifest.scan_directory(args.out).save(args.out)
+    manifest.scan_directory(args.out, only=[ASSET_NAME]).save(args.out)
     print(f"✓ Generated seamless {asset_file} and 3x3 tiled preview.png (passed validation)")
 
 

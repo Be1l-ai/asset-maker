@@ -13,6 +13,13 @@ This is the primary workflow for authoring code-only, deterministic game assets 
 - **Deterministic & Seeded**: Every asset recipe takes an explicit integer `--seed` so outputs are reproducible across environments.
 - **Self-Contained & Validated**: Every asset folder contains its primary export, diagnostic visual preview, reproducible generator recipe, and verified `manifest.json`.
 
+## The Knowledge Vault
+
+Before coding a new asset, consult the **[Knowledge Vault](../../vault/README.md)** for verified formulas, ratios, and professional art techniques:
+- **Formulas & Math**: [`vault/mathematics/`](../../vault/README.md#1-mathematics--acoustics-vaultmathematics) (Acoustic modal ratios, Bezier curves, Worley noise, Sobel normal derivation).
+- **Industry Techniques**: [`vault/techniques/`](../../vault/README.md#2-professional-industry-techniques-vaulttechniques) (70/30 stylized art rules, hybrid 3D+flipbook VFX, PBR channels, foliage normal bending).
+- **Out of Scope (3D Animation)**: [`vault/future_scope/3d_skeletal_animation.md`](../../vault/future_scope/3d_skeletal_animation.md) (Never generate skeletal animations from scratch).
+
 ## Quick Scaffolding Workflow
 
 To create a new asset, scaffold from standard templates into `assets/<asset_name>/`:
@@ -56,3 +63,14 @@ Verify all assets and generator code against structural constraints:
 ```
 
 Structural validation enforces alpha presence, atlas grid divisibility, mesh watertightness, and audio non-clipping. Always inspect visual previews and listen to audio playback before declaring an asset complete.
+
+## Verification Loop (Required)
+
+Structural validation proves a file is well-formed, not that it is good. Before declaring any asset done:
+
+1. **Look.** Open `preview.png` (3D: three views; tile: albedo + normal-lit; VFX: contact sheet). Name one concrete defect, fix it, re-render. Read [`vault/pitfalls/procedural_failure_modes.md`](../../vault/pitfalls/procedural_failure_modes.md).
+2. **Declare the vault.** For every vault doc you applied, call `manifest.declare_vault("<path under vault/>", "<pipeline symbol you call>")`. Never import a technique you do not call.
+3. **Audit.** `.venv-code-assets/bin/python -m asset_pipeline audit assets/<name>` must pass (no unused pipeline imports, real vault docs, symbols actually used, no stale hashes).
+4. **Domain acceptance:** run the domain check from the specialist skill; `python -m unittest discover -s tests` stays green.
+5. **Hash only your files:** `manifest.scan_directory(out, only=[ASSET_NAME])`.
+6. **Compare to the baseline with numbers** if this replaces an earlier version: `python -m asset_pipeline compare <old> <new>`. Do not state numbers in a README that are not in the manifest.

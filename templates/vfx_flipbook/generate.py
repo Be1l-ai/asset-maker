@@ -65,7 +65,7 @@ def main():
         parameters={"frames": args.frames, "fps": args.fps, "grid": [args.columns, rows], "seed": args.seed},
         recipe=Path(__file__).name,
     )
-    manifest.scan_directory(args.out).save(args.out)
+    manifest.scan_directory(args.out, only=[ASSET_NAME]).save(args.out)
     print(f"✓ Generated {atlas_file}, preview.gif, and preview.png (passed validation)")
 
 

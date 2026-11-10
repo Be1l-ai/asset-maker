@@ -59,7 +59,7 @@ def main():
         parameters={"duration": args.duration, "rate": args.rate, "seed": args.seed},
         recipe=Path(__file__).name,
     )
-    manifest.scan_directory(args.out).save(args.out)
+    manifest.scan_directory(args.out, only=[ASSET_NAME]).save(args.out)
     print(f"✓ Generated {wav_file} (passed validation)")
 
 

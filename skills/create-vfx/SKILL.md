@@ -24,6 +24,12 @@ Generate animated visual effects and sprite sheet atlases entirely in code using
 - Ensure total atlas dimensions are powers of two or divisible by cell dimensions (e.g. 16 frames of $128 \times 128 \to 512 \times 512$ atlas).
 - Keep a 1-pixel transparent gutter around cell boundaries to prevent bilinear texture bleed across atlas frames in game engines.
 
+### 4. Knowledge Vault References
+- **Hybrid 3D Mesh + Flipbook Explosions**: See [`vault/techniques/hybrid_vfx/mesh_particle_explosions.md`](../../vault/techniques/hybrid_vfx/mesh_particle_explosions.md) (use `create_expanding_mesh_explosion()`).
+- **Four-Stage Emitter Stack**: See [`vault/techniques/hybrid_vfx/four_stage_emitter_architecture.md`](../../vault/techniques/hybrid_vfx/four_stage_emitter_architecture.md) (use `EmitterStack`).
+- **Alpha Erosion & Dissolve**: See [`vault/techniques/hybrid_vfx/dissolve_and_alpha_erosion.md`](../../vault/techniques/hybrid_vfx/dissolve_and_alpha_erosion.md) (use `dissolve_alpha_mask()`).
+
+
 ## Code Example: `Flipbook` & `ParticleEmitter`
 
 ```python
@@ -59,3 +65,14 @@ cd assets/<asset_name> && python generate.py
 1. **Atlas Grid Divisibility**: Confirm atlas width and height divide evenly by columns and rows with `AssetValidator.validate_png(path, require_alpha=True, columns=C, rows=R)`.
 2. **Timing & Playback**: Review `preview.gif` at target FPS to verify smooth motion pacing and zero duplicate boundary frames.
 3. **Alpha Consistency**: Verify frame boundaries have transparent gutters to avoid cross-frame bleeding.
+
+## Verification Loop (Required)
+
+Structural validation proves a file is well-formed, not that it is good. Before declaring any asset done:
+
+1. **Look.** Open `preview.png` (3D: three views; tile: albedo + normal-lit; VFX: contact sheet). Name one concrete defect, fix it, re-render. Read [`vault/pitfalls/procedural_failure_modes.md`](../../vault/pitfalls/procedural_failure_modes.md).
+2. **Declare the vault.** For every vault doc you applied, call `manifest.declare_vault("<path under vault/>", "<pipeline symbol you call>")`. Never import a technique you do not call.
+3. **Audit.** `.venv-code-assets/bin/python -m asset_pipeline audit assets/<name>` must pass (no unused pipeline imports, real vault docs, symbols actually used, no stale hashes).
+4. **Domain acceptance:** `validate_animation(atlas, columns, rows)`. Pre-roll all randomness outside layer callbacks; every stage you claim must be visible in the contact sheet.
+5. **Hash only your files:** `manifest.scan_directory(out, only=[ASSET_NAME])`.
+6. **Compare to the baseline with numbers** if this replaces an earlier version: `python -m asset_pipeline compare <old> <new>`. Do not state numbers in a README that are not in the manifest.

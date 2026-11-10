@@ -28,6 +28,13 @@ Build game-ready 3D solids entirely in code using `trimesh` and `manifold3d`.
 - Assign uniform RGBA colors to mesh face groups using `mesh.visual = trimesh.visual.ColorVisuals(mesh=mesh, face_colors=...)`.
 - Apply color assignments after boolean operations, as boolean engines reconstruct topology.
 
+### 5. Knowledge Vault References
+- **Stylized Bevels & Silhouettes**: See [`vault/techniques/art_styles/bevels_and_edge_weight.md`](../../vault/techniques/art_styles/bevels_and_edge_weight.md).
+- **Foliage Normal Bending & Leaf Cards**: See [`vault/techniques/geometry/foliage_spherical_normal_bending.md`](../../vault/techniques/geometry/foliage_spherical_normal_bending.md).
+- **Profile Lathe / Revolution**: Use `MeshBuilder.lathe()` or `revolve_profile()` from `asset_pipeline`.
+- **Out of Scope (3D Animation)**: See [`vault/future_scope/3d_skeletal_animation.md`](../../vault/future_scope/3d_skeletal_animation.md) (never generate skeletal animations from scratch).
+
+
 ## Code Example: `MeshBuilder`
 
 Use the object-oriented `MeshBuilder` and `SolidMesh` classes:
@@ -64,3 +71,14 @@ cd assets/<asset_name> && python generate.py
 1. **Volume & Winding**: Confirm `watertight=True` and consistent face winding with `AssetValidator.validate_mesh(path, watertight=True)`.
 2. **Budget**: Ensure total triangle count is within budget ($\le 3000$).
 3. **Software Preview**: Inspect `preview.png` rendered from multiple isometric angles with software depth sorting.
+
+## Verification Loop (Required)
+
+Structural validation proves a file is well-formed, not that it is good. Before declaring any asset done:
+
+1. **Look.** Open `preview.png` (3D: three views; tile: albedo + normal-lit; VFX: contact sheet). Name one concrete defect, fix it, re-render. Read [`vault/pitfalls/procedural_failure_modes.md`](../../vault/pitfalls/procedural_failure_modes.md).
+2. **Declare the vault.** For every vault doc you applied, call `manifest.declare_vault("<path under vault/>", "<pipeline symbol you call>")`. Never import a technique you do not call.
+3. **Audit.** `.venv-code-assets/bin/python -m asset_pipeline audit assets/<name>` must pass (no unused pipeline imports, real vault docs, symbols actually used, no stale hashes).
+4. **Domain acceptance:** `validate_mesh(..., watertight=True)` plus `validate_mesh_shading(mesh)`. Use `bake_ground_ao` (multiplicative), `lathe(..., subdivide=3)`, and check front/side previews for upright orientation.
+5. **Hash only your files:** `manifest.scan_directory(out, only=[ASSET_NAME])`.
+6. **Compare to the baseline with numbers** if this replaces an earlier version: `python -m asset_pipeline compare <old> <new>`. Do not state numbers in a README that are not in the manifest.

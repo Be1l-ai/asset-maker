@@ -27,6 +27,14 @@ Synthesize game sound effects using physical modeling, modal resonance, and nois
 - **Zero Crossings**: Always force audio sample endpoints $s[0] = 0$ and $s[-1] = 0$ with micro-ramps to prevent speaker pop artifacts on playback start/stop.
 - **Sample Rate & Encoding**: Standardize on 48 kHz, 16-bit signed integer mono PCM (`scipy.io.wavfile.write`). Duration in seconds is $\text{len}(s) / \text{rate}$.
 
+### 4. Knowledge Vault References
+- **Bronze Bell Modes**: See [`vault/mathematics/acoustics/church_bells_bronze.md`](../../vault/mathematics/acoustics/church_bells_bronze.md) (use `synth.bell_resonator()`).
+- **Undercut Marimba Modes**: See [`vault/mathematics/acoustics/undercut_bars_wood.md`](../../vault/mathematics/acoustics/undercut_bars_wood.md) (use `synth.wood_resonator()`).
+- **Glass & Crystal Shells**: See [`vault/mathematics/acoustics/glass_shells.md`](../../vault/mathematics/acoustics/glass_shells.md) (use `synth.glass_resonator()`).
+- **Tubular Chimes**: See [`vault/mathematics/acoustics/tubular_chimes.md`](../../vault/mathematics/acoustics/tubular_chimes.md) (use `synth.tubular_chime_resonator()`).
+- **Haas Stereo Spreading**: Use `spatial_stereo_pan()` from `asset_pipeline`.
+
+
 ## Code Example: `SoundSynthesizer`
 
 ```python
@@ -65,3 +73,14 @@ cd assets/<asset_name> && python generate.py
 1. **Audio Metrics**: Confirm sample rate (48 kHz), mono channel, peak dBFS ($\le -3.0$), and absence of silence/clipping with `AssetValidator.validate_wav(path)`.
 2. **DC Offset & Clicks**: Confirm zero DC bias and zero-crossing endpoints.
 3. **Playback Audition**: Listen to the generated WAV to verify natural acoustic timbre and decay curve.
+
+## Verification Loop (Required)
+
+Structural validation proves a file is well-formed, not that it is good. Before declaring any asset done:
+
+1. **Look.** Open `preview.png` (3D: three views; tile: albedo + normal-lit; VFX: contact sheet). Name one concrete defect, fix it, re-render. Read [`vault/pitfalls/procedural_failure_modes.md`](../../vault/pitfalls/procedural_failure_modes.md).
+2. **Declare the vault.** For every vault doc you applied, call `manifest.declare_vault("<path under vault/>", "<pipeline symbol you call>")`. Never import a technique you do not call.
+3. **Audit.** `.venv-code-assets/bin/python -m asset_pipeline audit assets/<name>` must pass (no unused pipeline imports, real vault docs, symbols actually used, no stale hashes).
+4. **Domain acceptance:** `validate_wav` on **every** exported WAV (mono and stereo). Keep recipe constants (Hz, ms, ratios) at module level and write them to the manifest.
+5. **Hash only your files:** `manifest.scan_directory(out, only=[ASSET_NAME])`.
+6. **Compare to the baseline with numbers** if this replaces an earlier version: `python -m asset_pipeline compare <old> <new>`. Do not state numbers in a README that are not in the manifest.

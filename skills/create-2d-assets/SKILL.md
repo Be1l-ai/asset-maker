@@ -24,6 +24,12 @@ Author production-quality raster icons, UI badges, and seamless tiles using `Pil
 - Evaluate basis harmonic functions $f(\theta, \phi) = \sum a_k \sin(k\theta + \alpha_k) \cos(k\phi + \beta_k)$. Boundary values at $x=0$ and $x=1$ (and $y=0$ and $y=1$) are guaranteed to match identically with zero derivative discontinuity.
 - Inspect every seamless tile with a $3 \times 3$ tiled contact preview (`create_tiled_preview`).
 
+### 4. Knowledge Vault References
+- **Cellular & Stone Noise**: See [`vault/mathematics/noise_and_fields/worley_cellular_noise.md`](../../vault/mathematics/noise_and_fields/worley_cellular_noise.md) (use `worley_noise()`).
+- **Normal Map Derivation**: See [`vault/mathematics/materials/height_to_normal_sobel.md`](../../vault/mathematics/materials/height_to_normal_sobel.md) (use `heightmap_to_normal_map()`).
+- **Procedural Fabrics & Wood**: See [`vault/techniques/materials/fabric_and_weave_patterns.md`](../../vault/techniques/materials/fabric_and_weave_patterns.md) and [`vault/techniques/materials/wood_grain_growth_rings.md`](../../vault/techniques/materials/wood_grain_growth_rings.md).
+
+
 ## Code Example: `SpriteCanvas`
 
 ```python
@@ -64,3 +70,14 @@ cd assets/<asset_name> && python generate.py
 1. **Alpha Channel**: Confirm alpha presence and 0% transparent background with `AssetValidator.validate_png(path, require_alpha=True)`.
 2. **Contrast & Edge Fidelity**: Inspect `preview.png` on both pure dark `(20, 24, 36)` and light `(235, 237, 242)` backgrounds.
 3. **Seamlessness**: For tiles, inspect the 3×3 grid preview to ensure zero visible seams or tiling repetition artifacts.
+
+## Verification Loop (Required)
+
+Structural validation proves a file is well-formed, not that it is good. Before declaring any asset done:
+
+1. **Look.** Open `preview.png` (3D: three views; tile: albedo + normal-lit; VFX: contact sheet). Name one concrete defect, fix it, re-render. Read [`vault/pitfalls/procedural_failure_modes.md`](../../vault/pitfalls/procedural_failure_modes.md).
+2. **Declare the vault.** For every vault doc you applied, call `manifest.declare_vault("<path under vault/>", "<pipeline symbol you call>")`. Never import a technique you do not call.
+3. **Audit.** `.venv-code-assets/bin/python -m asset_pipeline audit assets/<name>` must pass (no unused pipeline imports, real vault docs, symbols actually used, no stale hashes).
+4. **Domain acceptance:** `AssetValidator.validate_silhouette(png, max_components=1)` for icons; `validate_seamless(png)` (and the normal map) for tiles. Build shapes as masks and composite with `over`; never draw transparent fills to erase.
+5. **Hash only your files:** `manifest.scan_directory(out, only=[ASSET_NAME])`.
+6. **Compare to the baseline with numbers** if this replaces an earlier version: `python -m asset_pipeline compare <old> <new>`. Do not state numbers in a README that are not in the manifest.
