@@ -31,13 +31,13 @@ When excited continuously by friction (e.g. wet finger around a glass rim), the 
 ## 3. Python Synthesis Recipe
 
 ```python
-from asset_pipeline import SoundSynthesizer
+from asset_pipeline import Sound, SoundSynthesizer
 
-def synthesize_crystal_singing_bowl(duration: float = 2.0, f0: float = 587.33, seed: int = 7):
+def synthesize_crystal_singing_bowl(duration: float = 2.0, f0: float = 587.33, seed: int = 7) -> Sound:
     synth = SoundSynthesizer(rate=48000, seed=seed)
     glass = synth.glass_resonator(f0=f0, duration=duration)
     # Glass striker transient tap
     tap = synth.transient_click(duration=duration, decay_rate=140.0)
     samples = glass.samples + 0.12 * tap.samples
-    return synth.Sound(samples, rate=48000)
+    return Sound(samples, rate=48000)
 ```

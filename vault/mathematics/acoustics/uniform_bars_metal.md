@@ -33,11 +33,11 @@ $$d_k = d_1 \cdot \left(\frac{f_k}{f_1}\right)^\gamma, \quad \gamma \approx 0.6 
 ## 3. Python Synthesis Recipe
 
 ```python
-from asset_pipeline import SoundSynthesizer
+from asset_pipeline import Sound, SoundSynthesizer
 
-def synthesize_metal_bar(duration: float = 1.0, f0: float = 440.0, seed: int = 7):
+def synthesize_metal_bar(duration: float = 1.0, f0: float = 440.0, seed: int = 7) -> Sound:
     synth = SoundSynthesizer(rate=48000, seed=seed)
-    # Euler-Bernoulli ratios
+    # Euler-Bernoulli free-free bar ratios: (m_k / m_1)^2
     freqs = [f0 * 1.000, f0 * 2.757, f0 * 5.404, f0 * 8.933]
     decays = [5.0, 10.0, 18.0, 30.0]
     amps = [1.0, 0.45, 0.20, 0.08]
@@ -45,5 +45,5 @@ def synthesize_metal_bar(duration: float = 1.0, f0: float = 440.0, seed: int = 7
     modal = synth.modal_resonator(duration, freqs, decays, amps)
     click = synth.transient_click(duration, decay_rate=90.0)
     sound = modal.samples + 0.25 * click.samples
-    return synth.Sound(sound, rate=48000)
+    return Sound(sound, rate=48000)
 ```

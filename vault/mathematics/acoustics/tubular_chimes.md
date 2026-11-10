@@ -25,13 +25,13 @@ Because hollow tubes have low air drag per unit cross-sectional stiffness:
 ## 3. Python Synthesis Recipe
 
 ```python
-from asset_pipeline import SoundSynthesizer
+from asset_pipeline import Sound, SoundSynthesizer
 
-def synthesize_tubular_chime(duration: float = 2.0, f0: float = 523.25, seed: int = 7):
+def synthesize_tubular_chime(duration: float = 2.0, f0: float = 523.25, seed: int = 7) -> Sound:
     synth = SoundSynthesizer(rate=48000, seed=seed)
     chime = synth.tubular_chime_resonator(f0=f0, duration=duration)
     # Hard phenolic mallet strike
     click = synth.transient_click(duration=duration, decay_rate=80.0)
     samples = chime.samples + 0.30 * click.samples
-    return synth.Sound(samples, rate=48000)
+    return Sound(samples, rate=48000)
 ```

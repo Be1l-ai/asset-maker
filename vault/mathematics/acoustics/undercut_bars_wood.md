@@ -32,14 +32,14 @@ Higher modes decay almost instantaneously ($d_2 \approx 60.0\text{ s}^{-1}$, $d_
 ## 3. Python Synthesis Recipe
 
 ```python
-from asset_pipeline import SoundSynthesizer
+from asset_pipeline import Sound, SoundSynthesizer
 
-def synthesize_marimba_strike(duration: float = 0.5, f0: float = 261.63, seed: int = 7):
+def synthesize_marimba_strike(duration: float = 0.5, f0: float = 261.63, seed: int = 7) -> Sound:
     synth = SoundSynthesizer(rate=48000, seed=seed)
     # Marimba double-octave undercut tuning
     sound = synth.wood_resonator(f0=f0, duration=duration)
     # Soft felt mallet transient strike
     mallet = synth.transient_click(duration=duration, decay_rate=120.0)
     combined = sound.samples + 0.15 * mallet.samples
-    return synth.Sound(combined, rate=48000)
+    return Sound(combined, rate=48000)
 ```

@@ -31,13 +31,13 @@ A bell's iconic, majestic, shimmering sound comes from the deliberate clash betw
 ## 3. Python Synthesis Recipe
 
 ```python
-from asset_pipeline import SoundSynthesizer
+from asset_pipeline import Sound, SoundSynthesizer
 
-def synthesize_temple_bell(duration: float = 3.0, f0: float = 330.0, seed: int = 7):
+def synthesize_temple_bell(duration: float = 3.0, f0: float = 330.0, seed: int = 7) -> Sound:
     synth = SoundSynthesizer(rate=48000, seed=seed)
     bell = synth.bell_resonator(f0=f0, duration=duration)
     # Heavy iron clapper strike
     clapper = synth.transient_click(duration=duration, decay_rate=60.0)
     samples = bell.samples + 0.35 * clapper.samples
-    return synth.Sound(samples, rate=48000)
+    return Sound(samples, rate=48000)
 ```
