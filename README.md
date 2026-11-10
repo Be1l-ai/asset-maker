@@ -1,5 +1,15 @@
 # AssetMaking
 
+[![Python 3.12+](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Tests](https://img.shields.io/badge/Tests-87%20Passed-2ea44f?logo=github-actions&logoColor=white)]()
+[![Pipelines](https://img.shields.io/badge/Pipelines-2D%20%7C%203D%20%7C%20VFX%20%7C%20SFX-blueviolet)]()
+[![Formats](https://img.shields.io/badge/Formats-GLB%20%7C%20OBJ%20%7C%20PNG%20%7C%20WAV-orange)]()
+[![Engine](https://img.shields.io/badge/Workflow-Deterministic%20%26%20Code--Only-blue)]()
+
+`procedural-generation` · `game-assets` · `gamedev` · `3d-mesh` · `csg-booleans` · `vfx-flipbook` · `sfx-synthesis` · `python` · `trimesh` · `manifold3d` · `knowledge-vault` · `agent-skills`
+
+---
+
 Procedural game asset generation in pure Python (`numpy`, `scipy`, `Pillow`, `aggdraw`, `trimesh`, `manifold3d`). Every 2D sprite, seamless tile, watertight 3D mesh, VFX flipbook, and SFX audio file in this repository is built from a deterministic, seeded Python script—no Blender, DAW, external renderer, or hosted API.
 
 ## Setup
