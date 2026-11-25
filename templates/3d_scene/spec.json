@@ -1,0 +1,46 @@
+{
+  "name": "scene",
+  "max_triangles": 15000,
+  "materials": {
+    "meadow_ground": {
+      "name": "MeadowGround",
+      "roughness": 0.94,
+      "metallic": 0.0
+    },
+    "pine_foliage": {
+      "name": "PineFoliage",
+      "roughness": 0.84,
+      "metallic": 0.0
+    },
+    "warm_sun": {
+      "name": "WarmSun",
+      "roughness": 1.0,
+      "metallic": 0.0,
+      "emissive": [1.0, 0.90, 0.55],
+      "shading_mode": "emissive"
+    }
+  },
+  "parts": [
+    {
+      "name": "Terrain_Ground",
+      "material": "meadow_ground",
+      "max_triangles": 1000,
+      "pivot": [0.0, 0.0, 0.0],
+      "dimensions_m": [16.0, 16.0, 0.5]
+    },
+    {
+      "name": "Hero_Tree",
+      "material": "pine_foliage",
+      "max_triangles": 1500,
+      "pivot": [0.0, 1.5, 0.0],
+      "dimensions_m": [2.4, 2.4, 4.2]
+    },
+    {
+      "name": "Sun",
+      "material": "warm_sun",
+      "max_triangles": 160,
+      "pivot": [-6.0, 10.0, 8.0],
+      "dimensions_m": [1.6, 1.6, 1.6]
+    }
+  ]
+}

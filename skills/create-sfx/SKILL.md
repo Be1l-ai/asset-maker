@@ -39,3 +39,14 @@ def synthesize_chime(duration: float = 1.5, rate: int = 48000, seed: int = 7) ->
 ## Domain Acceptance Checks
 
 1. **Measured WAV Validation**: Run `AssetValidator.validate_wav(path)` on **every** exported WAV file (both mono and stereo) to verify $48\text{ kHz}$ sample rate, non-silent finite samples, zero-crossing endpoints, and $\le -3.0\text{ dBFS}$ peak headroom.
+
+## V6 Production Discipline (Mandatory Across All Modalities)
+1. **Research-First & Seed the Vault**: Before writing code for any domain, silhouette, shader, or audio synthesis technique not already documented in `vault/`, research authoritative references (or `benchmarks/prompts.json`) and **seed a reusable `vault/techniques/...` guide** (and register it in `vault/README.md` + `manifest.json` `vault_refs`). Never improvise complex anatomy or DSP math without checking/seeding the vault.
+2. **Optimize Representation (`vault/techniques/optimization/cross_modality_asset_optimization.md`)**:
+   - **3D**: Use geometry strictly for silhouette; paint markings (stripes, emblems, seams) in albedo UVs and bake micro-relief (fur, wood grain, cloth weave) into tangent-space normal maps via `asset_pipeline.baking`.
+   - **2D / UI**: Maximize alpha fill efficiency (`compute_sprite_alpha_efficiency`), clean value hierarchy, and power-of-two sizing.
+   - **VFX**: Tight per-frame alpha bounds, channel-packed noise masks, and minimal overdraw.
+   - **SFX**: Normalize to `-1.0 dBFS` headroom, high-pass sub-30 Hz mud, and ensure zero-crossing loop/tail cleanliness.
+3. **Two-Tier Critique Loop (`asset_pipeline.critique.CritiqueLog`)**:
+   - **Tier 1 (Inner Build Loop, min 3 rounds)**: Blockout -> Secondary -> Final candidate.
+   - **Tier 2 (Outer 0-10 Detail-Critique Re-Loop, up to 5 outer passes)**: Score the Final 0-10 on hard modality-specific details (`add_detail_pass`). If the score is `< 9.0/10`, treat that Final as the **new starting point**, fix every identified detail flaw, and re-loop up to **5 outer passes** until it passes `>= 9.0/10`.

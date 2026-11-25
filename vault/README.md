@@ -34,6 +34,7 @@ Each document in this vault is **atomic and self-contained** (typically < 300 li
   - [`art_styles/bevels_and_edge_weight.md`](techniques/art_styles/bevels_and_edge_weight.md) — Wide stylized chamfers, turned lathe profiles (`MeshBuilder.lathe`), and 2D SDF morphological fillets (`fillet_mask`).
   - [`art_styles/color_ramps_and_cel_steps.md`](techniques/art_styles/color_ramps_and_cel_steps.md) — Warm lit / cool shadow temperature ramps (`hsv_to_rgb`, `lerp_color`), quantized cel thresholds.
   - [`art_styles/vertex_color_gradient_baking.md`](techniques/art_styles/vertex_color_gradient_baking.md) — Multiplicative ground contact AO (`bake_ground_ao`) and full vertical gradient baking (`bake_vertex_gradient_ao`).
+  - [`art_styles/production_critique_loop.md`](techniques/art_styles/production_critique_loop.md) — Style-profile budgets (`STYLE_PROFILES`), Triple-Track routing, and mandatory multi-round `CritiqueLog` anti-slop gate.
 - **Hybrid VFX Architectures**:
   - [`hybrid_vfx/mesh_particle_explosions.md`](techniques/hybrid_vfx/mesh_particle_explosions.md) — Combining 3D expanding mesh sphere clusters with particle flipbook sheets.
   - [`hybrid_vfx/ribbon_trails_and_vortex_cones.md`](techniques/hybrid_vfx/ribbon_trails_and_vortex_cones.md) — Swept mesh ribbons, vortex cones, and UV-scrolling trail geometry.
@@ -50,9 +51,14 @@ Each document in this vault is **atomic and self-contained** (typically < 300 li
   - [`geometry/leaf_cards_and_alpha_branching.md`](techniques/geometry/leaf_cards_and_alpha_branching.md) — Overdraw optimization, cross-quads, and branch hierarchies.
   - [`geometry/skybox_and_skydome_hemispheres.md`](techniques/geometry/skybox_and_skydome_hemispheres.md) — Inverted hemisphere geometries and atmospheric scattering color ramps.
   - [`geometry/billboards_and_impostors.md`](techniques/geometry/billboards_and_impostors.md) — Camera-facing quads, cylindrical billboard math, and multi-angle impostors.
+  - [`geometry/staged_scene_assembly.md`](techniques/geometry/staged_scene_assembly.md) — Staged `PARSE -> MASS -> RIG -> SKIN -> PACK` multi-node glTF assembly (`SceneBuilder`, `SceneSpec`, `MaterialSpec`).
 
 ### 3. Pitfalls & Acceptance Checks (`vault/pitfalls/`)
 - [`pitfalls/procedural_failure_modes.md`](pitfalls/procedural_failure_modes.md) — Real failures that passed structural validation (aggdraw erase, floating parts, tile seams, dead AO calls, per-frame RNG jitter) with the fix and the automated check for each. **Read before finishing any asset.**
 
 ### 4. Out-of-Scope Roadmap (`vault/future_scope/`)
 - [`future_scope/3d_skeletal_animation.md`](future_scope/3d_skeletal_animation.md) — Explains why procedural 3D skeletal animation from scratch is out of scope and outlines the roadmap for standard skeleton rig templates and reusable motion sequence banks.
+- [`techniques/optimization/cross_modality_asset_optimization.md`](techniques/optimization/cross_modality_asset_optimization.md) — Silhouette-vs-texture/normal optimization for 3D, alpha-efficiency for 2D/VFX, and headroom/loop hygiene for SFX.
+- [`techniques/geometry/stylized_character_paws_and_cel_shading.md`](techniques/geometry/stylized_character_paws_and_cel_shading.md) — Unified sculpted paws, painted head UVs, baked fur normal maps, and inverted-hull cel outlines.
+- [`techniques/hybrid_vfx/lightning_strike_hybrid_and_sfx_sync.md`](techniques/hybrid_vfx/lightning_strike_hybrid_and_sfx_sync.md) — Shared 4-stage timeline syncing 3D bolt/crater mesh, 4x4 additive flipbook, and layered DSP thunder SFX.
+- [`techniques/hybrid_vfx/anime_cel_fireball_explosion.md`](techniques/hybrid_vfx/anime_cel_fireball_explosion.md) — Sakuga cel-shaded fireball explosion combining animated 3D billowing clouds, Yutapon debris cubes, impact flash flipbook, and synced detonation SFX.

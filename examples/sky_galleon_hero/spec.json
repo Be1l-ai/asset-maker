@@ -1,0 +1,212 @@
+{
+  "name": "sky_galleon_hero",
+  "track": "python",
+  "style_profile": "hand_painted_hero",
+  "quality_tier": "hero",
+  "max_triangles": 35000,
+  "materials": {
+    "hull_cedar": {
+      "name": "CaulkedCedarHull",
+      "roughness": 0.72,
+      "metallic": 0.05,
+      "uv_scale": 0.35
+    },
+    "deck_planks": {
+      "name": "WeatheredDeck",
+      "roughness": 0.82,
+      "metallic": 0.0,
+      "uv_scale": 0.55
+    },
+    "sail_emblem": {
+      "name": "MainEmblemSail",
+      "roughness": 0.86,
+      "metallic": 0.0,
+      "uv_scale": 1.0
+    },
+    "sail_stripe": {
+      "name": "StripedRacingSail",
+      "roughness": 0.86,
+      "metallic": 0.0,
+      "uv_scale": 1.0
+    },
+    "brass_gold": {
+      "name": "BurnishedBrass",
+      "roughness": 0.26,
+      "metallic": 0.9
+    },
+    "turbine_iron": {
+      "name": "RivetedTurbineIron",
+      "roughness": 0.42,
+      "metallic": 0.82
+    },
+    "rope_hemp": {
+      "name": "HempRigging",
+      "roughness": 0.92,
+      "metallic": 0.0
+    },
+    "cyan_thruster": {
+      "name": "AetherThrusterGlow",
+      "roughness": 0.15,
+      "metallic": 0.0,
+      "emissive": [
+        0.22,
+        0.92,
+        1.0
+      ],
+      "shading_mode": "emissive"
+    },
+    "amber_lantern": {
+      "name": "WarmLanternGlow",
+      "roughness": 0.18,
+      "metallic": 0.0,
+      "emissive": [
+        1.0,
+        0.78,
+        0.28
+      ],
+      "shading_mode": "emissive"
+    }
+  },
+  "parts": [
+    {
+      "name": "Hull_Planking",
+      "material": "hull_cedar",
+      "max_triangles": 6000,
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Hull_Brass_Trim",
+      "material": "brass_gold",
+      "max_triangles": 3000,
+      "pivot": [
+        0.0,
+        0.0,
+        0.5
+      ]
+    },
+    {
+      "name": "Stern_Cabin_Windows",
+      "material": "amber_lantern",
+      "max_triangles": 600,
+      "pivot": [
+        0.0,
+        -3.2,
+        1.2
+      ]
+    },
+    {
+      "name": "Deck_And_Rails",
+      "material": "deck_planks",
+      "max_triangles": 4000,
+      "pivot": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Masts_And_Bowsprit",
+      "material": "hull_cedar",
+      "max_triangles": 3500,
+      "pivot": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Main_Emblem_Sail",
+      "material": "sail_emblem",
+      "max_triangles": 2000,
+      "pivot": [
+        0.0,
+        0.2,
+        3.0
+      ]
+    },
+    {
+      "name": "Racing_Square_Sails",
+      "material": "sail_stripe",
+      "max_triangles": 4500,
+      "pivot": [
+        0.0,
+        0.8,
+        3.6
+      ]
+    },
+    {
+      "name": "Jib_And_Spanker_Sails",
+      "material": "sail_stripe",
+      "max_triangles": 2500,
+      "pivot": [
+        0.0,
+        2.5,
+        2.8
+      ]
+    },
+    {
+      "name": "Rigging_And_Ratlines",
+      "material": "rope_hemp",
+      "max_triangles": 4500,
+      "pivot": [
+        0.0,
+        0.0,
+        2.5
+      ]
+    },
+    {
+      "name": "Turbine_Nacelles",
+      "material": "turbine_iron",
+      "max_triangles": 3500,
+      "pivot": [
+        0.0,
+        -1.2,
+        0.2
+      ]
+    },
+    {
+      "name": "Turbine_Brass_Rings",
+      "material": "brass_gold",
+      "max_triangles": 1800,
+      "pivot": [
+        0.0,
+        -1.2,
+        0.2
+      ]
+    },
+    {
+      "name": "Thruster_Glow_Cores",
+      "material": "cyan_thruster",
+      "max_triangles": 800,
+      "pivot": [
+        0.0,
+        -1.8,
+        0.2
+      ]
+    },
+    {
+      "name": "Stern_Lantern_Frames",
+      "material": "brass_gold",
+      "max_triangles": 600,
+      "pivot": [
+        0.0,
+        -3.5,
+        2.5
+      ]
+    },
+    {
+      "name": "Stern_Lantern_Flames",
+      "material": "amber_lantern",
+      "max_triangles": 400,
+      "pivot": [
+        0.0,
+        -3.5,
+        2.6
+      ]
+    }
+  ]
+}

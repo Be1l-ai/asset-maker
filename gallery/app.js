@@ -151,6 +151,9 @@ function createModelRenderer() {
       attribute vec3 color;
       uniform vec4 rotation;
       uniform vec3 projection;
+      uniform float shadeMode;
+      uniform vec3 lightDir;
+      uniform vec3 lightTint;
       varying vec3 tint;
       vec3 turn(vec3 p) {
         float x = rotation.x * p.x - rotation.y * p.y;
@@ -159,9 +162,18 @@ function createModelRenderer() {
       }
       void main() {
         vec3 p = turn(position);
+        vec3 n = normalize(turn(normal));
         gl_Position = vec4(p.x * projection.x, p.y * projection.y + projection.z, -p.z * .9, 1.);
-        float shade = .48 + .52 * max(0., dot(turn(normal), vec3(-.35, .65, .65)));
-        tint = color * shade;
+        float ndotl = max(0., dot(n, normalize(lightDir)));
+        float hemi = .42 + .18 * (n.y * .5 + .5);
+        float rim = pow(1.0 - max(0., abs(n.z)), 2.2) * .16;
+        if (shadeMode > 1.5) {
+          tint = n * .5 + .5;
+        } else if (shadeMode > .5) {
+          tint = vec3(.78, .80, .84) * (hemi + .58 * ndotl) * lightTint + vec3(rim);
+        } else {
+          tint = color * (hemi + .58 * ndotl) * lightTint + vec3(rim * .6);
+        }
       }`],
     [gl.FRAGMENT_SHADER, 'precision mediump float; varying vec3 tint; void main() { gl_FragColor = vec4(tint, 1.); }']
   ];
@@ -179,7 +191,9 @@ function createModelRenderer() {
   gl.enable(gl.DEPTH_TEST);
   gl.clearColor(0, 0, 0, 0);
   return { canvas, gl, attributes: ['position', 'normal', 'color'].map(name => gl.getAttribLocation(program, name)),
-    rotation: gl.getUniformLocation(program, 'rotation'), projection: gl.getUniformLocation(program, 'projection') };
+    rotation: gl.getUniformLocation(program, 'rotation'), projection: gl.getUniformLocation(program, 'projection'),
+    shadeMode: gl.getUniformLocation(program, 'shadeMode'), lightDir: gl.getUniformLocation(program, 'lightDir'),
+    lightTint: gl.getUniformLocation(program, 'lightTint') };
 }
 const modelRenderer = createModelRenderer();
 function drawModel(view, context, width, height) {
@@ -190,8 +204,15 @@ function drawModel(view, context, width, height) {
     context.fillText('3D preview requires WebGL. Download the GLB to inspect.', width / 2, height / 2, width * .9);
     return;
   }
-  const { gl, canvas, attributes, rotation, projection } = modelRenderer;
-  const key = [width, height, view.yaw, view.pitch, view.zoom].join('/');
+  const { gl, canvas, attributes, rotation, projection, shadeMode, lightDir, lightTint } = modelRenderer;
+  const presets = {
+    studio: { dir: [-.35, .65, .65], tint: [1.0, 1.0, 1.0] },
+    sunset: { dir: [-.72, .34, .60], tint: [1.08, .94, .82] },
+    cool:   { dir: [.45, .58, .68],  tint: [.88, .96, 1.10] },
+  };
+  const preset = presets[view.lightPreset || 'studio'] || presets.studio;
+  const sMode = view.shadeMode === 'normals' ? 2 : view.shadeMode === 'clay' ? 1 : 0;
+  const key = [width, height, view.yaw, view.pitch, view.zoom, sMode, view.lightPreset || 'studio'].join('/');
   if (view.renderKey !== key) {
     if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
     gl.viewport(0, 0, width, height);
@@ -216,6 +237,9 @@ function drawModel(view, context, width, height) {
     const scale = Math.min(width, height) * (view.hero ? .78 : .76) * view.zoom;
     gl.uniform4f(rotation, Math.cos(view.yaw), Math.sin(view.yaw), Math.cos(view.pitch), Math.sin(view.pitch));
     gl.uniform3f(projection, 2 * scale / width, 2 * scale / height, 1 - 2 * (view.hero ? .47 : .51));
+    gl.uniform1f(shadeMode, sMode);
+    gl.uniform3f(lightDir, preset.dir[0], preset.dir[1], preset.dir[2]);
+    gl.uniform3f(lightTint, preset.tint[0], preset.tint[1], preset.tint[2]);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, view.data.faces.length * 3);
     view.rendered ||= document.createElement('canvas');
@@ -415,6 +439,23 @@ function openInspector(asset) {
     : 'Original RGBA export. Backgrounds in this inspector are for preview only.';
   $('#asset-review').hidden = !asset.review;
   $('#asset-review').textContent = asset.review ? `Review target: ${asset.review}` : '';
+  const nodesBox = $('#dialog-nodes');
+  const nodesList = $('#dialog-nodes-list');
+  if (nodesBox && nodesList) {
+    nodesBox.hidden = true;
+    nodesList.replaceChildren();
+    if (asset.inspector) {
+      fetchJSON(asset.inspector).then(meta => {
+        if (state.selected?.id !== asset.id || !Array.isArray(meta.nodes)) return;
+        meta.nodes.forEach(n => {
+          const li = element('li', 'node-row');
+          li.append(element('span', 'node-name', n.name), element('span', 'node-meta', `${n.triangles} tris · ${n.material}`));
+          nodesList.append(li);
+        });
+        nodesBox.hidden = meta.nodes.length === 0;
+      }).catch(() => {});
+    }
+  }
   const stage = $('#inspector-stage');
   const controls = $('#preview-controls');
   stage.replaceChildren();
@@ -454,14 +495,35 @@ function openInspector(asset) {
     stage.append(canvas);
     const view = attachPreview(canvas, asset, { interactive: asset.category === '3d', auto: asset.category === '3d', modal: true });
     if (asset.category === '3d') {
-      controls.append(button('Reset view', '', () => { view.yaw = asset.yaw ?? .65; view.pitch = .3; view.zoom = 1; slider.value = '1'; }, 'refresh'));
+      view.shadeMode = 'lit';
+      view.lightPreset = 'studio';
+      controls.append(button('Reset view', '', () => {
+        view.yaw = asset.yaw ?? .65; view.pitch = .3; view.zoom = 1; view.shadeMode = 'lit'; view.lightPreset = 'studio';
+        slider.value = '1'; shadeSel.value = 'lit'; lightSel.value = 'studio';
+      }, 'refresh'));
+      const shadeWrap = element('label', '', 'Shading');
+      const shadeSel = element('select', 'inspector-select');
+      shadeSel.setAttribute('aria-label', 'Shading mode');
+      [['lit', 'Lit'], ['clay', 'Clay'], ['normals', 'Normals']].forEach(([v, lbl]) => {
+        const opt = element('option', '', lbl); opt.value = v; shadeSel.append(opt);
+      });
+      shadeSel.addEventListener('change', () => { view.shadeMode = shadeSel.value; });
+      shadeWrap.append(shadeSel);
+      const lightWrap = element('label', '', 'Light');
+      const lightSel = element('select', 'inspector-select');
+      lightSel.setAttribute('aria-label', 'Lighting preset');
+      [['studio', 'Studio'], ['sunset', 'Sunset'], ['cool', 'Cool Rim']].forEach(([v, lbl]) => {
+        const opt = element('option', '', lbl); opt.value = v; lightSel.append(opt);
+      });
+      lightSel.addEventListener('change', () => { view.lightPreset = lightSel.value; });
+      lightWrap.append(lightSel);
       const zoom = element('label', '', 'Zoom');
       const slider = element('input');
       slider.type = 'range'; slider.min = '.65'; slider.max = '1.4'; slider.step = '.05'; slider.value = '1';
       slider.setAttribute('aria-label', 'Model zoom');
       slider.addEventListener('input', () => { view.zoom = Number(slider.value); });
       zoom.append(slider);
-      controls.append(zoom);
+      controls.append(shadeWrap, lightWrap, zoom);
     } else {
       const play = button(state.motionPaused ? 'Play' : 'Pause', '', () => {
         if (state.motionPaused) { state.motionPaused = false; updateMotionButton(); view.paused = false; }
@@ -526,7 +588,7 @@ async function loadCollection() {
       if (!Array.isArray(catalog.assets) || !catalog.assets.length) throw new Error('No assets in catalog');
       catalog.assets.forEach(asset => {
         if (!['3d', '2d', 'vfx', 'sfx'].includes(asset.category) || !Array.isArray(asset.tags)) throw new Error('Invalid asset metadata');
-        ['file', 'recipe', 'manifest', 'preview', 'model', 'atlas', 'panelPreview'].forEach(key => { if (asset[key]) localPath(asset[key]); });
+        ['file', 'recipe', 'manifest', 'preview', 'model', 'atlas', 'panelPreview', 'inspector'].forEach(key => { if (asset[key]) localPath(asset[key]); });
         assets.push({ ...asset, collection });
       });
     }

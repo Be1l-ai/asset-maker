@@ -1,0 +1,386 @@
+{
+  "version": 1,
+  "source": "awesome-opus5-5-videos",
+  "count": 20,
+  "benchmarks": [
+    {
+      "id": "0xwast3-222104",
+      "author": "0xWast3",
+      "source_category": "3d",
+      "tech_tags": [
+        "threejs",
+        "shader"
+      ],
+      "recommended_template": "3d_hero_package",
+      "budget": 6000,
+      "acceptance_checks": [
+        "named_nodes",
+        "pivots",
+        "pbr_materials",
+        "per_asset_tests"
+      ],
+      "prompt_excerpt": "Opus 5.5 turned one sentence into a 3D system that opens in Blender, rigged, textured and ready to animate.  It does not render the object. It constructs it, part by part, the way a modeller would if they had a week.  > PARSE - the sentence becomes a parts list with real dimensions, nothing implied > MASS - each part b...",
+      "source_url": "https://x.com/0xWast3/status/2103513328077222104"
+    },
+    {
+      "id": "alexalbert-274839",
+      "author": "alexalbert__",
+      "source_category": "3d",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "canvas"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 25000,
+      "acceptance_checks": [
+        "spec_json",
+        "modular_generators",
+        "named_nodes"
+      ],
+      "prompt_excerpt": "Recreate Market Street, San Francisco as it stood on April 17, 1906, the afternoon before the earthquake, in Blender.  Scope: the Ferry Building up Market to Fifth Street, including the Palace Hotel, the Call Building, the Chronicle Building, Lotta's Fountain and the Emporium.  Before modeling anything, build a source...",
+      "source_url": "https://x.com/alexalbert__/status/2102466523164274839"
+    },
+    {
+      "id": "lexnlin-241739",
+      "author": "LexnLin",
+      "source_category": "interactive",
+      "tech_tags": [
+        "threejs",
+        "shader"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 25000,
+      "acceptance_checks": [
+        "terrain",
+        "architecture",
+        "atmosphere",
+        "named_nodes"
+      ],
+      "prompt_excerpt": "Create a cinematic browser-based 3D world that can be explored freely with a camera, focused on breathtaking landscapes and extraordinary original architecture. Fill the world with huge strange buildings, monumental structures, surreal ruins, cliffs, valleys, forests, water, and unusual ultra-detailed forms that feel m...",
+      "source_url": "https://x.com/LexnLin/status/2103194052850241739"
+    },
+    {
+      "id": "techartist-786274",
+      "author": "techartist_",
+      "source_category": "3d",
+      "tech_tags": [
+        "threejs",
+        "shader"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 25000,
+      "acceptance_checks": [
+        "water",
+        "bridges",
+        "named_nodes",
+        "pbr_materials"
+      ],
+      "prompt_excerpt": "I wanted to see if beautiful destinations could become playable 3D experiences. Annecy, France became the prototype: a boat journey through canals, bridges, waterfront, and the mountain lake, built with Claude Opus 5.5 using Three.js + TSL.  I trimmed the navigation footage for the sake of keeping the video short and t...",
+      "source_url": "https://x.com/techartist_/status/2103933640392786274"
+    },
+    {
+      "id": "souradip3000-800291",
+      "author": "Souradip3000",
+      "source_category": "3d",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "svg",
+        "particles"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 18000,
+      "acceptance_checks": [
+        "foliage",
+        "spherical_normals",
+        "atmosphere"
+      ],
+      "prompt_excerpt": "Opus 5.5 is mind boggling.   It created this 3D website from just one prompt.   Told it to create a website for forest conservation agency with pinterest post as reference for 3D animation.  It one shotted into a single html file.",
+      "source_url": "https://x.com/Souradip3000/status/2103876499262800291"
+    },
+    {
+      "id": "niegramotny-197521",
+      "author": "_nieGRAMotny_",
+      "source_category": "interactive",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "canvas",
+        "physics"
+      ],
+      "recommended_template": "3d_hero_package",
+      "budget": 5000,
+      "acceptance_checks": [
+        "vehicle_parts",
+        "pivots",
+        "pbr_materials"
+      ],
+      "prompt_excerpt": "Build a racing game inspired by Ignition (1997): angled top-down camera, arcade-leaning physics, vehicles with very distinct personalities. This must be an original game, not a copy. Use an original name, an original track, and zero original assets.  ## Stack - Vite + TypeScript (strict), Three.js for rendering, no UI...",
+      "source_url": "https://x.com/_nieGRAMotny_/status/2103128800909197521"
+    },
+    {
+      "id": "dreyk0o0-165270",
+      "author": "dreyk0o0",
+      "source_category": "interactive",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "playable"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 20000,
+      "acceptance_checks": [
+        "voxel_terrain",
+        "lighting",
+        "named_nodes"
+      ],
+      "prompt_excerpt": "Claude Opus 5.5 just built Minecraft.  In the browser. From a single prompt.  Noah Wachnick asked it to recreate Minecraft with advanced shaders, \"as realistic as possible.\"  1 hour 37 minutes at max effort:  > block placement > terrain > realistic lighting and shaders  Here's a prompt to try it yourself. Bookmark this...",
+      "source_url": "https://x.com/dreyk0o0/status/2103822946800165270"
+    },
+    {
+      "id": "froessell-562325",
+      "author": "froessell",
+      "source_category": "interactive",
+      "tech_tags": [
+        "threejs",
+        "canvas",
+        "physics",
+        "playable"
+      ],
+      "recommended_template": "3d_hero_package",
+      "budget": 4000,
+      "acceptance_checks": [
+        "vehicle_parts",
+        "named_nodes",
+        "tri_budget"
+      ],
+      "prompt_excerpt": "PRD \u2014 Police Chase Arcade Game  Working title: Heatwave Platform: iOS + Android Engine: Unity Genre: Top-down 3D arcade chase / survival Orientation: Portrait Input: One-thumb touch controls Business model: TBD \u2014 design MVP around gameplay first Primary goal: Build a genuinely fun playable prototype before adding progr...",
+      "source_url": "https://x.com/froessell/status/2103789415323562325"
+    },
+    {
+      "id": "stephanferraro-224281",
+      "author": "StephanFerraro",
+      "source_category": "explainer",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "physics"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 20000,
+      "acceptance_checks": [
+        "terrain",
+        "water_surface",
+        "spec_json"
+      ],
+      "prompt_excerpt": "Claude Opus 5.5 on our AI coding benchmark: build a fully autonomous 3D water simulation from an empty repo - procedural mountains, rain, streams, lakes. TypeScript + Three.js, no physics engine.  One prompt, zero corrections, ~21 min. 23/23 tests green.  https://github.com/AiondaDotCom/ai-sim-benchmark",
+      "source_url": "https://x.com/StephanFerraro/status/2103020274107224281"
+    },
+    {
+      "id": "ishuagra02-678129",
+      "author": "ishuagra02",
+      "source_category": "3d",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "particles"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 18000,
+      "acceptance_checks": [
+        "coastal_biome",
+        "time_of_day",
+        "emissive_sun"
+      ],
+      "prompt_excerpt": "Create a stylistic 3D environment of a busy Santa Monica beach that adapts to the time of day. The art style must be a particle illustration, which uses thousands of tiny glowing specks rather than solid fills with flowing ribbon strokes behind figures to suggest motion.  I had 2-3 more prompts on top of this, but this...",
+      "source_url": "https://x.com/ishuagra02/status/2102920408743678129"
+    },
+    {
+      "id": "mayuresh-empire-687553",
+      "author": "mayuresh_empire",
+      "source_category": "interactive",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "canvas",
+        "particles"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 22000,
+      "acceptance_checks": [
+        "temple_architecture",
+        "foliage",
+        "named_nodes"
+      ],
+      "prompt_excerpt": "Claude Opus 5.5 built this game from a single prompt - a mythic action game inspired by ancient Indian epics.  No engine. No assets. Every temple, tree, enemy, shader, and sound is generated in code.  Even this trailer was designed by Claude. The future is crazy.",
+      "source_url": "https://x.com/mayuresh_empire/status/2104207365008687553"
+    },
+    {
+      "id": "mandelduck-768972",
+      "author": "MandelDuck",
+      "source_category": "interactive",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "canvas"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 16000,
+      "acceptance_checks": [
+        "stylized_village",
+        "night_sky",
+        "emissive"
+      ],
+      "prompt_excerpt": "can you make a 3d game where you walk around and spot cats inside of a van gogh painting? we can start with stary night and its town",
+      "source_url": "https://x.com/MandelDuck/status/2103802923465768972"
+    },
+    {
+      "id": "aayush4soni-644283",
+      "author": "aayush4soni",
+      "source_category": "3d",
+      "tech_tags": [
+        "threejs",
+        "canvas"
+      ],
+      "recommended_template": "3d_hero_package",
+      "budget": 5000,
+      "acceptance_checks": [
+        "named_nodes",
+        "pbr_materials",
+        "uv_textures"
+      ],
+      "prompt_excerpt": "My family is planning to build a house, and all we had was the floor plan. I wanted to see how it would really look once it's built: which colors, layout and design would suit it best.  So I gave the plan to Claude Opus 5.5 and asked it to create a 3D view of the house.  It's one of the most useful things I've created...",
+      "source_url": "https://x.com/aayush4soni/status/2104181266459644283"
+    },
+    {
+      "id": "thebuggeddev-482912",
+      "author": "thebuggeddev",
+      "source_category": "3d",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "canvas",
+        "svg"
+      ],
+      "recommended_template": "3d_hero_package",
+      "budget": 4500,
+      "acceptance_checks": [
+        "named_nodes",
+        "pbr_materials",
+        "watertight"
+      ],
+      "prompt_excerpt": "Build a fully working 1857 Napoleon load field cannon in 3D using procedural Three.js WebGPU and TSL shaders. No Blender, no 3D assets, no textures. Include technical drawings as live orthographic renders showing elevation, pressure, trajectory, and firing changes in real time.",
+      "source_url": "https://x.com/thebuggeddev/status/2107449104926482912"
+    },
+    {
+      "id": "op7418-814408",
+      "author": "op7418",
+      "source_category": "interactive",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "canvas",
+        "gsap"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 18000,
+      "acceptance_checks": [
+        "named_nodes",
+        "lighting_presets",
+        "spec_json"
+      ],
+      "prompt_excerpt": "\u5e2e\u6211\u505a\u4e00\u4e2a\u539f\u521b\u7684\u624b\u6e38\u300c\u9ad8\u5149\u65f6\u523b\u300d\u52a8\u6548\uff1a[\u4e3b\u4f53\uff0c\u4f8b\u5982\uff1a\u5f00\u5b9d\u7bb1 / \u6bb5\u4f4d\u664b\u5347 / \u6210\u5c31\u89e3\u9501 / Boss \u6389\u843d / \u89d2\u8272\u5347\u7ea7]\u3002 \u505a\u6210\u4e00\u4e2a\u53ef\u4ee5\u76f4\u63a5\u6253\u5f00\u7684\u5355\u6587\u4ef6\u7f51\u9875\uff08HTML + CSS + JS\uff09\uff0c\u70b9\u4e00\u4e0b\u5c31\u80fd\u5b8c\u6574\u64ad\u653e\uff0c\u6548\u679c\u5bf9\u6807\u5546\u4e1a\u624b\u6e38\u7684\u7ed3\u7b97 / \u5956\u52b1\u6f14\u51fa\u3002  \u3010\u4e16\u754c\u89c2\u4e0e\u98ce\u683c\u3011 - \u539f\u521b\u7f8e\u672f\uff0c\u4e0d\u8981\u6a21\u4eff\u4efb\u4f55\u73b0\u6709\u6e38\u620f\u7684 IP\u3001\u89d2\u8272\u6216 Logo\u3002 - \u5361\u901a\u624b\u6e38\u98ce\uff1a\u9ad8\u9971\u548c\u914d\u8272\uff0c\u7edf\u4e00\u7684\u6df1\u8272\u63cf\u8fb9\uff08\u4f8b\u5982 #1A1033\uff09\uff0c\u5706\u6da6\u539a\u91cd\u7684\u9020\u578b\u3002 - \u914d\u8272\u968f\u7b49\u7ea7\u5347\u7ea7\uff1a[\u7b49\u7ea7\u9636\u68af\uff0c\u4f8b\u5982\uff1a\u666e\u901a\u7eff \u2192 \u7a00\u6709\u84dd \u2192 \u53f2\u8bd7\u7d2b \u2192 \u4f20\u8bf4\u91d1]\u3002\u6bcf\u5347\u4e00\u7ea7\u90fd\u8981\u5207\u6362\u4e3b\u8272\u3001\u5149\u6548\u989c\u8272\u548c\u80cc\u666f\u8272\u8c03\u3002 - \u6807\u9898\u7528\u5706\u80d6\u7684\u6e38\u620f\u5b57\u4f53\uff08\u5982 Titan One / Lilita One\uff09\uff0c\u63cf\u9ed1\u8fb9\uff0c\u52a0...",
+      "source_url": "https://x.com/op7418/status/2103724883301814408"
+    },
+    {
+      "id": "blitast-studio-257328",
+      "author": "blitast_studio",
+      "source_category": "interactive",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "audio"
+      ],
+      "recommended_template": "3d_scene",
+      "budget": 18000,
+      "acceptance_checks": [
+        "named_nodes",
+        "pbr_materials",
+        "shadow_preview"
+      ],
+      "prompt_excerpt": "A black cat's night stroll along a moonlit canal \ud83d\udc08\u200d\u2b1b\ud83c\udf19  CatWalk \u2014 a one-button 3D browser game. Zero image or audio files: the town, the cat's animation and the jazz are all generated in code. The whole game is ~200KB.  Claude Opus 5.5  \u25b6 https://blitastxyz.itch.io/catwalk  #threejs #indiedev #gamedev #WebGL",
+      "source_url": "https://x.com/blitast_studio/status/2104003920251257328"
+    },
+    {
+      "id": "twoclipping-041659",
+      "author": "twoclipping",
+      "source_category": "interactive",
+      "tech_tags": [],
+      "recommended_template": "2d_icon",
+      "budget": 1,
+      "acceptance_checks": [
+        "silhouette",
+        "palette_discipline",
+        "rgba"
+      ],
+      "prompt_excerpt": "<inputs> Ask me for: a voiceover or song with a spoken line (the audio file) and its transcript, 10-12 small objects that sum up my life, two silhouettes to light like a heat camera (a head in profile and a raised hand), and the 3 words I want to land hardest. If I skip any, use the defaults: vinyl, book, camera, cat,...",
+      "source_url": "https://x.com/twoclipping/status/2107822293653041659"
+    },
+    {
+      "id": "ajith-io-615243",
+      "author": "ajith_io",
+      "source_category": "motion",
+      "tech_tags": [
+        "canvas",
+        "particles"
+      ],
+      "recommended_template": "vfx_flipbook",
+      "budget": 16,
+      "acceptance_checks": [
+        "seamless_loop",
+        "motion_profile",
+        "alpha_bounds"
+      ],
+      "prompt_excerpt": "Take reference from the given video (download it) and use the same visual style. and Research about Distilbook. Make a dynamic 30-second motion graphics video on Distilbook that shows what an incredible motion designer you are. like it's your showreel - Go all out. One thing to keep in mind: it should be cool as fck.",
+      "source_url": "https://x.com/ajith_io/status/2103541149709615243"
+    },
+    {
+      "id": "brainextends-606193",
+      "author": "brainextends",
+      "source_category": "motion",
+      "tech_tags": [
+        "shader",
+        "svg"
+      ],
+      "recommended_template": "vfx_flipbook",
+      "budget": 16,
+      "acceptance_checks": [
+        "staged_emitter",
+        "motion_profile"
+      ],
+      "prompt_excerpt": "Create a complete, polished Spotify-themed motion graphics video from the following brief. This prompt is self-contained: no reference video or supplied assets are required.  <deliverables> An 18-second MP4 at 1920\u00d71080 and true 60 fps, with music and subtle sound effects Complete editable source Build, render, inspect...",
+      "source_url": "https://x.com/brainextends/status/2103801834930606193"
+    },
+    {
+      "id": "gandamu-ml-220530",
+      "author": "gandamu_ml",
+      "source_category": "interactive",
+      "tech_tags": [
+        "threejs",
+        "shader",
+        "canvas",
+        "audio"
+      ],
+      "recommended_template": "sfx_sound",
+      "budget": 48000,
+      "acceptance_checks": [
+        "headroom",
+        "no_dc_offset",
+        "stereo_pan"
+      ],
+      "prompt_excerpt": "I would like you to create a kickass, impressive 1990s style demoscene demo using this S3M track as the music. Prior to getting to work, please see how to best play and analyze the S3M track. This will be important since synchronization of effects and appropriateness of scenes to the musical vibe (and this song does ha...",
+      "source_url": "https://x.com/gandamu_ml/status/2102919394775220530"
+    }
+  ]
+}

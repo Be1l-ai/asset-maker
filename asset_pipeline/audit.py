@@ -87,15 +87,39 @@ def audit_recipe(asset_dir: Path | str, vault_dir: Path | str = VAULT_DIR) -> Au
     recipe = adir / "generate.py"
     manifest_path = adir / "manifest.json"
 
-    if not recipe.is_file():
-        report.errors.append("generate.py is missing")
-        return report
+    spec_path = adir / "spec.json"
+    spec_data_pre: Dict[str, Any] = {}
+    if spec_path.is_file():
+        try:
+            spec_data_pre = json.loads(spec_path.read_text(encoding="utf-8"))
+        except Exception:
+            spec_data_pre = {}
+    track = str(spec_data_pre.get("track", "python"))
+    report.info["track"] = track
+    report.info["style_profile"] = spec_data_pre.get("style_profile", "stylized_lowpoly")
 
-    source = recipe.read_text()
-    used = used_names(source)
-
-    for name in unused_pipeline_imports(recipe):
-        report.errors.append(f"'{name}' is imported from {PACKAGE} but never used")
+    source = ""
+    used: set[str] = set()
+    if track == "python":
+        if not recipe.is_file():
+            report.errors.append("generate.py is missing")
+            return report
+        source = recipe.read_text()
+        used = used_names(source)
+        for name in unused_pipeline_imports(recipe):
+            report.errors.append(f"'{name}' is imported from {PACKAGE} but never used")
+    elif track == "threejs":
+        ts_entry = adir / "src" / "buildAsset.ts"
+        if not ts_entry.is_file():
+            report.errors.append("src/buildAsset.ts is missing for threejs track")
+            return report
+        source = ts_entry.read_text(encoding="utf-8")
+    elif track == "web_ui":
+        ui_entry = adir / "AssetView.tsx"
+        if not ui_entry.is_file():
+            report.errors.append("AssetView.tsx is missing for web_ui track")
+            return report
+        source = ui_entry.read_text(encoding="utf-8")
 
     if not manifest_path.is_file():
         report.errors.append("manifest.json is missing")
@@ -111,13 +135,13 @@ def audit_recipe(asset_dir: Path | str, vault_dir: Path | str = VAULT_DIR) -> Au
         if not (Path(vault_dir) / doc).is_file():
             report.errors.append(f"vault doc '{doc}' does not exist")
         for sym in symbols:
-            if sym not in used:
+            if track == 'python' and sym not in used:
                 report.errors.append(f"vault doc '{doc}' claims '{sym}' but generate.py never uses it")
 
     prefix_underscore = adir.name.replace("-", "_")
     stale = [
         name for name in manifest.get("sha256", {})
-        if name not in ("generate.py", "README.md", "preview.png", "preview.gif",
+        if name not in ("generate.py", "spec.json", "inspector.json", "critique_log.json", "geometry_math.py", "textures.py", "materials.py", "rig.py", "test_asset.py", "README.md", "preview.png", "preview.gif",
                         "image.png", "normal.png", "atlas.png", "model.glb", "model.obj", "mesh.json",
                         "sound.wav", "sound_stereo.wav")
         and not name.startswith(adir.name)
@@ -125,6 +149,98 @@ def audit_recipe(asset_dir: Path | str, vault_dir: Path | str = VAULT_DIR) -> Au
     ]
     if stale:
         report.errors.append(f"manifest hashes files from another asset/version: {', '.join(stale)}")
+
+    spec_path = adir / "spec.json"
+    if spec_path.is_file():
+        try:
+            spec_data = json.loads(spec_path.read_text(encoding="utf-8"))
+            spec_parts = spec_data.get("parts", [])
+            report.info["spec_parts"] = [p.get("name") for p in spec_parts if isinstance(p, dict)]
+            if not spec_parts:
+                report.errors.append("spec.json declares no parts")
+            for sp in spec_parts:
+                pname = sp.get("name") if isinstance(sp, dict) else None
+                if pname and f'"{pname}"' not in source and f"'{pname}'" not in source:
+                    report.warnings.append(f"spec.json part '{pname}' is not explicitly referenced in generate.py")
+            if spec_data.get("quality_tier") == "hero":
+                from .critique import CritiqueLog
+                from .scene3d import STYLE_PROFILES
+                profile_name = str(spec_data.get("style_profile", "stylized_lowpoly"))
+                prof = STYLE_PROFILES.get(profile_name, {})
+
+                # CROSS-MODALITY DETAIL CRITIQUE & OPTIMIZATION GATE
+                c_errors = CritiqueLog.validate_file(adir / "critique_log.json", min_rounds=3, require_detail_pass=False)
+                report.errors.extend(c_errors)
+
+                if track == "python" and not (adir / "test_asset.py").is_file():
+                    report.errors.append("hero python package must include test_asset.py")
+                if track == "threejs" and not (adir / "src" / "asset.test.ts").is_file():
+                    report.errors.append("hero threejs package must include src/asset.test.ts")
+
+                # Enforce subsystem decomposition (parts/ module count)
+                min_mods = int(prof.get("min_part_modules", 0))
+                if min_mods > 0 and track in ("python", "threejs"):
+                    parts_dir = (adir / "parts") if track == "python" else (adir / "src" / "parts")
+                    ext = ".py" if track == "python" else ".ts"
+                    mods = [f for f in parts_dir.glob(f"*{ext}") if f.name != "__init__.py"] if parts_dir.is_dir() else []
+                    if len(mods) < min_mods:
+                        report.errors.append(
+                            f"style_profile '{profile_name}' requires >= {min_mods} subsystem modules in {parts_dir.name}/; found {len(mods)}"
+                        )
+
+                # Enforce concept reference anchor for high-craft hero profiles
+                if prof.get("require_concept_ref") and not spec_data.get("skip_concept_ref"):
+                    has_concept = any((adir / fn).is_file() for fn in ("concept.png", "concept.jpg", "concept.webp"))
+                    if not has_concept:
+                        report.errors.append(
+                            f"style_profile '{profile_name}' requires a concept reference image (concept.png/.jpg/.webp) before modeling"
+                        )
+
+                # Enforce minimum geometric/material craft floors from inspector.json when present
+                insp_path = adir / "inspector.json"
+                if insp_path.is_file() and track in ("python", "threejs"):
+                    insp = json.loads(insp_path.read_text(encoding="utf-8"))
+                    tris = int(insp.get("total_triangles", 0))
+                    ncount = int(insp.get("node_count", 0))
+                    nodes_meta = insp.get("nodes", [])
+                    mat_count = len({n.get("material_key", n.get("material")) for n in nodes_meta})
+                    has_tex = any(n.get("has_textures") for n in nodes_meta)
+
+                    min_t = int(prof.get("min_triangles", 0))
+                    if min_t > 0 and tris < min_t:
+                        report.errors.append(f"hero asset has only {tris} triangles; '{profile_name}' floor is >= {min_t}")
+                    min_n = int(prof.get("min_nodes", 0))
+                    if min_n > 0 and ncount < min_n:
+                        report.errors.append(f"hero asset has only {ncount} named nodes; '{profile_name}' floor is >= {min_n}")
+                    min_m = int(prof.get("min_materials", 0))
+                    if min_m > 0 and mat_count < min_m:
+                        report.errors.append(f"hero asset uses only {mat_count} material(s); '{profile_name}' floor is >= {min_m}")
+                    if prof.get("require_uv_textures") and not has_tex:
+                        report.errors.append(f"style_profile '{profile_name}' requires embedded PBR UV textures")
+        except Exception as exc:
+            report.errors.append(f"spec.json is invalid JSON: {exc}")
+
+    # Cross-modality critique_log.json validation (2D, VFX, SFX, Web UI)
+    if (adir / "critique_log.json").is_file() and not (adir / "spec.json").is_file():
+        from .critique import CritiqueLog as _CL
+        for err in _CL.validate_file(adir / "critique_log.json", min_rounds=1, require_detail_pass=False):
+            report.errors.append(err)
+
+    # 3D Hero optimization advisory: encourage baked normal maps for micro-relief
+    if (adir / "spec.json").is_file():
+        try:
+            _sp = json.loads((adir / "spec.json").read_text(encoding="utf-8"))
+            if _sp.get("style_profile") == "hand_painted_hero":
+                _code_blob = ""
+                for _fn in ("generate.py", "materials.py", "textures.py"):
+                    if (adir / _fn).is_file():
+                        _code_blob += (adir / _fn).read_text(encoding="utf-8", errors="ignore")
+                if "normal_texture" not in _code_blob:
+                    report.warnings.append(
+                        "hand_painted_hero asset does not wire any normal_texture; consider baking fur/grain/cloth micro-relief into normal maps via asset_pipeline.baking"
+                    )
+        except Exception:
+            pass
 
     return report
 

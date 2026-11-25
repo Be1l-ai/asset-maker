@@ -62,7 +62,7 @@ class Manifest:
         for p in sorted(dir_path.iterdir()):
             if not p.is_file() or p.name == exclude_name:
                 continue
-            if prefixes is not None and not (p.name.startswith(prefixes) or p.name in ("generate.py", "preview.png", "preview.gif")):
+            if prefixes is not None and not (p.name.startswith(prefixes) or p.name in ("generate.py", "spec.json", "inspector.json", "critique_log.json", "preview.png", "preview.gif")):
                 continue
             self.sha256[p.name] = sha256(p)
         return self

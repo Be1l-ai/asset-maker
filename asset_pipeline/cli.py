@@ -41,7 +41,17 @@ def init_asset(template_name: str, target_dir: Path | str, asset_name: str | Non
         code = code.replace('ASSET_NAME = "flipbook"', f'ASSET_NAME = "{name}"')
         code = code.replace('ASSET_NAME = "sound"', f'ASSET_NAME = "{name}"')
         code = code.replace('ASSET_NAME = "tile"', f'ASSET_NAME = "{name}"')
+        code = code.replace('ASSET_NAME = "scene"', f'ASSET_NAME = "{name}"')
+        code = code.replace('ASSET_NAME = "hero_asset"', f'ASSET_NAME = "{name}"')
         gen_file.write_text(code)
+
+    spec_file = dst / "spec.json"
+    if spec_file.is_file():
+        import json as _json
+        spec_data = _json.loads(spec_file.read_text(encoding="utf-8"))
+        if spec_data.get("name") in ("scene", "model", "asset", "hero_asset", "threejs_hero", "web_ui_asset"):
+            spec_data["name"] = name
+            spec_file.write_text(_json.dumps(spec_data, indent=2) + "\n", encoding="utf-8")
 
     return dst
 
@@ -53,7 +63,7 @@ def main():
     subparsers.add_parser("list", help="List available asset templates")
 
     new_parser = subparsers.add_parser("new", help="Scaffold a new asset from a template")
-    new_parser.add_argument("template", choices=list_templates() or ["2d_icon", "2d_tile", "3d_prop", "vfx_flipbook", "sfx_sound"],
+    new_parser.add_argument("template", choices=list_templates() or ["2d_icon", "2d_tile", "2d_web_ui", "3d_prop", "3d_scene", "3d_hero_package", "3d_threejs_hero", "vfx_flipbook", "sfx_sound"],
                             help="Template kind")
     new_parser.add_argument("destination", type=Path, help="Target folder (e.g. assets/sword)")
     new_parser.add_argument("--name", type=str, default=None, help="Asset identifier name")
@@ -64,6 +74,9 @@ def main():
     cmp_parser = subparsers.add_parser("compare", help="Print metrics for two asset files side by side")
     cmp_parser.add_argument("a", type=Path)
     cmp_parser.add_argument("b", type=Path)
+
+    bench_parser = subparsers.add_parser("benchmarks", help="List curated prompt benchmarks for stress-testing asset skills")
+    bench_parser.add_argument("--template", type=str, default=None, help="Filter by recommended template (e.g. 3d_scene, 3d_hero_package)")
 
     args = parser.parse_args()
 
@@ -85,6 +98,18 @@ def main():
     elif args.command == "compare":
         from .audit import compare_assets
         print(compare_assets(args.a, args.b))
+    elif args.command == "benchmarks":
+        import json as _json
+        bpath = ROOT / "benchmarks" / "prompts.json"
+        if not bpath.is_file():
+            print("No benchmarks/prompts.json found.")
+            sys.exit(1)
+        data = _json.loads(bpath.read_text(encoding="utf-8"))
+        rows = data.get("benchmarks", [])
+        if args.template:
+            rows = [r for r in rows if r.get("recommended_template") == args.template]
+        for r in rows:
+            print(f"- [{r['recommended_template']}] {r['id']} (budget={r['budget']}): {r['prompt_excerpt'][:90]}")
     else:
         parser.print_help()
 

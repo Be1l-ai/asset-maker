@@ -1,0 +1,41 @@
+{
+  "name": "threejs_hero",
+  "track": "threejs",
+  "style_profile": "hand_painted_hero",
+  "quality_tier": "hero",
+  "max_triangles": 45000,
+  "materials": {
+    "hero_paint": {
+      "name": "HandPaintedHull",
+      "roughness": 0.72,
+      "metallic": 0.08
+    },
+    "brass_trim": {
+      "name": "BrushedBrass",
+      "roughness": 0.32,
+      "metallic": 0.88
+    }
+  },
+  "parts": [
+    {
+      "name": "Hero_Body",
+      "material": "hero_paint",
+      "max_triangles": 25000,
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Brass_Trim",
+      "material": "brass_trim",
+      "max_triangles": 10000,
+      "pivot": [
+        0,
+        0,
+        0.5
+      ]
+    }
+  ]
+}

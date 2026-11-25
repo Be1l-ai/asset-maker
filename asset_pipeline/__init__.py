@@ -2,7 +2,33 @@
 
 try:
     from .cli import init_asset, list_templates
+except ModuleNotFoundError:  # pragma: no cover - standalone extracted gallery archive
+    pass
+
+try:
     from .manifest import Manifest, get_installed_versions, save_manifest, sha256
+    from .audit import audit_recipe, compare_assets, asset_metrics
+    from . import audit, manifest
+except ModuleNotFoundError:  # pragma: no cover - standalone extracted gallery archive
+    pass
+
+try:
+    from .scene3d import STYLE_PROFILES, MaterialSpec, MeshGeometry, PartSpec, SceneBuilder, SceneNode, SceneSpec
+    from .critique import CritiqueLog, CritiqueRound, DetailCritiquePass, DETAIL_RUBRIC_AXES
+    from .sculpt import array_along_curve, catenary_cloth, catmull_rom_points, catmull_rom_tube, extrude_beveled_2d, loft_cross_sections, merge_parts
+    from .baking import (
+        height_to_normal_map,
+        build_metallic_roughness_map,
+        generate_fur_normal_map,
+        generate_cloth_normal_map,
+        generate_wood_grain_normal_map,
+        compute_sprite_alpha_efficiency,
+    )
+    from . import sculpt, scene3d
+except ModuleNotFoundError:  # pragma: no cover - standalone extracted gallery archive
+    pass
+
+try:
     from .mesh3d import (
         MeshBuilder,
         SolidMesh,
@@ -38,8 +64,7 @@ try:
         create_expanding_mesh_explosion,
         dissolve_alpha_mask,
     )
-    from .audit import audit_recipe, compare_assets, asset_metrics
-    from . import audit, manifest, mesh3d, sfx, sprite2d, validator, vfx
+    from . import mesh3d, sfx, sprite2d, validator, vfx
 except ModuleNotFoundError:  # pragma: no cover - standalone extracted gallery archive
     pass
 
@@ -47,6 +72,23 @@ __all__ = [
     # Core domain classes
     "SolidMesh",
     "MeshBuilder",
+    "SceneBuilder",
+    "SceneSpec",
+    "PartSpec",
+    "MaterialSpec",
+    "MeshGeometry",
+    "SceneNode",
+    "STYLE_PROFILES",
+    "CritiqueLog",
+    "CritiqueRound",
+    "catmull_rom_points",
+    "catmull_rom_tube",
+    "extrude_beveled_2d",
+    "loft_cross_sections",
+    "catenary_cloth",
+    "array_along_curve",
+    "merge_parts",
+    "sculpt",
     "SpriteCanvas",
     "SeamlessTile",
     "Flipbook",
@@ -93,6 +135,7 @@ __all__ = [
     "list_templates",
     # Submodules
     "mesh3d",
+    "scene3d",
     "sprite2d",
     "vfx",
     "sfx",

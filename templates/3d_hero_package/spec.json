@@ -1,0 +1,75 @@
+{
+  "name": "hero_asset",
+  "max_triangles": 4000,
+  "materials": {
+    "stone_plinth": {
+      "name": "ChiseledStone",
+      "roughness": 0.86,
+      "metallic": 0.04,
+      "uv_scale": 1.2
+    },
+    "aged_wood": {
+      "name": "AgedTimber",
+      "roughness": 0.9,
+      "metallic": 0.0,
+      "uv_scale": 1.5
+    },
+    "arcane_crystal": {
+      "name": "ArcaneCrystal",
+      "roughness": 0.22,
+      "metallic": 0.08,
+      "emissive": [
+        0.18,
+        0.58,
+        0.72
+      ]
+    }
+  },
+  "parts": [
+    {
+      "name": "Plinth_Base",
+      "material": "stone_plinth",
+      "max_triangles": 800,
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions_m": [
+        1.2,
+        1.2,
+        0.45
+      ]
+    },
+    {
+      "name": "Timber_Frame",
+      "material": "aged_wood",
+      "max_triangles": 1200,
+      "pivot": [
+        0.0,
+        0.0,
+        0.42
+      ],
+      "dimensions_m": [
+        0.95,
+        0.95,
+        1.35
+      ]
+    },
+    {
+      "name": "Crystal_Core",
+      "material": "arcane_crystal",
+      "max_triangles": 600,
+      "pivot": [
+        0.0,
+        0.0,
+        1.15
+      ],
+      "dimensions_m": [
+        0.48,
+        0.48,
+        0.95
+      ]
+    }
+  ]
+}

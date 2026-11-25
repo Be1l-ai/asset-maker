@@ -1,0 +1,17 @@
+{
+  "name": "web_ui_asset",
+  "track": "web_ui",
+  "style_profile": "web_ui_2d",
+  "quality_tier": "hero",
+  "max_triangles": 0,
+  "parts": [
+    {
+      "name": "Badge_Frame",
+      "material": "matte"
+    },
+    {
+      "name": "Emblem_Vector",
+      "material": "matte"
+    }
+  ]
+}

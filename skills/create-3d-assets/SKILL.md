@@ -44,3 +44,29 @@ def build_crystal_pillar(seed: int = 7) -> SolidMesh:
 
 1. **Geometry & Budget**: `AssetValidator.validate_mesh(glb_path, max_triangles=3000, watertight=True)` (watertight manifold, consistent winding, positive volume).
 2. **Shading & Orientation**: `AssetValidator.validate_mesh_shading(mesh, max_ground_ratio=0.85)` and inspect the 3-view `preview.png` (iso, front, side) to verify upright orientation and grounded base AO.
+
+## Multi-Part Props & Full Scenes (`SceneBuilder` + `spec.json`)
+
+For multi-part assets, articulated props, or full biome environments (`python -m asset_pipeline new 3d_scene <dir>`), follow the 5-stage contract in [`vault/techniques/geometry/staged_scene_assembly.md`](../../vault/techniques/geometry/staged_scene_assembly.md):
+
+1. **PARSE (`spec.json`)**: Define `parts` (name, material, pivot, dimensions, `max_triangles`) and `materials` before writing geometry.
+2. **MASS & RIG**: Build modular part geometry and register each via `scene.add_part(name, geom, material=..., pivot=...)` so glTF nodes retain clean names and rotation pivots.
+3. **SKIN & PACK**: Export multi-node `.glb` (`scene.export_glb`), grouped `.obj` (`scene.export_obj`), and shadow-mapped Z-buffer preview (`scene.render_preview`).
+
+For hero props, characters, or vehicles requiring procedural PBR textures and per-subsystem modules, scaffold `python -m asset_pipeline new 3d_hero_package <dir>` (`parts/`, `textures.py`, `materials.py`, `rig.py`, `test_asset.py`). `SceneBuilder.export_glb()` embeds PNG albedo/normal/roughness maps and `TEXCOORD_0` UVs directly inside the `.glb`.
+
+## Sculpting Primitives & Gold-Standard Exemplar
+
+- Use `asset_pipeline.sculpt` (`catmull_rom_tube`, `extrude_beveled_2d`, `loft_cross_sections`, `catenary_cloth`, `array_along_curve`) instead of stacking raw boxes and straight cylinders.
+- Study [`examples/sky_galleon_hero/`](../../examples/sky_galleon_hero/README.md) as a concrete multi-module hero reference and follow [`vault/techniques/art_styles/production_critique_loop.md`](../../vault/techniques/art_styles/production_critique_loop.md) for subsystem-level visual critique.
+
+## V6 Production Discipline (Mandatory Across All Modalities)
+1. **Research-First & Seed the Vault**: Before writing code for any domain, silhouette, shader, or audio synthesis technique not already documented in `vault/`, research authoritative references (or `benchmarks/prompts.json`) and **seed a reusable `vault/techniques/...` guide** (and register it in `vault/README.md` + `manifest.json` `vault_refs`). Never improvise complex anatomy or DSP math without checking/seeding the vault.
+2. **Optimize Representation (`vault/techniques/optimization/cross_modality_asset_optimization.md`)**:
+   - **3D**: Use geometry strictly for silhouette; paint markings (stripes, emblems, seams) in albedo UVs and bake micro-relief (fur, wood grain, cloth weave) into tangent-space normal maps via `asset_pipeline.baking`.
+   - **2D / UI**: Maximize alpha fill efficiency (`compute_sprite_alpha_efficiency`), clean value hierarchy, and power-of-two sizing.
+   - **VFX**: Tight per-frame alpha bounds, channel-packed noise masks, and minimal overdraw.
+   - **SFX**: Normalize to `-1.0 dBFS` headroom, high-pass sub-30 Hz mud, and ensure zero-crossing loop/tail cleanliness.
+3. **Two-Tier Critique Loop (`asset_pipeline.critique.CritiqueLog`)**:
+   - **Tier 1 (Inner Build Loop, min 3 rounds)**: Blockout -> Secondary -> Final candidate.
+   - **Tier 2 (Outer 0-10 Detail-Critique Re-Loop, up to 5 outer passes)**: Score the Final 0-10 on hard modality-specific details (`add_detail_pass`). If the score is `< 9.0/10`, treat that Final as the **new starting point**, fix every identified detail flaw, and re-loop up to **5 outer passes** until it passes `>= 9.0/10`.

@@ -12,3 +12,44 @@
 @media(max-width:760px){.sidebar{display:none}.workspace{margin:0}.topbar{height:58px;padding:0 22px}.mobile-brand{display:inline;font-size:20px;font-weight:750;letter-spacing:-1px;color:#294734;margin-right:18px}.desktop-crumb{display:none}.topbar-right{gap:0}.local-indicator{display:none}.breadcrumb{font-size:10px}main{padding:26px 22px 0}.page-heading{margin-bottom:23px}.page-heading h1{font-size:27px}.eyebrow{font-size:8px}.page-heading p{font-size:10px}.download-pack{font-size:0;width:37px;height:37px;padding:0;gap:0}.download-pack .icon{width:17px;height:17px}.hero{min-height:320px}.hero h2{font-size:38px}.hero-copy{padding-left:26px;width:63%}.hero-art{left:49%}.hero-art-label{font-size:6px;letter-spacing:1px}.seed-label{top:17px;right:16px;font-size:7px;padding:5px}.hero-art canvas{width:110%;margin-left:-5%}.collection-stats>div:not(:last-child){padding:0 18px}.collection-stats>div:first-child{padding-left:0}.collection-stats div>span:not(.file-tag){max-width:none;font-size:9px}.format-stats{display:none}.collection-stats>div:nth-child(3){border:0}.section-top{gap:15px}.search{width:207px}.result-line>span:last-child{font-size:6px;letter-spacing:0}.filter{padding:8px 11px}.motion-toggle{font-size:8px}.asset-visual{height:205px}.toast{left:50%}.inspector{grid-template-columns:1fr 1fr}.inspector-info{padding:20px}.inspector-info h2{font-size:24px}.source-links{flex-direction:column;gap:10px}#inspector-stage{height:365px}.preview-controls{flex-wrap:wrap}.capabilities{margin-top:38px}}
 @media(max-width:480px){main{padding:24px 17px 0}.topbar{padding:0 17px}.page-heading h1{font-size:25px}.page-heading p{font-size:9px}.page-heading .eyebrow{font-size:7px;letter-spacing:1.3px}.hero{min-height:434px;display:block}.hero-copy{padding:26px 24px 0;width:100%}.hero h2{font-size:37px;letter-spacing:-1.5px;margin-top:20px}.hero-copy>p{font-size:10px}.hero-label{font-size:7px}.hero-button{margin-top:18px;padding:10px 13px}.hero-footnote{display:none}.hero-art{left:38%;top:145px;height:290px;right:-22px}.hero-art canvas{width:100%;margin:0}.hero-orbit{width:200px;height:200px;top:57%}.orbit-two{width:255px;height:255px}.seed-label{top:185px;right:35px;font-size:6px}.hero-art-label{bottom:11px;font-size:6px;left:44%;letter-spacing:.7px}.collection-stats{padding:21px 0;margin-bottom:26px;justify-content:space-between}.collection-stats>div:not(:last-child){padding:0 13px;gap:7px}.collection-stats>div:first-child{padding-left:0}.collection-stats>div:nth-child(3){padding-right:0}.collection-stats div>span:not(.file-tag){font-size:8px;max-width:57px}.collection-stats strong{font-size:20px}.section-top{flex-wrap:wrap;margin-bottom:17px;gap:17px}.section-top h2{font-size:20px}.section-top p{font-size:10px}.search{width:100%;padding:12px}.search input{font-size:11px}.filter-row{align-items:flex-start;gap:0;flex-wrap:wrap}.filters{width:100%;justify-content:space-between;gap:2px}.filter{font-size:9px;padding:8px 10px}.filter span{font-size:7px;margin-left:3px}.motion-toggle{padding:12px 0 0;margin-left:auto}.result-line{padding-top:13px}.result-line>span:last-child{font-size:5px;max-width:150px;text-align:right;line-height:1.5}.asset-grid{grid-template-columns:1fr;gap:20px}.asset-visual{height:246px}.asset-body{padding:19px 20px 13px}.title-button{font-size:17px}.asset-description{font-size:11px;min-height:0}.asset-meta{font-size:9px}.card-category{font-size:8px}.visual-label{font-size:8px;top:16px;left:16px}.inspect-hint{opacity:1;transform:none}.capability-grid{gap:12px}.capability-grid article{padding:17px 13px}.capability-grid p{font-size:9px;min-height:106px}.cap-formats{font-size:6px;letter-spacing:0}.cap-library{font-size:7px}.capability-tag{font-size:7px}.scope-note p{font-size:9px}.workflow-strip{gap:9px;flex-wrap:wrap;padding:20px 0}.workflow-strip>div:not(:first-child){font-size:8px}.workflow-strip span{font-size:7px;margin-right:3px}.workflow-strip>.icon{display:none}.workflow-strip i{font-size:9px}.footer{padding:22px 0}.inspector{display:block}.inspector-view{height:auto}#inspector-stage{height:255px}#inspector-stage>img{max-height:225px}.preview-controls{min-height:45px}.inspector-info{padding:23px}.inspector-info h2{font-size:26px}.source-links{flex-direction:row;font-size:9px}.dialog-top{padding:8px 16px}#asset-dialog{width:calc(100vw - 22px);max-height:calc(100dvh - 22px);border-radius:12px}.hero-art:after{display:none}}
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}.asset-card:hover,.button:hover{transform:none}}
+
+/* Phase 2 Inspector Controls & Scene Hierarchy Drawer */
+.inspector-select {
+  font: inherit;
+  font-size: .82rem;
+  padding: .22rem .45rem;
+  border-radius: 6px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.inspector-nodes {
+  margin: .75rem 0;
+  padding: .65rem .75rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, .06);
+}
+.nodes-header {
+  font-size: .74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  opacity: .75;
+  margin-bottom: .4rem;
+}
+.nodes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: .3rem;
+}
+.node-row {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  font-size: .8rem;
+}
+.node-name { font-weight: 600; }
+.node-meta { opacity: .72; font-family: monospace; font-size: .75rem; }
