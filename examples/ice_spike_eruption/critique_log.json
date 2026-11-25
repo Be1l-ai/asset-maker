@@ -1,0 +1,83 @@
+{
+  "asset": "ice_spike_eruption",
+  "modality": "vfx",
+  "min_rounds": 3,
+  "max_detail_passes": 5,
+  "target_detail_score": 9.0,
+  "rounds": [
+    {
+      "round": 1,
+      "subsystem": "blockout",
+      "preview_file": "critique_blockout.png",
+      "preview_sha256": "5f442af5efb4b58364da4f4fc6370043224c741894ce657f4056749fc57213a2",
+      "angles_checked": [
+        "flipbook contact sheet"
+      ],
+      "defects_found": [
+        "Blockout only: flat triangular shards, no ground interaction."
+      ],
+      "fixes_applied": [
+        "Added faceted left/right planes, rim lights, and staggered eruption timing."
+      ],
+      "rubric_scores": {}
+    },
+    {
+      "round": 2,
+      "subsystem": "secondary",
+      "preview_file": "critique_secondary.png",
+      "preview_sha256": "8fcbcad14f173bcab792faa28be66602c3d270cbe58289ec565aedc9dc093d2a",
+      "angles_checked": [
+        "flipbook contact sheet"
+      ],
+      "defects_found": [
+        "Spikes read as a flat wall; base contact was ambiguous."
+      ],
+      "fixes_applied": [
+        "Added diagonal ground line, fracture cracks, contact frost, and back-row depth haze."
+      ],
+      "rubric_scores": {}
+    },
+    {
+      "round": 3,
+      "subsystem": "final",
+      "preview_file": "critique_final.png",
+      "preview_sha256": "9763ae55100a4a284cc6916db5f774591fdb0eae51e2723b62b21089f225a1d7",
+      "angles_checked": [
+        "flipbook contact sheet",
+        "dark and light preview backgrounds"
+      ],
+      "defects_found": [
+        "Final candidate lacked atmosphere and ice-chip sparkle."
+      ],
+      "fixes_applied": [
+        "Layered cold ground bloom, mist puffs, and pre-rolled glitter shards."
+      ],
+      "rubric_scores": {}
+    }
+  ],
+  "detail_passes": [
+    {
+      "pass": 1,
+      "modality": "vfx",
+      "preview_file": "critique_final.png",
+      "preview_sha256": "9763ae55100a4a284cc6916db5f774591fdb0eae51e2723b62b21089f225a1d7",
+      "overall_score": 9.2,
+      "detail_scores": {
+        "timing_and_arc": 9.0,
+        "alpha_and_edge_falloff": 9.2,
+        "loop_or_dissolve_cleanliness": 9.4,
+        "color_temperature_progression": 9.1,
+        "overdraw_optimization": 9.0
+      },
+      "flaws_found": [
+        "Lower-left shard cluster is slightly busier than the hero silhouette."
+      ],
+      "fixes_for_next_pass": [
+        "If iterating, thin two low-left splinters and widen the hero root by 4%."
+      ],
+      "seeded_vault_docs": [
+        "techniques/hybrid_vfx/crystalline_ice_spike_eruptions.md"
+      ]
+    }
+  ]
+}

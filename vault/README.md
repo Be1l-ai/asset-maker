@@ -41,6 +41,7 @@ Each document in this vault is **atomic and self-contained** (typically < 300 li
   - [`hybrid_vfx/four_stage_emitter_architecture.md`](techniques/hybrid_vfx/four_stage_emitter_architecture.md) — The Flash $\to$ Blast Core $\to$ Flipbook Plume $\to$ Dissipation stack.
   - [`hybrid_vfx/smoke_and_pyroclastic_plumes.md`](techniques/hybrid_vfx/smoke_and_pyroclastic_plumes.md) — Buoyant plume kinematics (`Easing.ease_out`), pre-rolled puff tables, temperature cooling ramps, and cellular smoke erosion.
   - [`hybrid_vfx/dissolve_and_alpha_erosion.md`](techniques/hybrid_vfx/dissolve_and_alpha_erosion.md) — Noise threshold cutoffs, step functions, and burning border edges.
+  - [`hybrid_vfx/crystalline_ice_spike_eruptions.md`](techniques/hybrid_vfx/crystalline_ice_spike_eruptions.md) — Staggered faceted shards, fracture light, frost mist, and premultiplied-alpha atlas packing.
 - **Procedural PBR Materials**:
   - [`materials/glass_and_liquid_vessels.md`](techniques/materials/glass_and_liquid_vessels.md) — Schlick Fresnel 2D rim opacity (`inside_depth`), Beer-Lambert subsurface core glow, meniscus catch-lights, and height domes.
   - [`materials/chiseled_stone_and_masonry.md`](techniques/materials/chiseled_stone_and_masonry.md) — Running bond distance fields, Hermite bevels, edge-localized Worley chipping, mortar crevice AO, and turned 3D stone plinths.

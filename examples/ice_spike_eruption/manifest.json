@@ -1,0 +1,46 @@
+{
+  "asset": "ice_spike_eruption.png",
+  "parameters": {
+    "frames": 16,
+    "fps": 16,
+    "grid": [
+      4,
+      4
+    ],
+    "seed": 23,
+    "loop": false,
+    "blend": "alpha",
+    "frame_size": [
+      256,
+      256
+    ],
+    "phase_sampling": "i/N; clean extinction at phase 1"
+  },
+  "versions": {
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "Pillow": "12.3.0",
+    "aggdraw": "1.4.1",
+    "trimesh": "5.2.0",
+    "manifold3d": "3.5.4"
+  },
+  "sha256": {
+    "critique_log.json": "3a4bb60ce706242bd556f6f877b07296824e0583109209b9473e3bb7ae41a1d9",
+    "generate.py": "0bdca46a6032434dd397e5c346e9a82d7b9478406d2768b43cad1cf49fb49770",
+    "ice_spike_eruption.png": "84ff6f5e20a2fe1aae6b373563fdba42712aa2c35c047dbb1989129dcf1e65a7",
+    "preview.gif": "7edb435eeda72a2b07a16c850d4e60eb28ddc301e9e9468ce32e834edf7d9af0",
+    "preview.png": "a780465e33392e101cf00cfc44564bf2c2211418f88ed168751f5ffd36207a8b"
+  },
+  "recipe": "generate.py",
+  "vault_refs": {
+    "techniques/hybrid_vfx/crystalline_ice_spike_eruptions.md": [
+      "EmitterStack",
+      "Flipbook",
+      "_poly_mask",
+      "_ice_glitter"
+    ],
+    "techniques/hybrid_vfx/four_stage_emitter_architecture.md": [
+      "EmitterStack"
+    ]
+  }
+}
